@@ -1,0 +1,132 @@
+<div id="dashboard_page" class="">
+    <div class="main_dash_hdr clearfix">
+        <div class="container">
+            <div class="dropdown_whole visible-xs">
+                <div class="dropdown_div">
+                    <div class="navdash-wrapper">
+                        <div class="navbar-header">
+                            <h5 id="click_msg" class="drpdwnlist">
+                                <button class="navbar-toggle collapsed" type="button" data-toggle="collapse"
+                                        data-target=".bt-navbar-collapse"
+                                        ng-click="notification.isCollapsed = !notification.isCollapsed">
+                                    <span class="st-only"></span>
+                                    <div style="display:inline-block;">
+                                        Dashboard
+                                    </div>
+                                    <div style="display:inline-block;text-align:right;padding: 0px 0px 0px 5px;">
+                                        <span><i class="fa fa-sort-desc" aria-hidden="true"></i></span>
+                                    </div>
+                                </button>
+                            </h5>
+                        </div>
+                        <ng-include src="'assets/js/templates/mobile-user-top-menu.html'"></ng-include>
+                    </div>
+                </div>
+            </div>
+            <ng-include src="'assets/js/templates/desktop-user-top-menu.html'"></ng-include>
+        </div>
+    </div>
+    <div class="container">
+
+        <div class="col-sm-12 col-md-12">
+            <div class="panel rounded shadow panel-teal">
+                <div class="panel-heading">
+                    <div class="col-xs-6 col-md-3 pull-left">
+                        <select class="form-control" ng-model="notification.messagesState">
+                            <option value="1">Inbox ({{notification.inboxMessages.length}})</option>
+                            <option value="2">Archived ({{notification.archivedMessages.length}})</option>
+                        </select>
+                    </div>
+                    <div class="col-xs-6 col-md-offset-6 col-md-3 pull-right">
+                        <form action="#" class="form-horizontal mr-5 mt-3">
+                            <div class="form-group no-margin no-padding has-feedback">
+                                <input type="text" class="form-control no-border" ng-model="notification.search" placeholder="Search message">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-body no-padding">
+                    <div class="row">
+                        <div class="panel panel-default widget">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><span class="glyphicon glyphicon-comment"></span> Messages</h3>
+                            </div>
+                            <div class="panel-body">
+                                <ul class="list-group">
+                                    <li ng-show="notification.messagesState == '1'" class="list-group-item" ng-repeat="notifications in notification.inboxMessages | filter:notification.search">
+                                        <div class="row">
+                                            <div class="col-xs-2 col-md-1">
+                                                <img ng-src="{{notifications.image_path}}" class="img-circle img-responsive"
+                                                     alt=""/></div>
+                                            <div class="col-xs-5 col-md-9">
+                                                <div>
+                                                    <a href="#">{{notifications.subject}}
+                                                        <span class="label label-success"
+                                                              ng-if="notifications.status == 0">New</span>
+                                                    </a>
+                                                    <div class="mic-info">
+                                                        By: <a href="#">{{notifications.first_name}}
+                                                        {{notifications.last_name}}</a> on {{notifications.date}}
+                                                    </div>
+                                                </div>
+                                                <div class="comment-text">
+                                                    {{notifications.message}}
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-5 col-md-2">
+                                                <a href="#" ng-click="notification.viewNotification(notifications, 1)"
+                                                   class="btn btn-block btn-primary"><span
+                                                        class="glyphicon glyphicon-share-alt"
+                                                        style="padding-right:3px;"></span>Reply</a>
+                                                <a href="#" ng-click="notification.archiveMessage(notifications)"
+                                                   class="btn btn-block btn-warning"><span
+                                                        class="glyphicon glyphicon-folder-open"
+                                                        style="padding-right:3px;"></span>Archive</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li ng-show="notification.messagesState == '2'" class="list-group-item" ng-repeat="notifications in notification.archivedMessages | filter:notification.search">
+                                        <div class="row">
+                                            <div class="col-xs-2 col-md-1">
+                                                <img ng-src="{{notifications.image_path}}" class="img-circle img-responsive"
+                                                     alt=""/></div>
+                                            <div class="col-xs-6 col-md-8">
+                                                <div>
+                                                    <a href="#">{{notifications.title}}
+                                                        <span class="label label-success"
+                                                              ng-if="notifications.status == 0">New</span>
+                                                    </a>
+                                                    <div class="mic-info">
+                                                        By: <a href="#">{{notifications.first_name}}
+                                                        {{notifications.last_name}}</a> on {{notifications.date}}
+                                                    </div>
+                                                </div>
+                                                <div class="comment-text">
+                                                    {{notifications.message}}
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-3">
+                                                <a href="#" ng-click="notification.viewNotification(notifications, 2)"
+                                                   class="btn btn-sm btn-hover btn-primary" href="#reply"><span
+                                                        class="glyphicon glyphicon-share-alt"
+                                                        style="padding-right:3px;"></span>Reply</a>
+                                                <a href="#" ng-click="notification.unarchiveMessage(notifications)"
+                                                   class="btn btn-sm btn-hover btn-warning"><span
+                                                        class="glyphicon glyphicon-folder-open"
+                                                        style="padding-right:3px;"></span>Unarchive</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+

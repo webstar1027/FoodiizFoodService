@@ -1,0 +1,20 @@
+<nav class="navbar-collapse bt-navbar-collapse padding-zero" role="navigation"
+     ng-class="{'collapse': dashboard.isCollapsed || hosts.isCollapsed || events.isCollapsed || users.isCollapsed || notification.isCollapsed}">
+    <ul id="dropdown_msg" class="drpdwnlist_li mobile-menu">
+        <li>
+            <a ui-sref="user_dashboard" class=" mainhead">Dashboard</a>
+        </li>
+        <li>
+            <a ui-sref="notification" class=" mainhead">Inbox</a>
+        </li>
+        <li id="yourlistings" class="">
+            <a ui-sref="your_listings" class=" mainhead">My Food Experience</a>
+        </li>
+        <li>
+            <a ui-sref="edit_user" class="mainhead">Profile</a>
+        </li>
+        <li>
+            <a ui-sref="settings" class="mainhead">Account Settings</a>
+        </li>
+    </ul>
+</nav>

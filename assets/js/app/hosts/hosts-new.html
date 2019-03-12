@@ -1,0 +1,415 @@
+<style>
+    #map {
+        width: 100%;
+        height: 300px;
+        display: inline-block;
+    }
+    .my-drop-zone { border: dotted 3px lightgray; }
+    .nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
+    .another-file-over-class { border: dotted 3px green; }
+    canvas {
+        background-color: #f3f3f3;
+        -webkit-box-shadow: 3px 3px 3px 0 #e3e3e3;
+        -moz-box-shadow: 3px 3px 3px 0 #e3e3e3;
+        box-shadow: 3px 3px 3px 0 #e3e3e3;
+        border: 1px solid #c3c3c3;
+        height: 100px;
+        margin: 6px 0 0 6px;
+        max-width: 150px;
+    }
+</style>
+<div class="loading-events" ng-show="hosts.send">
+    <span class="loading-spinner">
+        <img ng-src="assets/images/loading.gif">
+    </span>
+</div>
+<div id="dashboard_page" class="">
+    <div class="main_dash_hdr clearfix">
+        <div class="container">
+            <div class="dropdown_whole visible-xs">
+                <div class="dropdown_div">
+                    <div class="navdash-wrapper">
+                        <div class="navbar-header">
+                            <h5 id="click_msg" class="drpdwnlist">
+                                <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".bt-navbar-collapse" ng-click="hosts.isCollapsed = !hosts.isCollapsed">
+                                    <span class="st-only"></span>
+                                    <div style="display:inline-block;">
+                                        Dashboard
+                                    </div>
+                                    <div style="display:inline-block;text-align:right;padding: 0px 0px 0px 5px;">
+                                        <span><i class="fa fa-sort-desc" aria-hidden="true"></i></span>
+                                    </div>
+                                </button>
+                            </h5>
+                        </div>
+                        <ng-include src="'assets/js/templates/mobile-user-top-menu.html'"></ng-include>
+                    </div>
+                </div>
+            </div>
+            <ng-include src="'assets/js/templates/desktop-user-top-menu.html'"></ng-include>
+        </div>
+    </div>
+    <div class="container">
+        <div class="col-md-12 form-host">
+            <form class="form-horizontal" name="new_hosts" id="new_hosts" ng-submit="hosts.saveHost('')" novalidate>
+                <div class="row" ng-show="hosts.displayStep1">
+                    <div class="form-group">
+                        <h3>Information</h3>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-4 col-sm-6 col-xs-6">
+                            <label class="control-label">Experience Type<b>*</b></label>
+                            <div ng-dropdown-multiselect="" events="{ onChange: hosts.step1() }" search-filter="hosts.experiencesFilter" options="hosts.experiencesOptions" selected-model="hosts.hostobject.experiences" extra-settings="hosts.optionsSettings"></div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-6">
+                            <label class="control-label">Cuisine<b>*</b></label>
+                            <div ng-dropdown-multiselect="" events="{ onChange: hosts.step1() }" search-filter="hosts.cuisineFilter" options="hosts.cuisineOptions" selected-model="hosts.hostobject.cuisines" extra-settings="hosts.optionsSettings"></div>
+                        </div>
+                        <div class="col-md-2 col-xs-6">
+                            <label class="control-label">Min guests<b>*</b></label>
+                            <select class="form-control" name="min_guests" id="min_guests" ng-model="hosts.hostobject.min_guests" ng-change="hosts.step1()" required>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                            </select>
+                            <p class="help-block alert alert-danger" ng-show="new_hosts.min_guests.$error.required && !new_hosts.min_guests.$pristine">Min guests is required.</p>
+                        </div>
+                        <div class="col-md-2 col-xs-6">
+                            <label class="control-label">Max guests<b>*</b></label>
+                            <select class="form-control" name="max_guests" id="max_guests" ng-model="hosts.hostobject.max_guests" ng-change="hosts.step1()" required>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                            </select>
+                        </div>
+                        <p class="help-block alert alert-danger" ng-show="new_hosts.max_guests.$error.required && !new_hosts.max_guests.$pristine">Max guests is required.</p>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-4 col-sm-6 col-xs-6">
+                            <label class="control-label">General amenities<b>*</b></label>
+                            <div ng-dropdown-multiselect="" events="{ onChange: hosts.step1() }" search-filter="hosts.accommodationsFilter" options="hosts.accommodationOptions" selected-model="hosts.hostobject.accommodations" extra-settings="hosts.optionsSettings"></div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-6">
+                            <label class="control-label">Drinks<b>*</b></label>
+                            <div ng-dropdown-multiselect="" events="{ onChange: hosts.step1() }" search-filter="hosts.drinksFilter" options="hosts.drinksOptions" selected-model="hosts.hostobject.drinks" extra-settings="hosts.optionsSettings"></div>
+                        </div>
+                        <div class="col-md-4 col-sm-12 col-xs-12">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <label class="control-label">Start Hour<b>*</b></label>
+                                    <select class="form-control" name="openHour" id="openHour" ng-change="hosts.step1()" ng-model="hosts.hostobject.openHour" ng-options="hour.id as hour.hour for hour in hosts.hoursOptions"></select>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <label class="control-label">Finish Hour<b>*</b></label>
+                                    <select class="form-control" name="closeHour" id="closeHour" ng-change="hosts.step1()" ng-model="hosts.hostobject.closeHour" ng-options="hour.id as hour.hour for hour in hosts.hoursOptions"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-4 col-sm-6 col-xs-6">
+                            <label class="control-label">Special diet</label>
+                            <div ng-dropdown-multiselect="" search-filter="hosts.dietFilter" options="hosts.dietOptions" selected-model="hosts.hostobject.diets" extra-settings="hosts.optionsSettings" ></div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-6">
+                            <div class="input-addon">
+                                <label class="control-label">Price*</label><br>
+                                <div class="col-md-6 col-sm-6 col-xs-7" style="padding: 0;">
+                                    <select class="form-control pull-left" name="host-currency" id="host-currency" ng-model="hosts.hostobject.currency" disabled>
+                                        <option value="USD" name="USD">$ USD</option>
+                                        <option value="GBP" name="GBP">£ GBP</option>
+                                        <option value="EUR" name="EUR">€ EUR</option>
+                                        <option value="AUD" name="AUD">$ AUD</option>
+                                        <option value="SGD" name="SGD">$ SGD</option>
+                                        <option value="SEK" name="SEK">kr SEK</option>
+                                        <option value="DKK" name="DKK">DKK</option>
+                                        <option value="MXN" name="MXN">$ MXN</option>
+                                        <option value="BRL" name="BRL">R$ BRL</option>
+                                        <option value="MYR" name="MYR">RM MYR</option>
+                                        <option value="PHP" name="PHP">P PHP</option>
+                                        <option value="CHF" name="CHF">€ CHF</option>
+                                        <option value="INR" name="INR">₹ INR</option>
+                                        <option value="ARS" name="ARS">$ ARS</option>
+                                        <option value="CAD" name="CAD">$ CAD</option>
+                                        <option value="CNY" name="CNY">¥ CNY</option>
+                                        <option value="CZK" name="CZK">Kč CZK</option>
+                                        <option value="HKD" name="HKD">$ HKD</option>
+                                        <option value="HUF" name="HUF">Ft HUF</option>
+                                        <option value="IDR" name="IDR">Rp IDR</option>
+                                        <option value="ILS" name="ILS">₪ ILS</option>
+                                        <option value="JPY" name="JPY">¥ JPY</option>
+                                        <option value="KRW" name="KRW">₩ KRW</option>
+                                        <option value="NOK" name="NOK">kr NOK</option>
+                                        <option value="NZD" name="NZD">$ NZD</option>
+                                        <option value="PLN" name="PLN">zł PLN</option>
+                                        <option value="RUB" name="RUB">p RUB</option>
+                                        <option value="THB" name="THB">฿ THB</option>
+                                        <option value="TRY" name="TRY">₺ TRY</option>
+                                        <option value="TWD" name="TWD">$ TWD</option>
+                                        <option value="VND" name="VND">₫ VND</option>
+                                        <option value="ZAR" name="ZAR">R ZAR</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-5" style="padding: 0;">
+                                    <input class="form-control pull-right" type="number" value="" name="price" id="price" ng-model="hosts.hostobject.price" ng-model-options='{debounce: 300}' ng-change="hosts.checkPrice()" autocomplete="off" placeholder="0.00" ng-disabled="!hosts.hostobject.canModify || hosts.hostobject.status === 'revision' || hosts.hostobject.free">
+                                    <p class="help-block alert alert-danger" ng-show="new_hosts.price.$error.required" >Place is required.</p>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12 hidden-xs">
+                                    <a ui-sref="edit_user" style="text-decoration: underline; font-size: 14px;">CHANGE CURRENCY</a>
+                                    <p class="text-muted" style="color: #414A55 !important;font-size: 12px; padding: 0; text-align: justify; margin-bottom: -20px; "><b>IMPORTANT:</b> Enter the price per guest. We will pay you 100% of this amount. On our website, we will add 20% fee (VAT incl.). For example, if the price for your food experience is 10€, we will display it as 12€ on our website. The event currency has been fixed according user settings.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 visible-xs">
+                            <a ui-sref="edit_user" style="text-decoration: underline; font-size: 10px; float: right; margin-top: 10px;">CHANGE CURRENCY</a>
+                            <p class="text-muted" style="color: #414A55 !important;font-size: 12px; padding: 0 0 10px; text-align: justify; margin-bottom: 0; margin-top:30px;"><b>IMPORTANT:</b> Enter the price per guest. We will pay you 100% of this amount. On our website, we will add 20% fee (VAT incl.). For example, if the price for your food experience is 10€, we will display it as 12€ on our website. The event currency has been fixed according user settings.</p>
+                        </div>
+                        <div class="col-md-4 col-sm-12 col-xs-12">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4 col-xs-4">
+                                    <label class="control-label event-text">Free event?</label><br>
+                                    <div class="checkbox">
+                                      <label>
+                                        <input ng-disabled="!hosts.hostobject.canModify" type="checkbox" ng-model="hosts.hostobject.free">
+                                        <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                                        Yes <span class="glyphicon glyphicon-info-sign" aria-hidden="true" uib-tooltip="Select this box if your event is FREE of charge"></span>
+                                      </label>
+                                    </div>                                    
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-4">
+                                    <label class="control-label event-text">Hide guest list?</label><br>
+                                    <div class="checkbox">
+                                      <label>
+                                        <input type="checkbox" ng-model="hosts.hostobject.hide_guests">
+                                        <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                                        Yes <span class="glyphicon glyphicon-info-sign" aria-hidden="true" uib-tooltip="Select this box if you want to hide the guest lists for this event."></span>
+                                      </label>
+                                    </div> 
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-4">
+                                    <label class="control-label event-text">Last minute?</label><br>
+                                    <div class="checkbox">
+                                      <label>
+                                        <input type="checkbox" ng-model="hosts.hostobject.last_minute">
+                                        <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                                        Yes <span class="glyphicon glyphicon-info-sign" aria-hidden="true" uib-tooltip="Allow guest to reserve in the last minute or anytime even when the event has already started?"></span>
+                                      </label>
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 30px;">
+                        <label class="control-label">EXPERIENCE TITLE<b>*</b> <span>(Min 10 characters / Max 50 characters)</span></label>
+                        <input value="" name="title" id="title" ng-minlength="10" ng-maxlength="50" ng-model="hosts.hostobject.title" class="form-control" ng-change="hosts.step1()" ng-model-options='{debounce: 50}' autocomplete="off" placeholder="Example: Discover my old grandma's recipe – Traditional Persian Food – A romantic spot in the heart of Paris" required>
+                        <p class="help-block alert alert-danger" ng-show="new_hosts.title.$error.required && !new_hosts.title.$pristine">Title is a required field.</p>
+                        <p class="help-block alert alert-danger" ng-show="new_hosts.title.$error.maxlength && !new_hosts.title.$pristine">The title is too long (Max 50 characters).</p>
+                        <p class="help-block alert alert-danger" ng-show="new_hosts.title.$error.minlength && !new_hosts.title.$pristine">The title is too short (Min 10 characters).</p>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 30px;">
+                        <label class="control-label" style='text-align: left;'>EXPERIENCE DESCRIPTION <span>What's the atmosphere and the music you will play? What's on the menu? Anything special you want to say to your guests about your experience?</span>
+                        </label>
+                        <trix-editor class="trix-content" id="description" name="description" ng-model="hosts.hostobject.description" angular-trix placeholder="{{hosts.description_placeholder}}"></trix-editor>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 30px;">
+                        <label class="control-label" style="text-align: left;">MENU<b>*</b>
+                        </label>
+                        <trix-editor class="trix-content" id="host_menu" name="host_menu" ng-model="hosts.hostobject.menu" angular-trix placeholder="{{hosts.menu_placeholder}}"></trix-editor>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 30px;"> 
+                        <label class="control-label" style="text-align: left;">AFTER EVENT ACTIVITES 
+                        </label> 
+                        <trix-editor class="trix-content" id="after_activity" name="after_activity" ng-model="hosts.hostobject.after_activity" angular-trix placeholder="{{hosts.after_activity_placeholder}}"></trix-editor> 
+                    </div> 
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <button type="button" id="eventstep1" class="btn large btn_dash bokbtn btn_dash pull-right" ng-click="hosts.goToStep2()">
+                                <span class="book-it">Continue</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row"  ng-show="hosts.displayStep2">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <h3>Where will you host this event?</h3>
+                        <p>Be sure to fill in the complete address so your experiences show up in search results. It won't be displayed and only will be shared for your future guests.</p>
+                    </div>
+                    <div class="col-xs-12 col-md-12">
+                        <label class="control-label">Address Venue &nbsp;<span style="color: #999;font-size: 12px;">(please add the full address location of the event)</span>:</label>
+                        <input value="" class="gllpSearchField form-control" name="place" id="place" ng-model="hosts.hostobject.place" googleplace hostobject="hosts.hostobject" callback="hosts.cityChanged()">
+                        <p class="help-block alert alert-danger" ng-show="new_hosts.address.$error.required">Street is required.</p>
+                    </div>
+                    <div class="col-xs-12 col-md-12">
+                        <label class="control-label">City name &nbsp;<span style="color: #999;font-size: 12px;">(please add city and country name of the event)</span>:</label>
+                        <input type="text" placeholder="Example: Paris, France" ng-change="hosts.step2()" class="form-control" name="city_name" id="city_name" ng-model="hosts.hostobject.city_name" ng-model-options='{debounce: 300}' autocomplete="off">
+                    </div>
+                    <div class="col-xs-12 col-md-12">
+                        <label class="control-label">Venue type</label>
+                        <select class="form-control" name="venue" id="venue" ng-model="hosts.hostobject.venue_type" ng-change="hosts.step2()">
+                            <option value="Apartment">Apartment</option>
+                            <option value="House">House</option>
+                            <option value="Outdoors">Outdoors</option>
+                            <option value="Loft">Loft</option>
+                            <option value="Penthouse">Penthouse</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="col-xs-12 col-md-12">
+                        <label class="control-label">Additional Information</label>
+                        <input type="text" placeholder="Second floor - The last door on the right - Ring the bell 3 times and I know is you :)" value="" class="form-control" name="address" id="address" ng-model="hosts.hostobject.address" ng-model-options='{debounce: 300}' autocomplete="off">
+                    </div>
+                    <div class="col-xs-12 col-md-12">
+                        <fieldset class="gllpLatlonPicker">
+                            <input type="button" class="form-control gllpSearchButton" id="btnSearch" value="Search" style="display: none;">
+                            <p class="help-block alert alert-danger" ng-show="new_hosts.place.$error.required">Place is required.</p>
+                        </fieldset>
+                    </div>
+                    <div class="col-xs-12 col-md-12">
+                        <div class="gllpMap" id="map">Google Maps</div>
+                        <input type="hidden" class="gllpLatitude" value="" name="lat" id="lat" ng-model="hosts.hostobject.lat" />
+                        <input type="hidden" class="gllpLongitude" value="" name="lng" id="lng" ng-model="hosts.hostobject.lng" />
+                        <input type="hidden" class="gllpZoom" value="11" /> 
+                    </div>
+                    <div class="col-xs-12 col-md-12">
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <button type="button" class="btn large btn_dash bokbtn btn_dash pull-left" ng-click="hosts.goToStep1()">
+                                <span class="book-it">Back</span>
+                            </button>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <button type="button" class="btn large btn_dash bokbtn btn_dash pull-right" ng-click="hosts.goToStep3()">
+                                <span class="book-it">Continue</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row"  ng-show="hosts.displayStep3">
+                    <h3>Event Setting</h3>
+                    <div class="form-group">
+                        <div class="col-xs-12 col-md-3">
+                            <div class="input-addon" style="width:100%">
+                                <label class="control-label">Event date(s)*</label>
+                                <multiple-date-picker ng-model="hosts.hostobject.selectedDates" day-click="hosts.clickedDay" disable-days-before="hosts.today" disallow-back-past-months="true"></multiple-date-picker>
+                            </div>
+                            <p class="text-danger" ng-show="hosts.hostobject.selectedDates.length < 1">Event requires at least 1 date.</p>
+                        </div>
+                        <div class="col-xs-12 col-md-9">
+                            <div class="input-addon">
+                                <label class="control-label">Event Image(s)*</label>
+                                <p class="text-danger" ng-show="hosts.imagesQty < 4">Event requires at least 4 images.</p>
+                                <input type="file" nv-file-select="" class="form-control" uploader="uploader" multiple/>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-2 col-md-2">
+                                    <label>Preview</label>
+                                </div>
+                                <div class="col-xs-2 col-md-2 hidden-xs">
+                                    <label>Size</label>
+                                </div>
+                                <div class="col-xs-2 col-md-2 hidden-xs">
+                                    <label>Progress</label>
+                                </div>
+                                <div class="col-xs-2 col-md-2 hidden-xs">
+                                    <label>Status</label>
+                                </div>
+                                <div class="col-xs-2 col-md-2">
+                                    <label>Action</label>
+                                </div>
+                            </div>
+
+                            <div class="row" ng-repeat="item in uploader.queue">
+                                <div class="col-xs-4 col-md-3">
+                                    <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 100, width: 100 }"></div>
+                                </div>
+                                <div class="col-xs-2 col-md-2 hidden-xs" ng-show="uploader.isHTML5">
+                                    {{ item.file.size / 1024 / 1024|number:2 }} MB
+                                </div>
+                                <div class="col-xs-2 col-md-2 hidden-xs" ng-show="uploader.isHTML5">
+                                    <div class="progress" style="margin-bottom: 0;">
+                                        <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-2 col-md-2 hidden-xs">
+                                    <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                                    <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                                    <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                                </div>
+                                <div class="col-xs-4 col-md-3">
+                                    <button type="button" class="btn btn-danger btn-xs" ng-click="hosts.removeFromQueue(item)">
+                                        <span class="glyphicon glyphicon-trash"></span> Remove
+                                    </button>
+                                </div>
+                            </div>
+
+                            <p>The first image will be the event default image. <b>We recommend to select square messages.</b></p>
+                        </div>
+                        <div class="images-list col-xs-12 col-md-12" bg-show="hosts.hostobject.images.length > 0">
+                            <p><label class="control-label">Event images</label></p>
+                            <div ng-repeat="image in hosts.hostobject.images track by $index" class="event-image col-xs-12 col-md-3">
+                                <img ng-src="{{image.image_path}}" class="img-responsive">
+                                <button type="button" class="btn btn-danger btn-xs" ng-disabled="hosts.imagesQty <= 4" ng-click="hosts.removeImage($event, image.image_path)">
+                                    <span class="glyphicon glyphicon-trash"></span> Remove
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <button type="button" class="btn large btn_dash bokbtn btn_dash pull-left btn-responsive" ng-click="hosts.goToStep2()">
+                               Back
+                            </button>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <button type="button" ng-disabled="hosts.hostobject.status === 'approved' || hosts.hostobject.status === 'revision' || !hosts.allowSave" class="btn large btn_dash bokbtn btn_dash pull-left btn-responsive" ng-click="hosts.saveHost('draft')">
+                               Save as draft
+                            </button>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <button type="submit" class="btn large btn_dash bokbtn btn_dash pull-right btn-responsive" ng-disabled="!hosts.allowSave || hosts.hostobject.status === 'revision'">
+                               {{hosts.saveText}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="id" id="id" ng-model="hosts.hostobject.id">
+            </form>
+        </div>
+    </div>
+</div>

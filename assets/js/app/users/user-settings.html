@@ -1,0 +1,447 @@
+<div id="dashboard_page" class="">
+    <div class="main_dash_hdr clearfix">
+        <div class="container">
+            <div class="dropdown_whole visible-xs">
+                <div class="dropdown_div">
+                    <div class="navdash-wrapper">
+                        <div class="navbar-header">
+                            <h5 id="click_msg" class="drpdwnlist">
+                                <button class="navbar-toggle collapsed" type="button" data-toggle="collapse"
+                                        data-target=".bt-navbar-collapse"
+                                        ng-click="users.isCollapsed = !users.isCollapsed">
+                                    <span class="st-only"></span>
+                                    <div style="display:inline-block;">
+                                        Profile
+                                    </div>
+                                    <div style="display:inline-block;text-align:right;padding: 0 0 0 5px;">
+                                        <span><i class="fa fa-sort-desc" aria-hidden="true"></i></span></div>
+                                </button>
+                            </h5>
+                        </div>
+                        <ng-include src="'assets/js/templates/mobile-user-top-menu.html'"></ng-include>
+                    </div>
+                </div>
+            </div>
+            <ng-include src="'assets/js/templates/desktop-user-top-menu.html'"></ng-include>
+        </div>
+    </div>
+    <div class="container">
+        <ul class="subnav edit-profile-nav col-sm-3 col-md-3 col-xs-12">
+            <li ng-class="{'active': (users.activeNav === 'tab-1')}">
+                <a href="#" ng-click="users.setView('tab-1')">Payout Preferences</a>
+            </li>
+            <li ng-class="{'active': (users.activeNav === 'tab-2')}">
+                <a href="#" ng-click="users.setView('tab-2')">Password</a>
+            </li>
+            <!--<li ng-class="{'active': (users.activeNav === 'trust-verification')}">
+                <a href="#" ng-click="users.setView('trust-verification')">Trust and Verification</a>
+            </li>--> 
+        </ul>
+        <div id="dashboard_container" class="col-md-9 col-sm-9 col-xs-12">
+            <div ng-show="users.activeNav === 'tab-1'">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Payout Preferences</div>
+                    <div class="panel-body" ng-if="users.paymentOption === ''">
+                        <div class="row" ng-show="!users.selectCountry">
+                            <div class="col-xs-12 col-md-6">
+                                <p>No payout selected</p>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <button class="btn btn-info btn-user-aqua" type="button" ng-click="users.selectCountryPayout()">Add Payout Method</button>
+                            </div>
+                        </div>
+                        <div class="row" ng-show="users.selectCountry">
+                            <div class="col-xs-12 col-md-6">
+                                <p>Our ability to pay you depends on your country of residence:</p>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <select name="payment-country" ng-change="users.verifyCountry()" ng-model="users.paymentCountry" id="payment-country" class="form-control">
+                                    <option value="AF">Afghanistan</option>
+                                    <option value="AL">Albania</option>
+                                    <option value="DZ">Algeria</option>
+                                    <option value="AS">American Samoa</option>
+                                    <option value="AD">Andorra</option>
+                                    <option value="AO">Angola</option>
+                                    <option value="AI">Anguilla</option>
+                                    <option value="AQ">Antarctica</option>
+                                    <option value="AG">Antigua and Barbuda</option>
+                                    <option value="AR">Argentina</option>
+                                    <option value="AM">Armenia</option>
+                                    <option value="AW">Aruba</option>
+                                    <option value="AU">Australia</option>
+                                    <option value="AT">Austria</option>
+                                    <option value="AZ">Azerbaijan</option>
+                                    <option value="BS">Bahamas</option>
+                                    <option value="BH">Bahrain</option>
+                                    <option value="BD">Bangladesh</option>
+                                    <option value="BB">Barbados</option>
+                                    <option value="BY">Belarus</option>
+                                    <option value="BE">Belgium</option>
+                                    <option value="BZ">Belize</option>
+                                    <option value="BJ">Benin</option>
+                                    <option value="BM">Bermuda</option>
+                                    <option value="BT">Bhutan</option>
+                                    <option value="BO">Bolivia</option>
+                                    <option value="BA">Bosnia and Herzegovina</option>
+                                    <option value="BW">Botswana</option>
+                                    <option value="BV">Bouvet Island</option>
+                                    <option value="BR">Brazil</option>
+                                    <option value="IO">British Indian Ocean Territory</option>
+                                    <option value="BN">Brunei Darussalam</option>
+                                    <option value="BG">Bulgaria</option>
+                                    <option value="BF">Burkina Faso</option>
+                                    <option value="BI">Burundi</option>
+                                    <option value="KH">Cambodia</option>
+                                    <option value="CM">Cameroon</option>
+                                    <option value="CA">Canada</option>
+                                    <option value="CV">Cape Verde</option>
+                                    <option value="KY">Cayman Islands</option>
+                                    <option value="CF">Central African Republic</option>
+                                    <option value="TD">Chad</option>
+                                    <option value="CL">Chile</option>
+                                    <option value="CN">China</option>
+                                    <option value="CX">Christmas Island</option>
+                                    <option value="CC">Cocos (Keeling) Islands</option>
+                                    <option value="CO">Colombia</option>
+                                    <option value="KM">Comoros</option>
+                                    <option value="CG">Congo</option>
+                                    <option value="CD">Congo, the Democratic Republic of the</option>
+                                    <option value="CK">Cook Islands</option>
+                                    <option value="CR">Costa Rica</option>
+                                    <option value="CI">Cote D'Ivoire</option>
+                                    <option value="HR">Croatia</option>
+                                    <option value="CU">Cuba</option>
+                                    <option value="CY">Cyprus</option>
+                                    <option value="CZ">Czech Republic</option>
+                                    <option value="DK">Denmark</option>
+                                    <option value="DJ">Djibouti</option>
+                                    <option value="DM">Dominica</option>
+                                    <option value="DO">Dominican Republic</option>
+                                    <option value="EC">Ecuador</option>
+                                    <option value="EG">Egypt</option>
+                                    <option value="SV">El Salvador</option>
+                                    <option value="GQ">Equatorial Guinea</option>
+                                    <option value="ER">Eritrea</option>
+                                    <option value="EE">Estonia</option>
+                                    <option value="ET">Ethiopia</option>
+                                    <option value="FK">Falkland Islands (Malvinas)</option>
+                                    <option value="FO">Faroe Islands</option>
+                                    <option value="FJ">Fiji</option>
+                                    <option value="FI">Finland</option>
+                                    <option value="FR">France</option>
+                                    <option value="GF">French Guiana</option>
+                                    <option value="PF">French Polynesia</option>
+                                    <option value="TF">French Southern Territories</option>
+                                    <option value="GA">Gabon</option>
+                                    <option value="GM">Gambia</option>
+                                    <option value="GE">Georgia</option>
+                                    <option value="DE">Germany</option>
+                                    <option value="GH">Ghana</option>
+                                    <option value="GI">Gibraltar</option>
+                                    <option value="GR">Greece</option>
+                                    <option value="GL">Greenland</option>
+                                    <option value="GD">Grenada</option>
+                                    <option value="GP">Guadeloupe</option>
+                                    <option value="GU">Guam</option>
+                                    <option value="GT">Guatemala</option>
+                                    <option value="GN">Guinea</option>
+                                    <option value="GW">Guinea-Bissau</option>
+                                    <option value="GY">Guyana</option>
+                                    <option value="HT">Haiti</option>
+                                    <option value="HM">Heard Island and Mcdonald Islands</option>
+                                    <option value="VA">Holy See (Vatican City State)</option>
+                                    <option value="HN">Honduras</option>
+                                    <option value="HK">Hong Kong</option>
+                                    <option value="HU">Hungary</option>
+                                    <option value="IS">Iceland</option>
+                                    <option value="IN">India</option>
+                                    <option value="ID">Indonesia</option>
+                                    <option value="IR">Iran, Islamic Republic of</option>
+                                    <option value="IQ">Iraq</option>
+                                    <option value="IE">Ireland</option>
+                                    <option value="IL">Israel</option>
+                                    <option value="IT">Italy</option>
+                                    <option value="JM">Jamaica</option>
+                                    <option value="JP">Japan</option>
+                                    <option value="JO">Jordan</option>
+                                    <option value="KZ">Kazakhstan</option>
+                                    <option value="KE">Kenya</option>
+                                    <option value="KI">Kiribati</option>
+                                    <option value="KP">Korea, Democratic People's Republic of</option>
+                                    <option value="KR">Korea, Republic of</option>
+                                    <option value="KW">Kuwait</option>
+                                    <option value="KG">Kyrgyzstan</option>
+                                    <option value="LA">Lao People's Democratic Republic</option>
+                                    <option value="LV">Latvia</option>
+                                    <option value="LB">Lebanon</option>
+                                    <option value="LS">Lesotho</option>
+                                    <option value="LR">Liberia</option>
+                                    <option value="LY">Libyan Arab Jamahiriya</option>
+                                    <option value="LI">Liechtenstein</option>
+                                    <option value="LT">Lithuania</option>
+                                    <option value="LU">Luxembourg</option>
+                                    <option value="MO">Macao</option>
+                                    <option value="MK">Macedonia, the Former Yugoslav Republic of</option>
+                                    <option value="MG">Madagascar</option>
+                                    <option value="MW">Malawi</option>
+                                    <option value="MY">Malaysia</option>
+                                    <option value="MV">Maldives</option>
+                                    <option value="ML">Mali</option>
+                                    <option value="MT">Malta</option>
+                                    <option value="MH">Marshall Islands</option>
+                                    <option value="MQ">Martinique</option>
+                                    <option value="MR">Mauritania</option>
+                                    <option value="MU">Mauritius</option>
+                                    <option value="YT">Mayotte</option>
+                                    <option value="MX">Mexico</option>
+                                    <option value="FM">Micronesia, Federated States of</option>
+                                    <option value="MD">Moldova, Republic of</option>
+                                    <option value="MC">Monaco</option>
+                                    <option value="MN">Mongolia</option>
+                                    <option value="MS">Montserrat</option>
+                                    <option value="MA">Morocco</option>
+                                    <option value="MZ">Mozambique</option>
+                                    <option value="MM">Myanmar</option>
+                                    <option value="NA">Namibia</option>
+                                    <option value="NR">Nauru</option>
+                                    <option value="NP">Nepal</option>
+                                    <option value="NL">Netherlands</option>
+                                    <option value="AN">Netherlands Antilles</option>
+                                    <option value="NC">New Caledonia</option>
+                                    <option value="NZ">New Zealand</option>
+                                    <option value="NI">Nicaragua</option>
+                                    <option value="NE">Niger</option>
+                                    <option value="NG">Nigeria</option>
+                                    <option value="NU">Niue</option>
+                                    <option value="NF">Norfolk Island</option>
+                                    <option value="MP">Northern Mariana Islands</option>
+                                    <option value="NO">Norway</option>
+                                    <option value="OM">Oman</option>
+                                    <option value="PK">Pakistan</option>
+                                    <option value="PW">Palau</option>
+                                    <option value="PS">Palestinian Territory, Occupied</option>
+                                    <option value="PA">Panama</option>
+                                    <option value="PG">Papua New Guinea</option>
+                                    <option value="PY">Paraguay</option>
+                                    <option value="PE">Peru</option>
+                                    <option value="PH">Philippines</option>
+                                    <option value="PN">Pitcairn</option>
+                                    <option value="PL">Poland</option>
+                                    <option value="PT">Portugal</option>
+                                    <option value="PR">Puerto Rico</option>
+                                    <option value="QA">Qatar</option>
+                                    <option value="RE">Reunion</option>
+                                    <option value="RO">Romania</option>
+                                    <option value="RU">Russian Federation</option>
+                                    <option value="RW">Rwanda</option>
+                                    <option value="SH">Saint Helena</option>
+                                    <option value="KN">Saint Kitts and Nevis</option>
+                                    <option value="LC">Saint Lucia</option>
+                                    <option value="PM">Saint Pierre and Miquelon</option>
+                                    <option value="VC">Saint Vincent and the Grenadines</option>
+                                    <option value="WS">Samoa</option>
+                                    <option value="SM">San Marino</option>
+                                    <option value="ST">Sao Tome and Principe</option>
+                                    <option value="SA">Saudi Arabia</option>
+                                    <option value="SN">Senegal</option>
+                                    <option value="CS">Serbia and Montenegro</option>
+                                    <option value="SC">Seychelles</option>
+                                    <option value="SL">Sierra Leone</option>
+                                    <option value="SG">Singapore</option>
+                                    <option value="SK">Slovakia</option>
+                                    <option value="SI">Slovenia</option>
+                                    <option value="SB">Solomon Islands</option>
+                                    <option value="SO">Somalia</option>
+                                    <option value="ZA">South Africa</option>
+                                    <option value="GS">South Georgia and the South Sandwich Islands</option>
+                                    <option value="ES">Spain</option>
+                                    <option value="LK">Sri Lanka</option>
+                                    <option value="SD">Sudan</option>
+                                    <option value="SR">Suriname</option>
+                                    <option value="SJ">Svalbard and Jan Mayen</option>
+                                    <option value="SZ">Swaziland</option>
+                                    <option value="SE">Sweden</option>
+                                    <option value="CH">Switzerland</option>
+                                    <option value="SY">Syrian Arab Republic</option>
+                                    <option value="TW">Taiwan, Province of China</option>
+                                    <option value="TJ">Tajikistan</option>
+                                    <option value="TZ">Tanzania, United Republic of</option>
+                                    <option value="TH">Thailand</option>
+                                    <option value="TL">Timor-Leste</option>
+                                    <option value="TG">Togo</option>
+                                    <option value="TK">Tokelau</option>
+                                    <option value="TO">Tonga</option>
+                                    <option value="TT">Trinidad and Tobago</option>
+                                    <option value="TN">Tunisia</option>
+                                    <option value="TR">Turkey</option>
+                                    <option value="TM">Turkmenistan</option>
+                                    <option value="TC">Turks and Caicos Islands</option>
+                                    <option value="TV">Tuvalu</option>
+                                    <option value="UG">Uganda</option>
+                                    <option value="UA">Ukraine</option>
+                                    <option value="AE">United Arab Emirates</option>
+                                    <option value="GB">United Kingdom</option>
+                                    <option value="US">United States</option>
+                                    <option value="UM">United States Minor Outlying Islands</option>
+                                    <option value="UY">Uruguay</option>
+                                    <option value="UZ">Uzbekistan</option>
+                                    <option value="VU">Vanuatu</option>
+                                    <option value="VE">Venezuela</option>
+                                    <option value="VN">Viet Nam</option>
+                                    <option value="VG">Virgin Islands, British</option>
+                                    <option value="VI">Virgin Islands, U.s.</option>
+                                    <option value="WF">Wallis and Futuna</option>
+                                    <option value="EH">Western Sahara</option>
+                                    <option value="YE">Yemen</option>
+                                    <option value="ZM">Zambia</option>
+                                    <option value="ZW">Zimbabwe</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body" ng-show="users.paymentOption !== ''">
+                        <form class="form-horizontal" name="stripeForm" id="stripeForm" ng-show="users.paymentOption === 'Stripe'" novalidate>
+                            <h4>STRIPE</h4>
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <input type="hidden" ng-model="users.user.stripeaccount.id">
+                                    <input type="text" name="stripe_account" numbers-only placeholder="Stripe Account Number" ng-model="users.user.stripeaccount.account_id" class="form-control" autocomplete="off" ng-disabled="!!users.user.stripeaccount.id && !users.resetPayment" readonly>
+                                    <p class="help-block alert alert-danger" ng-show="stripeForm.stripe_account.$error.required && !stripeForm.stripe_account.$pristine">Stripe account is required.</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-8" ng-hide="!!users.user.stripeaccount.id && !users.resetPayment">
+                                            <p><a href="https://connect.stripe.com/oauth/authorize?response_type=code&amp;client_id=ca_BRG07Lm29qyPDWkaVY1Oz0FAg63vCHMR&amp;scope=read_write" class="btn connect-button"><span>Connect with Stripe</span></a></p>
+                                        </div>
+                                        <div class="col-md-4" ng-hide="users.resetPayment">
+                                            <button type="button" ng-click="users.changePaymentMethod()" class="btn btn-info btn-user-aqua">Change Payout</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <form class="form-horizontal" name="bankForm" id="bankForm" novalidate ng-show="(users.paymentOption === 'Bank') && (!users.user.stripeaccount.id || users.resetPayment)" ng-submit="users.saveBankAccount()" novalidate>
+                            <div>
+                                <h4>WIRE TRANSFER</h4>
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        <label class="control-label">Account currency</label>
+                                        <select name="currency" id="currency" ng-model="users.user.bankaccount.currency" class="form-control"  ng-disabled="!!users.user.bankaccount.id">
+                                            <option value="">Select...</option>
+                                            <option value="CHF">CHF</option>
+                                            <option value="NOK">NOK</option>
+                                            <option value="SEK">SEK</option>
+                                            <option value="BRL">BRL</option>
+                                            <option value="MXN">MXN</option>
+                                            <option value="NZD">NZD</option>
+                                            <option value="EUR">EUR</option>
+                                            <option value="USD">USD</option>
+                                            <option value="GBP">GBP</option>
+                                            <option value="CAD">CAD</option>
+                                            <option value="AUD">AUD</option>
+                                            <option value="HKD">HKD</option>
+                                            <option value="SGD">SGD</option>
+                                            <option value="JPY">JPY</option>
+                                            <option value="ILS">ILS</option>
+                                            <option value="DKK">DKK</option>
+                                        </select>
+                                        <p class="help-block alert alert-danger" ng-show="bankForm.currency.$error.required">Currency is required.</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="hidden" name="bank_id" id="bank_id" ng-model="users.user.bankaccount.id"><br>
+                                        <p class="text-muted" style="font-size: 14px;">Warning, you can use exactly one payout currency. Choose wisely, you will not be able to change it afterward.</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        <label class="control-label">Bank account holder's name</label>
+                                        <input type="text" name="user_name" id="user_name" placeholder="Your name" ng-model="users.user.bankaccount.user_name" class="form-control" autocomplete="off" required></div>
+                                    <p class="help-block alert alert-danger" ng-show="bankForm.user_name.$error.required && !bankForm.user_name.$pristine">User name is required.</p>
+                                    <div class="col-md-6">
+                                        <label class="control-label">Bank name</label>
+                                        <input type="text" name="bank" placeholder="Bank Name" ng-model="users.user.bankaccount.bank_name" class="form-control" autocomplete="off" required>
+                                        <p class="help-block alert alert-danger" ng-show="bankForm.bank.$error.required && !bankForm.bank.$pristine">Bank name is required.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label">SWIFT/BIC</label> <a href="https://personalbanking.bankofireland.com/bank/international-payments/iban-swift-bic-explained/" style="color: #337ab7; font-size: 12px;" target="_blank">What is a SWIFT/BIC code?</a>
+                                    <input type="text" name="bank_swift" id="bank_swift" ng-model="users.user.bankaccount.bank_swift" placeholder="SWIFT/BIC" autocomplete="off" class="form-control" required>
+                                    <p class="help-block alert alert-danger" ng-show="(bankForm.bank_swift.$error.required || bankForm.bank_swift.$invalid) && !bankForm.bank_swift.$pristine">SWIFT/BIC number is required.</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="control-label">IBAN Number</label> <a href="https://www.barclays.co.uk/help/international/payments/making-and-receiving-international-payments/what-iban-swiftcode/" style="color: #337ab7; font-size: 12px;" target="_blank">What is IBAN number?</a>
+                                    <input type="text" name="bank_number" id="bank_number" ng-model="users.user.bankaccount.bank_number" ng-pattern="/[a-zA-Z]{2}[0-9]{2}[a-zA-Z0-9]{4}[0-9]{7}([a-zA-Z0-9]?){0,16}/" placeholder="IBAN Number" autocomplete="off" class="form-control" required>
+                                    <p class="help-block alert alert-danger" ng-show="(bankForm.bank_number.$error.required || bankForm.bank_number.$invalid) && !bankForm.bank_number.$pristine">IBAN number is required.</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label class="control-label">Extra informations:</label>
+                                    <textarea dir="auto" ng-model="users.user.bankaccount.extra_info" placeholder="Enter here all informations that seems useful to process your payout" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <button type="button" ng-click="users.changePaymentMethod()" ng-hide="users.resetPayment" class="btn btn-info btn-user-aqua">Change Payout</button>
+                                    <button type="submit" class="btn btn-success btn-user-papaya" ng-disabled="bankForm.$invalid || users.savingData">Save Account</button>
+                                </div>
+                            </div>
+                        </form>
+                        <form class="form-horizontal" name="paypalForm" id="paypalForm" ng-show="users.paymentOption === 'PayPal' || users.resetPayment" ng-submit="users.savePayPalAccount()" novalidate>
+                            <h4>PAYPAL</h4>
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <input type="hidden" ng-model="users.user.paypalaccount.id">
+                                    <input type="email" name="paypal_account" placeholder="PayPal Email" ng-model="users.user.paypalaccount.paypal_email" class="form-control" autocomplete="off" ng-disabled="!!users.user.paypalaccount.id && !users.resetPayment" required>
+                                    <p class="help-block alert alert-danger" ng-show="paypalForm.paypal_account.$error.required && !paypalForm.paypal_account.$pristine">PayPal email is required.</p>
+                                    <p class="help-block alert alert-danger" ng-show="paypalForm.paypal_account.$error.email && paypalForm.paypal_account.$dirty">Invalid mail address.</p>
+                                    <p ng-hide="!!users.user.paypalaccount.id && !users.resetPayment"><a class="btn btn-primary btn-user-aqua" style="margin: 5px 0; width: 160px; padding:6px 0 !important;" href="https://paypal.com" target="_blank">Create PayPal Account</a></p>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="button" ng-click="users.changePaymentMethod()" ng-hide="users.resetPayment" class="btn btn-info btn-user-aqua">Change Payout</button>
+                                    <button ng-hide="!!users.user.paypalaccount.id && !users.resetPayment" type="submit" class="btn btn-success btn-user-papaya" ng-disabled="paypalForm.$invalid || users.savingData">Save Account</button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="users.activeNav === 'tab-2'">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Change my password</div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" name="passwordForm" id="passwordForm" novalidate ng-submit="users.updatePassword()">
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    <label class="control-label">Password</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="password" name="password" placeholder="Password" ng-model="users.user.password" ng-change="users.checkPassword()" ng-model-options='{debounce: 300}' class="form-control" autocomplete="off" required>
+                                    <p class="help-block alert alert-danger" ng-show="passwordForm.password.$error.required && !passwordForm.password.$pristine">Password is required.</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    <label class="control-label">Confirm Password</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="password" name="confirm_password" placeholder="Confirm Password" ng-model-options='{debounce: 300}' ng-change="users.checkPassword()" ng-model="users.user.confirm_password" class="form-control" autocomplete="off" required>
+                                    <p class="help-block alert alert-danger" ng-show="passwordForm.confirm_password.$error.required && !passwordForm.confirm_password.$pristine">Confirm Password is required.</p>
+                                    <p class="help-block alert alert-danger" ng-show="users.passwordError">Password should match.</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-user-aqua" ng-disabled="passwordForm.$invalid || users.passwordError || users.savingData">Update Password</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,59 @@
+<div class="signup_head">
+    <div id="section_signin" style="" class="signup_h1">
+        <div class="clsSign_Top">
+            <button type="button" class="close" data-dismiss="modal" ng-click="cancel();">
+                <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+            </button>
+            <div class="sign-fb-my-account">
+                <p class="signform_head">Sign In</p>
+                <a href="javascript:void(0)" ng-click="login()" class="col-md-12 col-sm-12 col-xs-12 login_fb">
+                    <span class="icon-container">
+                        <i class="fa fa-facebook signin" aria-hidden="true"></i>
+                        <p class="fb_login">Log in With Facebook</p>
+                    </span>
+                </a>
+            </div>
+            <div class="sign_in_or">
+                <p class="Sign_Or_Row col-md-12 col-sm-12 col-xs-12"><span>Or</span></p>
+            </div>
+            <div class="clsSign_Email">
+                <form accept-charset="utf-8" name="signin" id="signin" novalidate ng-submit="ok();" ng-hide="displayForgotPassword">
+                    <div id="Input_Mail" class="Txt_input signup_frm col-sm-12" ng-class="{ 'has-error': (!signin.email.$pristine && signin.email.$invalid), 'has-success': signin.email.$valid}">
+                        <input type="email" name="email" id="email" placeholder="Email Address" class="inputname modal-input" value="" ng-model="formData.email" autocomplete="off" style="background-image:none" required>
+                        <p class="help-block alert alert-danger" ng-show="signin.email.$error.required && !signin.email.$pristine">Email is required.</p>
+                        <p class="help-block alert alert-danger" ng-show="signin.email.$error.email && signin.email.$dirty">Please provide a valid email.</p>
+                    </div>
+                    <div id="Input_Password" class="Txt_input signup_frm col-sm-12" ng-class="{ 'has-error': (!signin.password.$pristine && signin.password.$invalid), 'has-success': signin.password.$valid}" style="background-image:none" required>
+                        <input id="password" name="password" size="30" placeholder="Password" class="inputpass modal-input" type="password" value="" ng-model="formData.password" required>
+                        <p class="help-block alert alert-danger" ng-show="signin.password.$error.required && !signin.password.$pristine">Password is required.</p>
+                    </div>
+                    <center>
+                        <button name="SignIn" class="sign_gotomsg blue_home sign_in_btn col-md-12 col-sm-12 col-xs-12" type="submit" id="SignInButton" ng-disabled="signin.$invalid || loading" >
+                            Sign in
+                        </button>
+                    </center>
+                    <div class="rem_forgot pull-left">
+                        <label class="forget_pass" style="font-size: 14px !important;"><a href="#" ng-click="forgotPassword()" class="forgot_anchor">Forgot Password?</a></label> 
+                        <div ng-click="cancel(); linkSignUp()">                    
+                            <a href="#" style="font-size: 13px;">CREATE NEW ACCOUNT</a>
+                        </div>
+                        
+                    </div>
+                </form>
+                <form accept-charset="utf-8" name="forgot" id="forgot" novalidate ng-submit="ok();" ng-show="displayForgotPassword">
+                    <div id="Input_Mail" class="Txt_input signup_frm col-sm-12" ng-class="{ 'has-error': (!forgot.forgot_email.$pristine && forgot.forgot_email.$invalid), 'has-success': forgot.forgot_email.$valid}">
+                        <input type="email" name="forgot_email" id="forgot_email" placeholder="Email Address" class="inputname modal-input" value="" ng-model="formData.recoveryEmail" required autocomplete="off">
+                        <p class="help-block alert alert-danger" ng-show="forgot.forgot_email.$error.required && !forgot.forgot_email.$pristine">Email is required.</p>
+                        <p class="help-block alert alert-danger" ng-show="forgot.forgot_email.$error.email && forgot.forgot_email.$dirty">Please provide a valid email.</p>
+                    </div>
+                    <div class="form-group">
+                        <button name="SignIn" class="sign_gotomsg blue_home sign_in_btn col-md-12 col-sm-12 col-xs-12" type="submit" id="ResetButton" ng-disabled="forgot.$invalid || loading" >
+                            Reset Password
+                        </button>
+                    </div>
+                    <input type="hidden" class="hide" name="token" id="token" value=""> 
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

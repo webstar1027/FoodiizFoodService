@@ -1,0 +1,61 @@
+<div id="dashboard_page" class="">
+    <div class="main_dash_hdr clearfix">
+        <div class="container">
+            <div class="dropdown_whole visible-xs">
+                <div class="dropdown_div">
+                    <div class="navdash-wrapper">
+                        <div class="navbar-header">
+                            <h5 id="click_msg" class="drpdwnlist">
+                                <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".bt-navbar-collapse" ng-click="dashboard.isCollapsed = !dashboard.isCollapsed">
+                                    <span class="st-only"></span>
+                                    <div style="display:inline-block;">
+                                        Dashboard</div>
+                                    <div style="display:inline-block;text-align:right;padding: 0px 0px 0px 5px;">
+                                        <span><i class="fa fa-sort-desc" aria-hidden="true"></i></span>
+                                    </div>
+                                </button>
+                            </h5>
+                        </div>
+                        <ng-include src="'assets/js/templates/mobile-user-top-menu.html'"></ng-include>
+                    </div>
+                </div>
+            </div>
+            <ng-include src="'assets/js/templates/desktop-user-top-menu.html'"></ng-include>
+        </div>
+    </div>
+    <div class="container">
+        <div id="dashboard_container" class="clearfix">
+            <div id="dashboard_left" class="col-xs-12 col-sm-3 col-md-3 padding-zero" style="padding-top: 0px;">
+                <div class="Box" id="das_user_box">
+                    <div class="Box_Content">
+                        <div id="user_pic" > <img id="trigger_id" alt="" ng-src="{{ dashboard.user.image_path }}" title="" style="width:auto;"> </div>
+                        <h1>{{dashboard.user.username}}</h1>
+                        <center>
+                            <h3><span class="edit_label"><a ui-sref="edit_user">Edit Profile</a></span></h3>
+                            <h3><span class="edit_label"><a href="#" ng-click="dashboard.goToUser(dashboard.user.id)">View my profile</a></span></h3>
+                        </center>
+                        <!-- middle -->
+                    </div>
+                </div>
+                <!-- /user -->
+            </div>
+            <!-- /left -->
+            <div id="dashboard_main" class="col-xs-12 col-sm-9 col-md-9">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="Box">
+                        <div class="Box_Content">
+                        <a ui-sref="hosts_new">BECOME A HOST</a>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="Box">
+                        <div class="Box_Content">
+                            <a ui-sref="home">SEARCH FOR AN EXPERIENCE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

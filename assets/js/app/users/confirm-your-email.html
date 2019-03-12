@@ -1,0 +1,13 @@
+<div class="container container_bg_non" style="padding: 100px 0;">
+    <div style="width: 100%; height: auto; display: block; padding: 15px 0;" ng-show="confirmation.loading">
+        <img src="asets/images/loading.gif" alt="loading">
+    </div>
+    <img src="assets/images/web_logo.png" alt="Foodiiz" class="img-responsive" style="width: 150px; padding: 15px 0;">
+    <div ng-if="confirmation.confirmation == 'success'" class="alert alert-success" role="alert">.
+        <h4>Congratulations, your email has been verified successfully.</h4>
+    </div>
+    <div ng-if="confirmation.confirmation == 'failed'" class="alert alert-danger" role="alert">.
+        <h4>This link has expired or already been used.</h4>
+    </div>
+    <h4>The Foodiiz Team.</h4>
+</div>

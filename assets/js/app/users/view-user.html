@@ -1,0 +1,137 @@
+ <div id="main_content">
+   <div class="clxfix">
+      <div id="dashboard_page" class="container">
+         <div class="container col-md-12 col-sm-12 col-xs-12" style="margin-bottom:30px;">
+            <div class="container_bg " id="View_Vouch">
+               <div id="dashboard" class="clsDes_Top_Spac">
+                  <div style="clear:both"></div>
+                  <div id="left" class="col-md-3 col-sm-3 col-xs-12">
+                     <div id="user_box">
+                        <div class="Box_Content_1">
+                           <div id="user_pic">
+                              <img class="img-responsive" ng-src="{{ users.user.image_path}}">
+                           </div>
+                        </div>
+                        <!-- middle -->
+                     </div>
+                     <div class="Box" id="quick_links">
+                        <div class="Box_Head msgbg">
+                           <h4 class="mybox-header">About Me </h4>
+                        </div>
+                        <div class="Box_Content" style="padding: 10px;height:auto;">
+                           <ul class="verification_list">
+                              <li><strong>Description</strong><br><span class="inr-dec">{{ users.user.description}} </span></li>
+                              <li ng-if="!!users.user.languages">
+                                 <strong>Languages</strong><br>
+                                 <span class="inr-dec" ng-repeat="language in users.user.languages track by $index">{{ language }}<span ng-hide="$last || users.user.languages.length < 1">, </span></span>
+                              </li>
+                           </ul>
+                        </div>
+                        <div style="clear:both"></div>
+                     </div>
+                  </div>
+                  <!-- /left -->
+                  <div id="main" class="col-md-9 col-sm-9 col-xs-12">
+                     <div class="Box box_1">
+                        <div class="Box_Content">
+                           <h1 class="name_user"> Hey, I'm {{ users.user.first_name}}!</h1>
+                           <p><strong>{{ users.user.address}}</strong></p>
+                           <div class="Box_Content">
+                              <p ng-if='!!users.user.reviews.length'>
+                                 <span class='reviews-number'>{{users.user.reviews.length}}</span> Review{{users.user.reviews.length === 1 ? '' : 's'}} 
+                                 <span ng-if='users.user.status === "confirmed"'>
+                                 <span class="glyphicon glyphicon-ok verified" aria-hidden="true"></span> Verified
+                                 </span>
+                              </p>
+                           </div>
+                        </div>
+                     </div>
+                  <div class="Box">
+                     <div class="Box_Head msgbg  msgbh_1">
+                        <h4 class="sec-tit">My events</h4>
+                     </div>
+                     <div class="Box_Content" style="padding:10px 0px 10px 0px;">
+                        <div class="row" ng-if='users.user.events.length === 0'>
+                           <div class="col-md-12 col-sm-12 col-xs-12">
+                              <h4 style='padding-left: 15px;'>No Food Experience posted yet.</h4>
+                           </div>
+                        </div>
+                        <div class="row list-event-item" ng-repeat="event in users.user.events track by $index" ng-click="users.goToHost(event)">
+                           <div class="col-xs-4 col-md-2 col-sm-2 ">
+                              <img style='padding-left: 5px;' ng-src="{{event.image}}" class="img-responsive">
+                           </div>
+                           <div class="col-xs-8 col-md-10 col-sm-10 ">
+                              <h4>{{ event.title}}</h4>
+                              <p ng-bind-html="users.renderHtml(event.description)"></p>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- Review -->
+                  <div class="Box">
+                     <div class="Box_Head msgbg msgbh_1">
+                        <h4>Reviews</h4>
+                     </div>
+                     <div class="Box_Content">
+                        <div class="row" ng-if='users.user.reviews.length === 0'>
+                           <div class="col-md-12 col-sm-12 col-xs-12">
+                              <h4 style='padding-left: 15px;'>This host has no reviews.</h4>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="review-block">
+                        <div class="row" ng-repeat="review in users.user.reviews">
+                           <div class="col-xs-4 col-sm-3" ng-click="users.goToUser(review.review_from)">
+                              <img width="60" height="60" ng-src="{{review.image_path}}" class="img-rounded">
+                              <div class="review-block-name">
+                                 <a href="#">{{review.guest_name}}</a>
+                              </div>
+                              <div class="review-block-date">{{review.date}}</div>
+                           </div>
+                           <div class="col-xs-8 col-sm-9">
+                              <div class="review-block-rate">
+                                 <button type="button" class="btn btn-xs"
+                                         ng-class="{'star1': review.stars == 1, 'star2': review.stars == 2, 'star3': review.stars == 3, 'star4': review.stars == 4, 'star5': review.stars == 5}"
+                                         aria-label="Left Align">
+                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                 </button>
+                                 <button type="button" class="btn btn-xs" 
+                                    ng-class="{'btn-default': review.stars < 2, 'star2': review.stars == 2, 'star3': review.stars == 3, 'star4': review.stars == 4, 'star5': review.stars == 5}"
+                                    aria-label="Left Align">
+                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                 </button>
+                                 <button type="button" class="btn btn-xs" 
+                                    ng-class="{'btn-default': review.stars < 3, 'star3': review.stars == 3, 'star4': review.stars == 4, 'star5': review.stars == 5}"
+                                    aria-label="Left Align">
+                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                 </button>
+                                 <button type="button" class="btn btn-xs" 
+                                    ng-class="{'btn-default': review.stars < 4, 'star4': review.stars == 4, 'star5': review.stars == 5}"
+                                    aria-label="Left Align">
+                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                 </button>
+                                 <button type="button" class="btn btn-xs" 
+                                    ng-class="{'btn-default': review.stars < 5, 'star5': review.stars == 5}"
+                                    aria-label="Left Align">
+                                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                 </button>
+                              </div>
+                              <div class="review-block-description">
+                                 {{review.comment}}
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <!--Review-->
+                  <!-- /main -->
+                </div>
+                  <div class="clear"></div>
+               </div>
+               <!-- /dashboard -->
+            </div>
+            <!-- /command_center -->
+         </div>
+      </div>
+   </div>
+</div>

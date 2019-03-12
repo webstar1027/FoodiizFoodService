@@ -1,0 +1,232 @@
+<div class="app_view">
+    <!-- video start-->
+    <div class="videoContainer hidden-xs">
+        <div class="wrapper">
+            <!--<video loop="loop" class="video" autoplay="true" id="home-video">
+                <source src="assets/video/foodiiiz.mov" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>-->
+            <img src="assets/images/home/_main_banner4.jpg" alt="Foodiiz" class="img-responsive">
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 site no_padding" style=" ">
+            <div class="overlay site_slogan"><span>FOOD EXPERIENCES WITH LOCALS AROUND THE WORLD</span><br />The new social eating</div>
+        </div>
+    </div>
+    <!-- video loop end -->
+    <div class="clearfix visible-xs">
+        <div class="col-md-12 col-sm-12 col-xs-12 no_padding">
+            <div id="hero" class="search_intro search_int" data-native-currency="USD" style="display: block;">
+                <div class="callbacks_container arrow_ban">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="search-area">
+        <div class="container search_bg search_pad hidden-xs">
+            <div class="search_col">
+                <form id="search_form" name="search_form" class="custom show-search-options position-left col-md-12 col-sm-12 col-xs-12" novalidate ng-submit="home.search();">
+                    <div class="input-wrapper col-md-8 col-sm-8 col-xs-12 search-lang">
+                        <input style="border-right: 1px solid #bbbbbb;" type="text" id="location" name="location"
+                               class="location main_local"
+                               ng-model="home.location" placeholder="Where do you want to go?" autocomplete="off"
+                               googleplace hostobject="home.searchobject" required>
+                        <input type="hidden" id="lat1" name="lat" value="">
+                        <input type="hidden" id="lng1" name="lng" value="">
+                    </div>
+                    <div id="checkinWrapper" class="input-wrapper col-md-2 col-sm-2 col-xs-12 search-lang date">
+                        <label><i class="fa fa-calendar" aria-hidden="true"></i></label>
+                        <datepicker id="checkin" data-ng-model="home.date" language="en" start-date="home.date"
+                                    allow-block="true" date-format="DD-MM-YYYY"></datepicker>
+
+                    </div>
+
+                    <button id="submit_location" class="blue_home search-lang-btn"
+                            type="submit" value="Search" name="Submit" style="border-top-right-radius: 5px;border-bottom-right-radius: 5px;">
+                        <i class="fa fa-search"></i>                       
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="search-area hidden-sm hidden-lg hidden-md" style="background-image:url('assets/images/home/_main_banner4.jpg');background-size: cover; width: 100%; height: 200px;"> 
+        <div class="col-xs-12 site no_padding">
+            <div class="overlay site_slogan" style="display: block;color:#fff;text-align: center; padding-top: 74px;
+                 font-size: 14px;"><span style="text-transform: uppercase; ">FOOD EXPERIENCES WITH LOCALS AROUND THE WORLD</span><br />A new way to socialise</div>
+        </div>
+    </div>
+    <div id="search_form_xs" class="hidden-sm hidden-lg hidden-md visible-xs">
+        <form id="search_form" name="search_form" class="custom show-search-options position-left col-xs-12" novalidate ng-submit="home.search();">
+            <div class="col-xs-12 search-lang">
+                <input  type="text" id="location" name="location"
+                        class="location main_local"
+                        ng-model="home.location" placeholder="Where do you want to go?" autocomplete="off"
+                        googleplace hostobject="home.searchobject" required>
+                <input type="hidden" id="lat1" name="lat" value="">
+                <input type="hidden" id="lng1" name="lng" value="">
+            </div>
+            <div id="checkinWrapper" class="col-xs-12 search-lang date" >
+                <label><i class="fa fa-calendar" aria-hidden="true"></i></label>
+                <datepicker id="checkin" data-ng-model="home.date" language="en" start-date="home.date"
+                            allow-block="true" date-format="DD-MM-YYYY"></datepicker>
+
+            </div>
+            <div class="col-xs-12">
+                <button id="submit_location" class="blue_home col-md-1 col-sm-1 col-xs-12 search-lang-btn"
+                        type="submit" value="Search" name="Submit">
+                    <i class="fa fa-search"></i>                       
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="padd_zer container container_bg_non" id="view-how-it-works" style="padding:0!important; margin-top: 50px;">
+    <div id="How_It_Blk" class="clearfix col-md-12 col-sm-12 text-center">
+        <h1 class="text-center">HOW IT WORKS</h1>
+        <h4 class="text-center" style="width: 320px; display: block; margin:20px auto; text-align: justify; text-align-last: center;">Foodiiz provides you with local and authentic food experiences anywhere you are in the world.</h5>
+            <h3 style="margin-top: 30px;"><a id="how_it_works_link" ui-sref="howitworks">Check our video</a></h3>
+    </div>    
+    <div id="How_It_Blk" class="clearfix col-md-12 col-sm-12">
+        <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="How_It1 how_over">
+
+                <div class="Howit_Img_home" style="padding:10px 0 20px;">
+                    <img src="assets/images/how-it-works/find.png">
+                </div>
+                <h2>Explore Food Experiences</h2>
+                <p class="col-md-12 col-sm-12 col-xs-12">
+                    <a href="javascript:void(0)" class="btn_sta finish btn_how col-md-12 col-sm-12">You can choose from a large and tasty range of cuisines over the world.</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="How_It2 how_over">
+
+                <div class="Howit_Img_home" style="padding:10px 0 20px;"><img src="assets/images/how-it-works/calendar.png"></div>
+                <h2>Book your seat</h2>
+                <p class="col-md-12 col-sm-12 col-xs-12">
+                    <a href="javascript:void(0)" class="btn_sta finish btn_how col-md-12 col-sm-12">Genuine, local food for a cosy dinner, our Foodiiz love to welcome you at their table.</a>
+                </p>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="How_It3 how_over">
+
+                <div class="Howit_Img_enjoy"><img class="why" src="assets/images/how-it-works/enjoy_others.png"></div>
+                <h2>Enjoy it</h2>
+                <p class="col-md-12 col-sm-12 col-xs-12">
+                    <a href="javascript:void(0)" class="btn_sta finish btn_how col-md-12 col-sm-12">Have fun and enjoy a great experience with people from all around the world.</a>
+                </p>
+            </div>
+        </div>
+    </div> 
+</div>
+<div class="padd_zer container" id="search-page" ng-show="!!home.premium_hosts.length">
+    <div class="mid_banner_cont">
+        <div class="midpos container-fluid section new_centcont">
+            <div class="title-section1">
+                <h3 class="col-md-12 col-sm-12 col-xs-12">PREMIUM HOSTS</h3> 
+            </div>
+        </div>
+    </div>
+    <div id="events-results" class="row events-results home-results" ng-show="!!home.premium_hosts.length">
+        <div class="inline-carousel" id="premium-carousel">
+            <div class="inline-carousel__pager">
+                <div id="carousel-container" uib-carousel class="inline-carousel__frame" active="active" interval="7000"> 
+                    <div class="inline-carousel__track carousel-track" uib-slide ng-repeat="host in home.premium_hosts track by $index" index="$index" ng-bind-html="home.getSlides($index)"> 
+                    </div> 
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mid_banner_cont">
+    <div id="mid_cont" class="midpos container-fluid section new_centcont">
+        <div class="title-section1">
+            <h3 class="col-md-12 col-sm-12 col-xs-12">EXPLORE THE WORLD</h3> 
+            <p class="col-md-12 col-sm-12 col-xs-12">See the best Foodiiz experience all around the world</p> 
+        </div>
+    </div>
+</div>
+<div class="padd_zer container" style="margin-top: 50px;margin-bottom: 20px;">
+    <ul class="rec_view_1 col-md-12" style="  text-align: center; color: #eb3c44; font-size: 29px;">
+        <li class="col-xs-12 col-sm-8 col-md-8 col-lg-8 rec_view_rec img_padd_2">
+            <div class="newbut_1">
+                <a ng-href="search/Sweden/57.6165963/15.573524899999938/" class="home">
+                    <p class="coun-para"> Sweden </p>
+                    <img style="width: 100%;" height="272" class="country_img1" src="assets/images/home/home_sweden.jpg">
+                </a>
+            </div>
+        </li>
+        <li class="marg_li col-xs-12 col-sm-4 col-md-4 col-lg-4 img_padd_2">
+            <div class="newbut_2">
+                <a ng-href="search/Denmark/55.403692/11.355256999999938/" class="home">
+                    <p class="coun-para"> Denmark </p>
+                    <img style="width: 100%;" height="272" class="country_img2" src="assets/images/home/home_denmark.jpg">
+                </a>
+            </div>
+        </li>
+        <li class="marg_li col-xs-12 col-sm-4 col-md-4 col-lg-4 img_padd_2">
+            <div class="newbut_2">
+                <a ng-href="search/France/46.768196/2.4326639999999315/" class="home">
+                    <p class="coun-para"> France </p>
+                    <img style="width: 100%;" height="272" class="country_img2" src="assets/images/home/home_france.jpg">
+                </a>
+            </div>
+        </li>
+        <li class="marg_li col-xs-12 col-sm-8 col-md-8 col-lg-8 img_padd_2">
+            <div class="newbut_1">
+                <a ng-href="search/Italy/42.74048809999999/12.737800300000004/" class="home">
+                    <p class="coun-para"> Italy </p>
+                    <img style="width: 100%;" height="272" class="country_img1" src="assets/images/home/home_italy.jpg">
+                </a>
+            </div>
+        </li>
+        <li class="marg_li col-xs-12 col-sm-4 col-md-4 col-lg-4 img_padd_2">
+            <div class="newbut_2">
+                <a ng-href="search/Costa%20Rica/9.9280694/-84.09072459999999/" class="home">
+                    <p class="coun-para"> Costa Rica </p>
+                    <img style="width: 100%;" height="272" class="country_img2" src="assets/images/home/home_costa_rica.jpg">
+                </a>
+            </div>
+        </li>
+        <li class="marg_li col-xs-12 col-sm-8 col-md-8 col-lg-8 img_padd_2">
+            <div class="newbut_1">
+                <a ng-href="search/Marocco/28.9883659/-10.052749800000015/" class="home">
+                    <p class="coun-para"> Marocco </p>
+                    <img style="width: 100%;" height="272" class="country_img1" src="assets/images/home/home_marocco.jpg">
+                </a>
+            </div>
+        </li>
+        <li class="col-lg-4 col-xs-12 col-sm-4 col-md-4 col-lg-4 rec_view_rec img_padd_2">
+            <div class="newbut_2">
+                <a ng-href="search/Irlanda/53.0931067/-8.122803699999963/" class="home">
+                    <p class="coun-para"> Ireland </p>
+                    <img style="width: 100%;" height="272" class="country_img1" src="assets/images/home/home_ireland.jpg">
+                </a>
+            </div>
+        </li>
+        <li class="marg_li col-xs-12 col-sm-4 col-md-4 col-lg-4 img_padd_2">
+            <div class="newbut_2">
+                <a ng-href="search/Tunísia/34.3547737/9.104115699999966/" class="home">
+                    <p class="coun-para"> Tunisia </p>
+                    <img style="width: 100%;" height="272" class="country_img2" src="assets/images/home/home_tunisia.jpg">
+                </a>
+            </div>
+        </li>      
+        <li class="marg_li col-xs-12 col-sm-4 col-md-4 col-lg-4 img_padd_2">
+            <div class="newbut_2">
+                <a ng-href="search/Holland/52.0025516/5.460485199999994/" class="home">
+                    <p class="coun-para"> Holland </p>
+                    <img style="width: 100%;" height="272" class="country_img2" src="assets/images/home/home_holland.jpg">
+                </a>
+            </div>
+        </li>
+
+    </ul>
+</div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.input-group').css({'position':'absolute', 'top':0, 'z-index':0});
+    }); 
+</script>

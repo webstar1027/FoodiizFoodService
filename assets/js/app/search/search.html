@@ -1,0 +1,267 @@
+<style>
+    #map {
+        width: 100%;
+        height: 600px;
+        display: block;
+    }
+
+    .gllpLatlonPicker {
+        margin: 0;
+    }
+
+    .input-group .icon-addon .form-control {
+        border-radius: 0;
+    }
+
+    .icon-addon {
+        position: relative;
+        color: #555;
+        display: block;
+    }
+
+    .icon-addon:after,
+    .icon-addon:before {
+        display: table;
+        content: " ";
+    }
+
+    .icon-addon:after {
+        clear: both;
+    }
+
+    .icon-addon.addon-md .glyphicon,
+    .icon-addon .glyphicon,
+    .icon-addon.addon-md .fa,
+    .icon-addon .fa {
+        position: absolute;
+        z-index: 2;
+        left: 10px;
+        font-size: 14px;
+        width: 20px;
+        margin-left: -2.5px;
+        text-align: center;
+        padding: 10px 0;
+        top: 1px
+    }
+
+    .icon-addon.addon-lg .form-control {
+        line-height: 1.33;
+        height: 46px;
+        font-size: 18px;
+        padding: 10px 16px 10px 40px;
+    }
+
+    .icon-addon.addon-sm .form-control {
+        height: 30px;
+        padding: 5px 10px 5px 28px;
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    .icon-addon.addon-lg .fa,
+    .icon-addon.addon-lg .glyphicon {
+        font-size: 18px;
+        margin-left: 0;
+        left: 11px;
+        top: 4px;
+    }
+
+    .icon-addon.addon-md .form-control,
+    .icon-addon .form-control {
+        padding-left: 30px;
+        float: left;
+        font-weight: normal;
+    }
+
+    .icon-addon.addon-sm .fa,
+    .icon-addon.addon-sm .glyphicon {
+        margin-left: 0;
+        font-size: 12px;
+        left: 5px;
+        top: -1px
+    }
+
+    .icon-addon .form-control:focus + .glyphicon,
+    .icon-addon:hover .glyphicon,
+    .icon-addon .form-control:focus + .fa,
+    .icon-addon:hover .fa {
+        color: #2580db;
+    }
+</style>
+<div class="app_view" id="search-page">
+    <div class="row">
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <button type="button" class="btn btn-default btn-lg btn-block show-map btn-display" ng-click="search.displayMap()">{{(!!search.showMap) ? 'Hide Map' : 'Show Map'}}</button>
+            <fieldset class="gllpLatlonPicker" ng-show="search.showMap">
+                <div class="gllpMap" id="map">Google Maps</div>
+                <input type="hidden" class="gllpLatitude" value="" name="lat" id="lat"
+                       ng-model="search.searchobject.lat"/>
+                <input type="hidden" class="gllpLongitude" value="" name="lng" id="lng"
+                       ng-model="search.searchobject.lng"/>
+                <input type="hidden" class="gllpZoom" value="15"/>
+            </fieldset>
+        </div>
+        <div class="col-md-8 col-sm-12 col-xs-12">
+            <form class="form-inline controls-form">
+                <div style="display: block;">
+                    <div class="form-group col-xs-12 col-md-5ths">
+                        <input class="gllpSearchField form-control" type="text" name="place" id="place" ng-model="search.searchobject.location" googleplace hostobject="search.searchobject" lat="search.lat" lng="search.lng" callback="search.cityChanged()">
+                    </div>
+                    <div class="form-group col-xs-12 col-md-5ths">
+                        <div id="checkinWrapper" class="input-wrapper search-lang date">
+                            <datepicker id="checkin" data-ng-model="search.searchobject.date" language="en" start-date="search.date" allow-block="true" date-format="DD-MM-YYYY"></datepicker>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-12 col-md-5ths">
+                        <!--<div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="search.searchobject.displayCloseDates"> +/- 3 closer days <span class="glyphicon glyphicon-info-sign" aria-hidden="true" uib-tooltip="Gets all events with dates an availability 3 days less or more of the picked date."></span>
+                            </label>
+                        </div>-->
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" ng-model="search.searchobject.displayCloseDates">
+                            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                            +/- 3 closer days
+                          </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-xs-12 col-md-5ths">
+                        <select class="form-control" style="width: 100%;" name="guests" id="guests" ng-model="search.searchobject.distance" required>
+                            <option value="5" selected>5km distance</option>
+                            <option value="20">20km distance</option>
+                            <option value="50">50km distance</option>
+                            <option value="150">150km distance</option>
+                            <option value="400">400km distance</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-xs-12 col-md-5ths">
+                        <button type="button" ng-disabled="!search.hostsList.length" class="btn btn-default btn-lg btn-block btn-display" ng-click="search.displayFilters()">{{(!!search.showFilters) ? 'Hide Filters' : 'Show Filters'}}</button>
+                    </div> 
+                </div>
+                <div class="extra-filters" ng-show="search.showFilters">
+                    <div class="form-group col-xs-12 col-md-5ths">
+                        <label>Seats: ({{search.searchobject.seats}})</label><br>
+                        <slider ng-model="search.searchobject.seats" min="search.searchobject.min_guests" step="1" max="search.searchobject.max_guests" value="search.searchobject.seats" tooltip="show"></slider>
+                    </div>
+                    <div class="form-group col-xs-12 col-md-5ths">
+                        <label>Max price: ({{search.searchobject.price}})</label><br>
+                        <slider ng-model="search.searchobject.price" min="search.searchobject.min_price" step="1" max="search.searchobject.max_price" value="search.searchobject.min_price" tooltip="show"></slider>
+                    </div>
+                    <div class="form-group col-xs-12 col-md-5ths">
+                        <label>General amenities:</label><br>
+                        <div ng-dropdown-multiselect="" options="search.accommodationOptions" selected-model="search.searchobject.accommodations" extra-settings="search.multiSelectSettings"></div>
+                    </div>
+                    <div class="form-group col-xs-12 col-md-5ths">
+                        <label>Experience type:</label><br>
+                        <div ng-dropdown-multiselect="" options="search.experiencesOptions" selected-model="search.searchobject.experiences" extra-settings="search.multiSelectSettings"></div>
+                    </div>
+                    <div class="form-group col-xs-12 col-md-5ths">
+                        <label>Special diet:</label><br>
+                        <div ng-dropdown-multiselect="" options="search.dietOptions" selected-model="search.searchobject.diets" extra-settings="search.multiSelectSettings"></div>
+                    </div>
+                </div>
+            </form>
+            <div class="loading-events" ng-show="search.isLoading">
+                <span class="loading-spinner">
+                    <img ng-src="assets/images/loading.gif">
+                </span>
+            </div>
+            
+            <div class="row no-results" ng-show="!search.hostsList.length && !search.isLoading">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <h4 class="text-center text-uppercase">Dear foodies, you are looking for a good food experience in {{search.searchobject.location}} but there are no host available yet!</h4>
+                    </div>
+                </div>
+                <div class="row">   
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <h4 class="text-center">Become a host in {{search.searchobject.location}} or anywhere else in the world.</h4>
+                        <h4 class="text-center">Welcome people home to your food experience.</h4>
+                    </div>  
+                </div>
+                <div class="row" style="margin-top: 30px;">          
+                    <div class="col-xs-12 col-sm-4 col-md-4">
+                        <h4 class="text-center">APPLY AS HOST</h4>
+                        <div class="text-center icon-container">
+                            <img src="assets/images/search/apply_host.png" width="90">
+                        </div>
+                        <p class="text-center">
+                            <a href="javascript:void(0)" class="btn_sta btn_how col-md-12 col-sm-12">Foodiiz team will reviews your application and get back to you as soon as possible.<br />Show your passion in the description of your application and anything Interesting about your region.</a>
+                        </p>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-4">
+                        <h4 class="text-center">REGISTER AN OPEN TABLE</h4>
+                        <div class="text-center">
+                            <img src="assets/images/search/register_table.png" width="90">
+                        </div>
+                        <p class="text-center">
+                            <a href="javascript:void(0)" class="btn_sta btn_how col-md-12 col-sm-12">Guests will have the opportunity to see your passion and skills as foodies and discover.</a>
+                        </p>
+                    </div>
+               
+
+                    <div class="col-xs-12 col-sm-4 col-md-4">
+                        <h4 class="text-center">ENJOY WITH OTHER FOODIES</h4>
+                        <div class="text-center">
+                            <img src="assets/images/search/enjoy_others.png" width="90">
+                        </div>
+                        <p class="text-center">
+                            <a href="javascript:void(0)" class="btn_sta btn_how col-md-12 col-sm-12">You are now a host so you can register new events on your Foodiiz profile page, and create delicious and attractive menus, so potential guest can book a seat.</a>
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="col-xs-12 col-sm-12 col-md-12 become-host-container" ng-controller="SearchController as search">
+                    <a ng-if="!search.isAuthenticated" class="btn btn-default become-host-link" href="#" ng-click="search.login()" role="button">BECOME A HOST</a>
+                    <a ng-if="search.isAuthenticated" class="btn btn-default become-host-link" href="home/hostsnew/" role="button">BECOME A HOST</a>
+                </div>
+            </div>
+            
+            <div id="events-results" class="row events-results" ng-hide="search.isLoading" ng-show="!!search.hostsList.length && !search.isLoading">
+                <div class="col-xs-12 col-sm-4 col-md-4" style="padding: 0 10px;" ng-repeat="host in search.hostsList track by $index" ng-click="search.goToHost(host)" ng-if="host.displayEvent">
+                    <div class="result" ng-mouseover="search.changeMarker($index)" ng-mouseleave="search.retrieveMarker($index)">
+                        <div class="card-header summary-card-cover" ng-style="{'background-image': 'url(' + host.images[0].image_path + ')'}">
+                            <span ng-if="host.free == '0'" class="price">{{ search.currency | currency_translate }} {{ host.price }}</span>
+                            <span ng-if="host.free == '1'" class="label text-capitalize label-success price">FREE</span>
+                            <span ng-if="host.soldout" class="label text-capitalize label-papaya price">SOLD OUT</span>
+                            <span class="date">
+                                {{ !!host.hideDate ? 'Time: ' : search.getDisplayDate(host.displayDate) + ' | ' }} {{ host.open_hour}} <br />
+                                {{ host.city_name }}
+                            </span>
+                            
+                        </div>
+                        <div class="card-host">
+                            <img ng-src="{{!!host.host[0].image_path ? host.host[0].image_path : search.defaultUserImg}}" class="img-rounded img-thumbnail img-responsive">
+                            <span class="host-name" >Hosted by <span style="text-transform: capitalize;">{{host.host[0].first_name}}</span></span>
+                        </div>
+                        <div class="card-info">
+                            <h4 class="title">{{host.title}}</h4>
+                        </div>
+                        <div class="card-experience">
+                            <h4><span class="label label-default" ng-repeat="experience in host.experience">{{experience}}</span></h4>
+                        </div>
+                        <div class="card-reviews col-xs-12 col-sm-12 col-md-12">
+                            <p ng-if="!host.reviews.length"><span>0 Reviews</span></p>
+                            <p ng-if="!!host.reviews.length">
+                                <span class="glyphicon" aria-hidden="true" 
+                                      ng-class="{'glyphicon-star': host.reviews_average >= 1, 'star1': host.reviews_average === 1, 'star2': host.reviews_average === 2, 'star3': host.reviews_average === 3, 'star4': host.reviews_average === 4, 'star5': host.reviews_average === 5}"></span>
+                                <span class="glyphicon" aria-hidden="true" 
+                                      ng-class="{'glyphicon-star': host.reviews_average >= 2, 'glyphicon-star-empty': host.reviews_average < 2, 'star2': host.reviews_average === 2, 'star3': host.reviews_average === 3, 'star4': host.reviews_average === 4, 'star5': host.reviews_average === 5}"></span>
+                                <span class="glyphicon" aria-hidden="true" 
+                                      ng-class="{'glyphicon-star': host.reviews_average >= 3, 'glyphicon-star-empty': host.reviews_average < 3, 'star3': host.reviews_average === 3, 'star4': host.reviews_average === 4, 'star5': host.reviews_average === 5}"></span>
+                                <span class="glyphicon" aria-hidden="true" 
+                                      ng-class="{'glyphicon-star': host.reviews_average >= 4, 'glyphicon-star-empty': host.reviews_average < 4, 'star4': host.reviews_average === 4, 'star5': host.reviews_average === 5}"></span>
+                                <span class="glyphicon" aria-hidden="true" 
+                                      ng-class="{'glyphicon-star': host.reviews_average >= 5, 'glyphicon-star-empty': host.reviews_average < 5, 'star5': host.reviews_average === 5}"></span>
+                                <span>({{host.reviews.length}})</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>

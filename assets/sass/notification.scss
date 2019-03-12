@@ -1,0 +1,493 @@
+@import 'mixins';
+
+.btn-compose-email {
+    padding: 10px 0px;
+    margin-bottom: 20px;
+}
+
+.btn-danger {
+    background-color: #E9573F;
+    border-color: #E9573F;
+    color: white;
+}
+
+.panel-teal .panel-heading {
+    @include panels;
+    color: white;
+    height: 48px;
+}
+
+.panel .panel-heading {
+    padding: 5px;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+    border: 1px solid #DDD;
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    .panel-title {
+        padding: 10px;
+        font-size: 17px;
+        position: relative;
+        top: 10px;
+    }
+}
+
+form .form-group {
+    position: relative; 
+    margin-left: 0px !important; 
+    margin-right: 0px !important;
+
+}
+
+.inner-all {
+    padding: 10px;
+}
+
+/* ========================================================================
+ * MAIL
+ * ======================================================================== */
+
+.nav-email {
+    > li {
+        &:first-child + li:active {
+            margin-top: 0px;
+        }
+        + li {
+            margin-top: 1px;
+        }
+    }
+    li {
+        background-color: white;
+        &.active {
+            background-color: transparent;
+            .label {
+                background-color: white;
+                color: black;
+            }
+        }
+        a {
+            color: black;
+            -moz-border-radius: 0px;
+            -webkit-border-radius: 0px;
+            border-radius: 0px;
+            &:hover {
+                background-color: #EEEEEE;
+            }
+            i {
+                margin-right: 5px;
+            }
+            .label {
+                margin-top: -1px;
+            }
+        }
+    }
+}
+
+.table-email {
+    tr {
+        &:first-child td {
+            border-top: none;
+        }
+        td {
+            vertical-align: top !important;
+            &:first-child, &:nth-child(2) {
+                text-align: center;
+                width: 35px;
+            }
+        }
+        &.unread, &.selected {
+            background-color: #EEEEEE;
+        }
+    }
+    .media {
+        margin: 0px;
+        padding: 0px;
+        position: relative;
+        h4 {
+            margin: 0px;
+            font-size: 14px;
+            line-height: normal;
+        }
+    }
+    .media-object {
+        width: 35px;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+        border-radius: 2px;
+    }
+    .media-meta, .media-attach {
+        font-size: 11px;
+        color: #999;
+        position: absolute;
+        right: 10px;
+    }
+    .media-meta {
+        top: 0px;
+    }
+    .media-attach {
+        bottom: 0px;
+        i {
+            margin-right: 10px;
+            &:last-child {
+                margin-right: 0px;
+            }
+        }
+    }
+    .email-summary {
+        margin: 0px 110px 0px 0px;
+        strong {
+            color: #333;
+        }
+        span {
+            line-height: 1;
+            &.label {
+                padding: 1px 5px 2px;
+            }
+        }
+    }
+    .ckbox {
+        line-height: 0px;
+        margin-left: 8px;
+    }
+    .star {
+        margin-left: 6px;
+        &.star-checked i {
+            color: goldenrod;
+        }
+    }
+}
+
+.nav-email-subtitle {
+    font-size: 15px;
+    text-transform: uppercase;
+    color: #333;
+    margin-bottom: 15px;
+    margin-top: 30px;
+}
+
+.compose-mail {
+    position: relative;
+    padding: 15px;
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #DDD;
+    }
+}
+
+.view-mail {
+    padding: 10px;
+    font-weight: 300;
+}
+
+.attachment-mail {
+    padding: 10px;
+    width: 100%;
+    display: inline-block;
+    margin: 20px 0px;
+    border-top: 1px solid #EFF2F7;
+    p {
+        margin-bottom: 0px;
+    }
+    a {
+        color: #32323A;
+    }
+    ul {
+        padding: 0px;
+        li {
+            float: left;
+            width: 200px;
+            margin-right: 15px;
+            margin-top: 15px;
+            list-style: none;
+            a {
+                &.atch-thumb img {
+                    width: 200px;
+                    margin-bottom: 10px;
+                }
+                &.name span {
+                    float: right;
+                    color: #767676;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 640px) {
+    .compose-mail-wrapper .compose-mail {
+        padding: 0px;
+    }
+}
+
+@media (max-width: 360px) {
+    .mail-wrapper {
+        .panel-sub-heading {
+            text-align: center;
+            .pull-left {
+                float: none !important;
+                display: block;
+            }
+            .pull-right {
+                float: none !important;
+                display: block;
+                margin-top: 10px;
+            }
+            img {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                margin-bottom: 10px;
+            }
+        }
+        .panel-footer {
+            text-align: center;
+            .pull-right {
+                float: none !important;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+        .attachment-mail ul {
+            padding: 0px;
+            li {
+                width: 100%;
+                a.atch-thumb img {
+                    width: 100% !important;
+                }
+                .links {
+                    margin-bottom: 20px;
+                }
+            }
+        }
+    }
+    .compose-mail-wrapper {
+        .search-mail input {
+            width: 130px;
+        }
+        .panel-sub-heading {
+            padding: 10px 7px;
+        }
+    }
+}
+
+.widget {
+
+    .panel-heading {
+        h3, span {
+            color: #565a5c;
+        }
+    }
+
+    .panel-body {
+        padding: 0px;
+    }
+    .list-group {
+        margin-bottom: 0;
+    }
+    .panel-title {
+        display: inline;
+    }
+    .label-info {
+        float: right;
+    }
+    li {
+        &.list-group-item {
+            border-radius: 0;
+            border: 0;
+            border-top: 1px solid #ddd;
+            &:hover {
+                background-color: rgba(86, 61, 124, .1);
+            }
+        }
+    }
+    .mic-info {
+        color: #666666;
+        font-size: 11px;
+    }
+    .action {
+        margin-top: 5px;
+    }
+    .comment-text {
+        font-size: 12px;
+    }
+    .btn-block {
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+    }
+}
+
+.ui-group-buttons {
+    display: inline-block;
+
+    &:after {
+        content: ".";
+        display: block;
+        height: 0;
+        clear: both;
+        visibility: hidden
+    }
+
+    .btn {
+        float: left;
+        border-radius: 0;
+
+        &:first-child {
+            margin-left: 0;
+            border-top-left-radius: .25em;
+            border-bottom-left-radius: .25em;
+            padding-right: 15px
+        }
+
+        &:last-child {
+            border-top-right-radius: .25em;
+            border-bottom-right-radius: .25em;
+            padding-left: 15px
+        }
+    }
+
+    .or {
+        position: relative;
+        float: left;
+        width: .3em;
+        height: 1.3em;
+        z-index: 3;
+        font-size: 12px;
+        &:before {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            content: '';
+            background-color: #5a5a5a;
+            margin-top: -.1em;
+            margin-left: -.9em;
+            width: 1.8em;
+            height: 1.8em;
+            line-height: 1.55;
+            color: #fff;
+            font-style: normal;
+            font-weight: 400;
+            text-align: center;
+            border-radius: 500px;
+            -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -ms-box-sizing: border-box;
+            box-sizing: border-box
+        }
+        &:after {
+            position: absolute;
+            top: 0;
+            left: 0;
+            content: ' ';
+            width: .3em;
+            height: 2.84em;
+            background-color: rgba(0, 0, 0, 0);
+            border-top: .6em solid #5a5a5a;
+            border-bottom: .6em solid #5a5a5a
+        }
+        &.or-lg {
+            height: 1.3em;
+            font-size: 16px;
+            :after {
+                height: 2.85em
+            }
+        }
+        &.or-sm {
+            height: 1em;
+            &:after {
+                height: 2.5em;
+            }
+        }
+        &.or-xs {
+            height: .25em;
+            &:after {
+                height: 1.84em;
+                z-index: -1000;
+            }
+        }
+    }
+}
+
+.comments-list {
+    width: 100%;
+    list-style-type: none;
+    padding: 18px;
+    display: inline-block;
+    margin-bottom: 10px;
+    height: auto;
+    max-height: 200px;
+    overflow-y: scroll;
+
+    p {
+        color: #333;
+    }
+
+    .text {
+        width: 75%;
+        display: flex;
+        flex-direction: column;
+        > p:first-of-type {
+            width: 100%;
+            margin-top: 0;
+            margin-bottom: auto;
+            line-height: 13px;
+            font-size: 12px;
+            &:last-of-type {
+                width: 100%;
+                text-align: right;
+                color: silver;
+                margin-bottom: -7px;
+                margin-top: auto;
+            }
+        }
+        &.text-l {
+            float: left;
+            padding-right: 10px;
+        }
+        &.text-r {
+            float: right;
+            padding-left: 10px;
+        }
+
+    }
+
+    .macro {
+        margin-top: 5px;
+        width: 85%;
+        border-radius: 5px;
+        padding: 5px;
+        display: flex;
+        min-height: 80px;
+    }
+    .msj-rta {
+        float: right;
+        background: #eaeaea;
+    }
+    .msj {
+        float: left;
+        background: #cacaca;
+    }
+    .frame {
+        background: #e0e0de;
+        height: 450px;
+        overflow: hidden;
+        padding: 0;
+    }
+    .frame > div:last-of-type {
+        position: absolute;
+        bottom: 5px;
+        width: 100%;
+        display: flex;
+    }
+    .avatar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: 80px;
+        float: left;
+        padding-right: 10px;
+    }
+}

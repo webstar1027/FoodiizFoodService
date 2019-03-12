@@ -1,0 +1,15 @@
+<div id="confirm-modal" class="signup_head">
+    <div class="modal-content">
+        <div class="modal-header" ng-if="title">
+            <button type="button" class="close" data-ng-click="cancel()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">{{title}}</h4>
+        </div>
+        <div class="modal-body" ng-if="modal_message">
+            <p>{{modal_message}}</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-info" data-ng-click="cancel()">Cancel</button>
+            <button type="submit" class="btn btn-default" data-ng-click="ok()">Confirm</button>
+        </div>
+    </div>
+</div>

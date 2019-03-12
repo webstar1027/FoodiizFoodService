@@ -1,0 +1,151 @@
+#view-how-it-works {    
+  
+    .How_It_VideoBg {
+        padding: 30px;
+        width: 100%;
+        margin: -2px auto 0;
+        background-size: 100% 100%;
+    }
+    video {
+        width: 80%;
+        vertical-align: middle;
+    }
+
+   video.has-media-controls-hidden::-webkit-media-controls {
+        display: none;
+    }
+
+    .video-overlay-play-button {
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        padding: 10px calc(50% - 50px);
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        opacity: 0.95;
+        cursor: pointer;      
+        transition: opacity 150ms;
+    }
+
+    .video-overlay-play-button:hover {
+        opacity: 1;
+    }
+
+    .video-overlay-play-button.is-hidden {
+        display: none;
+    }
+
+    #whyhost_btn { 
+        width: 200px; 
+        display: block; 
+        margin: 0 auto; 
+        border-radius: 0; 
+        display: block; 
+        border-radius: 2px; 
+        padding-left:15px; 
+        padding-right:15px;       
+        color: #fff !important; 
+        background-color: #e24e42 !important; 
+        border: 1px solid #e24e42 !important; 
+        background-image: linear-gradient(to bottom, #e24e42 0%, #e24e42 100%); 
+        text-shadow: none !important; 
+        margin-bottom:20px; 
+ 
+    } 
+    .Box_Content {
+        a {
+            display:block;
+            width:25%;
+            margin:0 auto;
+            color: #fff !important;
+            background-color: #e24e42 !important;
+            border: 1px solid #e24e42 !important;
+            background-image: linear-gradient(to bottom, #e24e42 0%, #e24e42 100%);
+            text-shadow: none !important;
+            line-height: 20px;
+            vertical-align: middle;
+            padding: 11px;
+            border-radius: 0;
+            cursor: pointer;
+            font-size: 15px;       
+            text-transform: capitalize;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-bottom:50px;
+        }
+    }
+    #How_It_Blk {
+        padding: 25px 0 25px;
+
+        .How_It1, .How_It2, .How_It3 {
+            height: auto;
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+            min-height: 245px;
+
+            h2 {
+                font-size: 18px;
+                font-weight: 700;
+                margin: 0 0 10px;
+            }
+
+            .Howit_Img {
+                img {
+                    margin: 0 0 10px;
+                    max-width: 10px;
+                }
+            }
+
+            .Howit_Img_home {
+                img {
+                    margin: 0 0 10px;
+                    max-width: 60px;
+                }
+            }
+            .Howit_Img_enjoy {
+                img {
+                    margin: 0 0 10px;
+                    max-width: 90px;
+                }
+            }
+            .whyhost_Img_home{
+                img {
+                    margin: 0 0 10px;
+                    max-width: 80px;
+                }
+            }
+        }
+    }
+    .wrapper{
+        display:table;
+        width:auto;
+        position:relative;
+        width:50%;
+    }
+    .playpause {
+        background-image:url(assets/images/play-button-overlay.png);
+        background-repeat:no-repeat;
+        width:50%;
+        height:50%;
+        position:absolute;
+        left:0%;
+        right:0%;
+        top:0%;
+        bottom:0%;
+        margin:auto;
+        background-size:contain;
+        background-position: center;
+    }
+
+
+}
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+    #view-how-it-works .Box_Content a {
+            width:60% !important;
+            font-size:12px;
+    }
+}

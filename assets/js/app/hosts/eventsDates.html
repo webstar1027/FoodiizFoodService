@@ -1,0 +1,183 @@
+<div id="dashboard_page" class="">
+    <div class="main_dash_hdr clearfix">
+        <div class="container">
+            <div class="dropdown_whole visible-xs">
+                <div class="dropdown_div">
+                    <div class="navdash-wrapper">
+                        <div class="navbar-header">
+                            <h5 id="click_msg" class="drpdwnlist">
+                                <button class="navbar-toggle collapsed" type="button" data-toggle="collapse"
+                                        data-target=".bt-navbar-collapse"
+                                        ng-click="events.isCollapsed = !events.isCollapsed">
+                                    <span class="st-only"></span>
+                                    <div style="display:inline-block;">
+                                        Dashboard
+                                    </div>
+                                    <div style="display:inline-block;text-align:right;padding: 0px 0px 0px 5px;">
+                                        <span><i class="fa fa-sort-desc" aria-hidden="true"></i></span>
+                                    </div>
+                                </button>
+                            </h5>
+                        </div>
+                        <ng-include src="'assets/js/templates/mobile-user-top-menu.html'"></ng-include>
+                    </div>
+                </div>
+            </div>
+            <ng-include src="'assets/js/templates/desktop-user-top-menu.html'"></ng-include>
+        </div>
+    </div>
+    <div class="container">
+        <div id="dashboard_container" class="clearfix">
+            <div class="container">
+                <div class="col-xs-12 col-sm-2 col-md-2">
+                    <ul class="nav nav-pills nav-stacked nav-pills-stacked-example">
+                        <li role="presentation" class="active"><a ui-sref="your_listings">Host Experience</a></li>
+                        <li role="presentation"><a href="#">Guest Experience</a></li>
+                        <!--<li role="presentation"><a href="#">Policies</a></li>-->
+                    </ul>
+                </div>
+                <div id="dashboard_container" class="col-xs-12 col-sm-10 col-md-10 ">
+                    <div ng-hide="events.eventDetails" class="Box" id="Mange_Lisiting">
+                        <div class="Box_Content no_padding clearfix">
+                            <div class="msgbg">
+                                <div class="row">
+                                    <div class="col-xs-6 col-md-6">
+                                        <label>Filter by Status</label>
+                                        <select class="form-control" ng-model="events.filterDate">
+                                            <option value="all" class="">All</option>
+                                            <option value="open" class="">Open</option>
+                                            <option value="paid" class="">Paid</option>
+                                            <option value="finished" class="">Finished</option>
+                                            <option value="canceled" class="">Canceled</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-6 col-md-6">
+                                        <label>Limit results:</label>
+                                        <select class="form-control" ng-model="events.limit">
+                                            <option value="10" class="">10</option>
+                                            <option value="25" class="">25</option>
+                                            <option value="50" class="">50</option>
+                                            <option value="100" class="">100</option>
+                                            <option value="1000" class="">1000</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="listings-container" class="col-md-12 col-xs-12 col-sm-12">
+                                <div id="listings-container">
+                                    <div class="donthave-listing" ng-show="!events.eventsList.length"><p
+                                            style="font-size:18px">You don't have any date!</p>
+                                        <br> Become a host on is an easy way to monetize any extra space you have.
+                                        <br>You'll also get to meet interesting travelers from around the world!
+                                        <br>
+                                        <br><a ui-sref="hosts_new" class="clsLink2_Bg">Post a new event</a></div>
+                                    <div class="clearfix"></div>
+                                    <div class="donthave-listing" ng-show="events.eventsList.length">
+                                        <div class="row">
+                                            <table class="table table-hover dates-table"> 
+                                                <thead> 
+                                                    <tr> 
+                                                        <th class="hidden-xs">Title</th> 
+                                                        <th class="hidden-xs">Address </th> 
+                                                        <th>Date</th> 
+                                                        <th class="hidden-xs">Price</th>
+                                                        <th class="hidden-xs">Seats</th>
+                                                        <th class="hidden-xs">Guests</th>
+                                                        <th class="hidden-xs">Raised</th>
+                                                        <th>Status</th> 
+                                                        <th>Details</th> 
+                                                    </tr> 
+                                                </thead> 
+                                                <tbody> 
+                                                    <tr ng-show="events.filterDate == 'all' || event.event_status == events.filterDate" ng-repeat="event in events.eventsList| limitTo:events.limit"> 
+                                                        <th scope="row" class="hidden-xs">{{event.title}}</th> 
+                                                        <td class="hidden-xs">{{event.current_city}}</td> 
+                                                        <td>{{event.show_date}}</td> 
+                                                        <td class="hidden-xs">{{event.price}}</td> 
+                                                        <td class="hidden-xs">{{event.max_guests}}</td> 
+                                                        <td class="hidden-xs">{{!!event.guests ? event.guests : 0}}</td> 
+                                                        <td class="hidden-xs">{{!!event.raised ? (event.raised | currency) : (0 | currency)}}</td> 
+                                                        <td class="text-capitalize">
+                                                            <span class="label" 
+                                                                  ng-class="{'label-success': event.event_status == 'open', 'label-danger': event.event_status == 'canceled', 'label-info': event.event_status == 'finished' || event.event_status == 'paid'}">
+                                                                {{event.event_status}}
+                                                            </span>
+                                                        </td> 
+                                                        <td><button type="button" ng-click="events.seeDetals(event)" class="btn btn-info">Details <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></td>
+                                                    </tr>  
+                                                </tbody> 
+                                            </table>
+                                        </div>
+                                        <p><a ui-sref="hosts_new" class="clsLink2_Bg">Post a new food experience</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-show="events.eventDetails" class="Box">
+                        <div class="row date-detail-container">
+                            <div class="col-xs-12 col-sm-4 col-md-4">
+                                <h3>{{events.currentEvent.title}}</h3>
+                            </div>
+                            <div class="col-xs-12 col-sm-4 col-md-4">
+                                <h3>{{events.selectedDate}}</h3>
+                            </div>
+                            <div class="col-xs-12 col-sm-4 col-md-4">
+                                <button type="button" class="btn btn-default col-xs-12 col-md-12" ng-click="events.hideDetails()">Back to Dates</button>
+                            </div>
+                            <hr />
+                        </div>
+                        <div class="row date-detail-container">
+                            <div class="col-xs-12 col-sm-8 col-md-8">
+                                <table class="table">
+                                    <caption>Guest List</caption>
+                                    <thead>
+                                        <tr>
+                                            <th>Guest Name</th>
+                                            <th>Spaces</th>
+                                            <th class="hidden-xs">Reservation Token</th>
+                                            <th ng-if="events.currentEvent.date_status == 'open'">Actions</th>
+                                            <th ng-if="events.currentEvent.date_status == 'finished'">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="guest in events.currentEvent.guests">
+                                            <th scope="row"><a href="users/view/{{guest.id_user}}">{{guest.guest}}</a></th>
+                                            <td>{{guest.guests_qty}}</td>
+                                            <td class="hidden-xs">{{guest.reservation_token}}</td>
+                                            <td ng-if="events.currentEvent.date_status == 'open'">
+                                                <button ng-if="guest.reservation_status == 'approved'" type="button" class="btn btn-danger float-right" ng-click="events.showCancelGuest(guest.reservation_token)">Cancel Reservation</button>
+                                                <span ng-if="guest.reservation_status == 'canceled'" class="label label-danger">Reservation canceled</span>
+                                            </td>
+                                            <td ng-if="events.currentEvent.date_status == 'finished'">
+                                                <button ng-disabled="!!guest.allow_review" type="button" class="btn btn-info float-right" ng-click="events.showAddFeedback(guest)">Add Review</button>
+                                            </td>
+                                        </tr>
+                                        <tr ng-show="!events.currentEvent.guests.length">
+                                            <td colspan="3">There are not reservations for this event.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-xs-12 col-sm-4 col-md-4">
+                                <p class="text-capitalize"><b>Event Status</b>: <span class="label" ng-class="{'label-success': events.currentEvent.date_status == 'open', 'label-danger': events.currentEvent.date_status == 'canceled', 'label-info': events.currentEvent.date_status == 'finished'}">{{events.currentEvent.date_status}}</span></p>
+                                <p><b>Expected Money</b>: {{events.currentEvent.max_guests * events.currentEvent.price| currency}}</p>
+                                <p><b>Raised Money</b>: {{events.currentEvent.total_reservations * events.currentEvent.price| currency}}</p>
+                                <p><b>Max Spaces</b>: {{events.currentEvent.max_guests}}</p>
+                                <p><b>Available Spaces</b>: {{events.currentEvent.max_guests - events.currentEvent.total_reservations}}</p>
+                            </div>
+                        </div>
+                        <div class="row date-detail-container">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <button type="button" class="btn btn-success col-xs-12 col-md-12" ng-disabled="!events.allowFinish" ng-click="events.finishEvent()">{{events.currentEvent.date_status === 'open' ? 'Finish Event' : 'Event Closed'}}</button>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <button type="button" class="btn btn-danger col-xs-12 col-md-12" ng-disabled="!events.allowCancel" ng-click="events.cancelEvent()">Cancel Event</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,168 @@
+<div id="dashboard_page" class="">
+    <div class="main_dash_hdr clearfix">
+        <div class="container">
+            <div class="dropdown_whole mobile-menu visible-xs">
+                <div class="dropdown_div">
+                    <div class="navdash-wrapper">
+                        <div class="navbar-header">
+                            <h5 id="click_msg" class="drpdwnlist">
+                                <button class="navbar-toggle collapsed" type="button" data-toggle="collapse"
+                                        data-target=".bt-navbar-collapse"
+                                        ng-click="hosts.isCollapsed = !hosts.isCollapsed">
+                                    <span class="st-only"></span>
+                                    <div style="display:inline-block;">
+                                        Dashboard
+                                    </div>
+                                    <div style="display:inline-block;text-align:right;padding: 0px 0px 0px 5px;">
+                                        <span><i class="fa fa-sort-desc" aria-hidden="true"></i></span>
+                                    </div>
+                                </button>
+                            </h5>
+                        </div>
+                        <ng-include src="'assets/js/templates/mobile-user-top-menu.html'"></ng-include>
+                    </div>
+                </div>
+            </div>
+            <ng-include src="'assets/js/templates/desktop-user-top-menu.html'"></ng-include>
+        </div>
+    </div>
+    <div class="container">
+        <div id="dashboard_container" class="clearfix">
+            <div class="container">
+                <div class="col-xs-12 col-sm-2 col-md-2">
+                    <ul class="nav nav-pills nav-stacked nav-pills-stacked-example">
+                        <li ng-class="{'active': (hosts.activeNav === 'tab-1')}">
+                            <a href="#" ng-click="hosts.setView('tab-1')">Host Experience</a>
+                        </li>
+                        <li ng-class="{'active': (hosts.activeNav === 'tab-2')}">
+                            <a href="#" ng-click="hosts.setView('tab-2')">Guest Experience</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <div id="dashboard_container" class="col-sm-10 col-md-9 col-xs-12">
+                    <div class="Box" ng-show="hosts.activeNav === 'tab-1'">
+                        <div class="Box_Content no_padding clearfix">
+                            <div class="msgbg" ng-show="hosts.hostList.length">
+                                <div class="row">
+                                        <div class="col-xs-12 col-sm-4 col-md-4 bottom-space">
+                                        <select class="col-xs-12 form-control" id="listings_filter" ng-model="hosts.filterStatus">
+                                            <option value="all" class="">Show all experiences</option>
+                                            <option value="draft" class="">Show draft</option>
+                                            <option value="revision" class="">Show on review</option>
+                                            <option value="approved" class="">Show approved</option>
+                                            <option value="rejected" class="">Show rejected</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-4 col-md-4 bottom-space">
+                                        <a ui-sref="hosts_new" class="btn btn-default col-xs-12" role="button">Post a new food experience</a>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-4 col-md-4 bottom-space">
+                                        <a ui-sref="events_dates" class="btn btn-default col-xs-12" role="button">Manage your events dates</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clsFloatLeft">
+                            </div>
+                            <div id="listings-container" class="col-md-12 col-xs-12 col-sm-12">
+                                <div id="listings-container">
+                                    <div class="donthave-listing" ng-show="!hosts.hostList.length">
+                                        <p style="font-size:18px">You don't have any food experiences!</p>
+                                        <p>Become a host on is an easy way to monetize any extra space you have.</p>
+                                        <p>You'll also get to meet interesting travelers from around the world!</p>
+                                        <br><a ui-sref="hosts_new" class="clsLink2_Bg">Post a new food experience</a>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="donthave-listing" ng-show="hosts.hostList.length">
+                                        <div class="row card-host">
+                                            <div class="col-sm-12 col-md-4 col-lg-3" ng-show="hosts.filterStatus == 'all' || host.status == hosts.filterStatus" ng-repeat="host in hosts.hostList">
+                                                <div class="card">
+                                                    <div class="card-img-cover card-img-top" ng-style="{'background-image': 'url(' + host.images[0].image_path + ')'}">
+
+                                                    </div>
+                                                    <div class="card-block">
+                                                        <h6 class="card-title mt-3">{{host.title}}</h6>
+                                                        <div class="card-text" ng-show="host.free == '0'">
+                                                            {{ host.currency | currency_translate }} {{ host.price}}
+                                                        </div>
+                                                        <div class="card-text text-center" ng-show="host.free == '1'">
+                                                            <span class="label text-capitalize label-success">
+                                                                FREE EVENT
+                                                            </span>
+                                                        </div>
+                                                        <div class="meta">
+                                                            <b>Status</b>: 
+                                                            <span class="label text-capitalize"
+                                                                  ng-class="{'label-success': host.status == 'approved', 'label-danger': host.status == 'rejected', 'label-warning': host.status == 'revision', 'label-info': host.status == 'draft'}">
+                                                                {{host.status}}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                        <button type="button" class="btn btn-default col-md-12" ng-disabled="host.status == 'revision'" ng-click="hosts.viewHost(host.id);">Edit Event <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Box" ng-show="hosts.activeNav === 'tab-2'">
+                        <div class="Box_Content no_padding clearfix">
+                            <div class="msgbg" ng-show="hosts.hostList.length">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-4 col-md-4">
+                                        <select class="col-xs-12 form-control" id="listings_filter" ng-model="hosts.filterGuestStatus">
+                                            <option value="all" class="">Show all experiences</option>
+                                            <option value="approved" class="">Show approved</option>
+                                            <option value="canceled" class="">Show canceled</option>
+                                            <option value="finished" class="">Show finished</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-8 col-md-8">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clsFloatLeft">
+                            </div>
+                            <div id="listings-container" class="col-md-12 col-xs-12 col-sm-12">
+                                <div id="listings-container">
+                                    <div class="donthave-listing" ng-show="!hosts.guestExperienceList.length">
+                                        <p style="font-size:18px">No food experience booked yet, click <a ui-sref="home">HERE</a> to search for a host</p>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="donthave-listing" ng-show="hosts.guestExperienceList.length">
+                                        <div class="experiences-block">
+                                            <div class="row experience-row" ng-click="hosts.goToExperience(experience.reservation_token)" ng-repeat="experience in hosts.guestExperienceList" ng-show="hosts.filterGuestStatus == 'all' || experience.reservation_status == hosts.filterGuestStatus">
+                                                <div class="col-xs-4 col-sm-3">
+                                                    <img width="100" height="100" ng-src="{{experience.image}}" class="img-rounded">
+                                                    <div class="review-block-date">{{experience.event_date}}</div>
+                                                </div>
+                                                <div class="col-xs-8 col-sm-9">
+                                                    <div class="row">
+                                                        <div class="col-xs-8 col-sm-9">
+                                                            <h3>{{experience.title}}</h3>
+                                                            <p>Hosted by: {{experience.host}}</p>
+                                                        </div>
+                                                        <div class="col-xs-4 col-sm-3">
+                                                            <span class="label text-capitalize"
+                                                                  ng-class="{'label-success': experience.reservation_status == 'approved', 'label-danger': experience.reservation_status == 'canceled', 'label-info': experience.reservation_status == 'confirmed' || experience.reservation_status == 'finished'}">
+                                                                {{experience.reservation_status}}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

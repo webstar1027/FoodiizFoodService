@@ -1,0 +1,935 @@
+<div class="loading-events" ng-show="event.isLoading">
+    <span class="loading-spinner">
+        <img ng-src="assets/images/loading.gif">
+    </span>
+</div>
+<div id="event-page">
+    <div class="event-step-1" ng-show="!event.checkEvent && !event.showPayment && !event.showSummary">
+        <div class="inline-carousel" id="inline-carousel" slide-show ng-init="event.eventLoaded">
+            <div class="inline-carousel__pager">
+                <div id="carousel-container" uib-carousel class="inline-carousel__frame" active="active" interval="7000"> 
+                    <div class="inline-carousel__track carousel-track" uib-slide ng-repeat="slide in event.details.images track by $index" index="$index" ng-bind-html="event.getSlides($index)"> 
+                    </div> 
+                </div> 
+            </div>
+        </div>
+        <div id="host-details">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12">
+                        <h1 class="event-page-title">{{ event.details.title}}</h1>
+                        <p class="event-page-price" ng-if="!event.details.free">{{ event.currency | currency_translate }} {{ event.pricePerPerson}} per person</p>
+                        <p class="event-page-price" ng-if="event.details.free || event.details.soldout"><span ng-show="!event.details.soldout" class="label text-capitalize label-success price">FREE</span> <span ng-show="event.details.soldout" class="label label-danger">SOLD OUT</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--<div class="top-menu" scroll ng-show="boolChangeClass">
+            <div class="container ">
+            <div class="row">
+                <div class="col-md-2">
+                    <b>Guests:</b>
+                </div>
+                <div class="col-md-2">
+                    <select name="number_of_guests" id="number_of_guests" ng-model="event.guests" class="form-control recomm-select"
+                            ng-options="option for option in event.options">
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <b>Checkin:</b>
+                </div>
+                <div class="col-md-2">
+                    <input type="text" class="form-control" uib-datepicker-popup="{{event.format}}" ng-required="true" close-text="Close" ng-model="event.singleDate" datepicker-options="event.dateOptions" dates-disabled="event.availableDates" is-open="event.opened" ng-click="event.showPicker()"/>
+                </div>
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-default btn-lg" ng-click="event.bookNow()">
+                        <span class="book-it">Reserve</span>
+                    </button> 
+                </div>
+            </div>
+            </div>
+        </div>-->
+        <div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 pull-right" id="host_card">                   
+                        <div class="host-card" scroll ng-class="{'fixed': boolChangeClass}" ng-init="event.eventLoaded">
+                            <div class="host-header row">
+                                <div class="col-xs-4 col-md-4 host-img-container">
+                                    <img ng-click="event.goToUser(event.details.id_user)"
+                                         ng-src="{{event.details.images_user[0].image_path}}" class="host-img">
+                                </div>
+                                <div class="col-xs-8 col-md-8 host-info-container">
+                                    <p>Host: <span><b style="text-transform: capitalize;">{{event.details.first_name}}</b></span></p>
+                                    <a href="#" ng-click="event.goToUser(event.details.id_user)">About the host</a>
+                                </div>
+                            </div>
+                            <div class="host-reservation-container">
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-12">
+                                        <label>Guests</label>
+                                        <p class="event-page-price" ng-if="!event.details.free">{{ event.currency | currency_translate }} {{ event.pricePerPerson}} per person</p>
+                                        <p class="event-page-price" style="margin-bottom: 12px !important;"><span ng-if="event.details.free" class="label text-capitalize label-success price">FREE</span></p>
+                                        <select name="number_of_guests" id="number_of_guests" ng-hide="event.soldOut" ng-model="event.guests" class="form-control recomm-select" 
+                                                ng-options="option for option in event.options">
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-12 col-md-12 button-space">
+                                        <label>Checkin:</label>
+                                        <multiple-date-picker month="event.calendarMonth" ng-model="event.selectedDates" disable-days-before="event.today" days-allowed="event.availableDates" disallow-back-past-months="true" day-click="event.oneDaySelectionOnly"></multiple-date-picker>
+                                        <div class="row" style="padding: 5px 0;">
+                                            <div class="col-xs-4 col-md-4 picker-days-row" style="font-size: 0.09in;width: 33.33333333%;">
+                                                <div class="text-center picker-day picker-off past float-left" style="width: 15px;height: 15px;" title="">&emsp;</div> <span class="float-right">Unavailable</span>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 picker-days-row" style="font-size: 0.09in;width: 33.33333333%;">
+                                                <div class="text-center picker-day future float-left" title="" style="width: 15px;height: 15px;background-color: #fff;">&emsp;</div> <span class="float-right">Available</span>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 picker-days-row" style="font-size: 0.09in;width: 33.33333333%;">
+                                                <div class="text-center picker-day picker-selected future float-left" title="" style="width: 15px;height: 15px;">&emsp;</div> <span class="float-right">Selected</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-12">
+                                        <button type="button" class="btn large btn_dash bokbtn col-xs-12" ng-disabled="event.details.soldout || event.no_last_minute" ng-click="event.bookNow()"> 
+                                            <span class="book-it">{{event.details.soldout ? 'Sold Out' : 'Reserve'}}</span>
+                                        </button>
+                                        <button ng-if="event.isAuthenticated" type="button" class="btn large btn_dash bokbtn col-xs-12 contact-btn" ng-click="event.contactHost()"
+                                                data-toggle="modal" data-target="#signin_popup">
+                                            <span class="book-it">{{event.details.soldout ? 'Request a date' : 'Contact ' + event.details.first_name}}</span>
+                                        </button>
+                                        <button ng-if="!event.isAuthenticated" type="button" class="btn large btn_dash bokbtn col-xs-12 contact-btn" ng-click="event.login($index)"
+                                                data-toggle="modal" data-target="#signin_popup">
+                                            <span class="book-it">{{event.details.soldout ? 'Request a date' : 'Contact ' + event.details.first_name}}</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-12 text-center">
+                                    <h1 class="text-center" style="padding: 5px 0;">Share this event</h1>
+                                    <div ng-init="event.initShare()" class="sharethis-inline-share-buttons"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-8 col-lg-8 pull-left" id="event-details">                      
+                        <div class="row">
+                            <div class="padding-zero hidden-xs" style="padding: 0;">  
+                                <div class="row" style="margin-top: 10px;">                         
+                                    <div class="col-sm-2 col-md-2 pull-left dark-list">
+                                        <h3>GROUP SIZE</h3>
+                                        <p>{{event.details.min_guests}} - {{event.details.max_guests}} guests</p>
+                                        <p ng-show="!!event.details.guests.length && !event.details.soldout && !event.details.hide_guests"><a class="who-is-going" href="#" ng-click="event.whoIsGoing()">Who is going?</a></p>
+                                        <p ng-show="event.details.soldout || event.details.hide_guests"><a href="#" class="who-is-going">Guest list not available <span class="glyphicon glyphicon-info-sign" aria-hidden="true" uib-tooltip="The host has disabled the guest list."></span></a></p>
+
+                                    </div>
+                                    <div class="col-sm-2 col-md-2 pull-left dark-list">
+                                        <h3>TIME</h3>
+                                        <p>Start: {{event.details.open_hour}}</p>
+                                        <p>Finish: {{event.details.close_hour}}</p>
+                                    </div>
+                                    <div class="col-sm-2 col-md-2 pull-left dark-list">
+                                        <h3>CUISINE</h3>
+                                        <p ng-repeat="cuisin in event.details.cuisine"> {{cuisin}} </p>
+                                    </div>
+                                    <div class="col-sm-2 col-md-2 pull-left dark-list">
+                                        <h3>DRINKS</h3>
+                                        <p ng-repeat="drink in event.details.drinks">{{drink}}</p>
+                                    </div>                                                                                            
+                                    <div class="col-sm-2 col-md-2 pull-left dark-list">
+                                        <h3>MEAL</h3>
+                                        <p ng-repeat="experience in event.details.experience">{{experience}}</p>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2 col-md-2 pull-left dark-list">
+                                        <h3>AMENITIES</h3>
+                                        <p ng-repeat="amenity in event.details.accommodations">{{amenity}}</p>
+                                        <p ng-show="!event.details.accommodations.length">None</p>
+                                    </div> 
+                                    <div class="col-sm-2 col-md-2 pull-left dark-list">
+                                        <h3>SPECIAL DIETS</h3>
+                                        <p ng-repeat="diet in event.details.diets">{{diet}}</p>
+                                        <p ng-show="!event.details.diets.length">None</p>
+                                    </div>                                                                                           
+                                    <div class="col-sm-2 col-md-2 pull-left dark-list">
+                                        <h3>VENUE</h3>
+                                        <p>{{event.details.venue_type}}</p>
+                                    </div>
+                                    <div class="col-sm-2 col-md-2 pull-left dark-list">
+                                        <h3>LOCATION</h3>
+                                        <p>{{event.details.city_name}}</p>                                 
+                                        <a id="show-map" href="#">Show</a>
+                                    </div> 
+                                </div>                     
+                            </div>                          
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 visible-xs">
+                                <div class="row">
+                                    <div class="col-xs-4 col-sm-3 col-md-3">
+                                        <h3>GROUP SIZE</h3>
+                                        <p>{{event.details.min_guests}} - {{event.details.max_guests}} guests</p>
+                                        <p ng-if="!!event.isAuthenticated && !!event.details.guests.length"><a class="who-is-going" href="#" ng-click="event.whoIsGoing()">Who is going?</a></p>
+                                    </div>
+                                    <div class="col-xs-4 col-sm-3 col-md-3">
+                                        <h3>TIME</h3>
+                                        <p>Start: {{event.details.open_hour}}</p>
+                                        <p>Finish: {{event.details.close_hour}}</p>
+                                    </div>
+                                    <div class="col-xs-4 col-sm-3 col-md-3">
+                                        <h3>CUISINE</h3>
+                                        <p ng-repeat="cuisin in event.details.cuisine"> {{cuisin}}</p>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-4 col-sm-3 col-md-3">
+                                        <h3>DRINKS</h3>
+                                        <p ng-repeat="drink in event.details.drinks">{{drink}}</p>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <h3>MEAL</h3>
+                                        <p ng-repeat="experience in event.details.experience">{{experience}}</p>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <h3>AMENITIES</h3>
+                                        <p ng-repeat="amenity in event.details.accommodations">{{amenity}}</p>
+                                        <p ng-show="!event.details.accommodations.length">None</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        <h3>SPECIAL DIETS</h3>
+                                        <p ng-repeat="diet in event.details.diets">{{diet}}</p>
+                                        <p ng-show="!event.details.diets.length">None</p>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <h3>VENUE</h3>
+                                        <p>{{event.details.venue_type}}</p>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <h3>LOCATION</h3>
+                                        <p>{{event.details.city_name}}</p>                           
+                                        <a id="show-map-mobile" href="#">Show Map</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div id="event-menu" class="row">
+                            <div class="row" ng-if="!!event.details.description" style="margin-bottom: 25px; margin-top: 25px; ">
+                                <div class="row" style="padding-left: 15px; padding-right: 15px;">    
+                                    <div  class="col-sm-3 title-border"></div>          
+                                    <div  class="col-sm-6 col-xs-12 text-border">          
+                                        <h3 class="text-center">FOOD EXPERIENCE</h3>
+                                    </div>
+                                    <div  class="col-sm-3 title-border"></div>
+                                </div>                               
+                                <p ng-bind-html="event.renderHtml(event.details.description)" style="padding-bottom: 12px;"></p>
+
+                            </div>
+                            <div class="row" style="padding-bottom: 10px;margin-bottom: 25px; "> 
+                                <div class="row" style="padding-left: 15px; padding-right: 15px;">    
+                                    <div  class="col-sm-3  menu-border"></div>          
+                                    <div  class="col-sm-6 col-xs-12 menu-text">          
+                                        <h3 class="text-center">MENU</h3>
+                                    </div>
+                                    <div  class="col-sm-3  menu-border"></div>
+                                </div>  
+                                <div class="menu-container col-xs-12 col-md-12" ng-bind-html="event.renderHtml(event.details.menu)" style="padding-left: 0 !important;"></div>
+                            </div>
+                            <div class="row" style="padding-bottom: 10px;margin-bottom: 25px;" ng-if="!!event.details.after_activity">  
+                                <div class="row" style="padding-left: 15px; padding-right: 15px;">     
+                                    <div  class="col-sm-3  activity-border"></div>           
+                                    <div  class="col-sm-6 col-xs-12 activity-text">           
+                                        <h3 class="text-center">AFTER EVENT ACTIVITY</h3> 
+                                    </div> 
+                                    <div  class="col-sm-3  activity-border"></div> 
+                                </div>   
+                                <div class="menu-container col-xs-12 col-md-12" ng-bind-html="event.renderHtml(event.details.after_activity)" style="padding-left: 0 !important;"></div> 
+                            </div>
+                        </div>
+                        <div class="row" id="event-location">
+                            <div class="row">                               
+                                <div  class="col-sm-3  col-xs-1 title-border"></div>          
+                                <div  class="col-sm-6 col-xs-12 text-border">          
+                                    <h3 class="text-center">EVENT LOCATION</h3>
+                                </div>
+                                <div  class="col-sm-3  col-xs-1 title-border"></div>
+                            </div>                          
+                            <div id="map" style="margin-top: 15px; margin-left: -12px;"></div>
+                        </div>                      
+                        <div class="row" id="event-reviews" style="margin-top: 30px;">    
+                            <div class="row host" style="padding-left: 15px; padding-right: 15px;">    
+                                <div  class="col-sm-3  menu-border"></div>          
+                                <div  class="col-sm-6 col-xs-12 menu-text">          
+                                    <h3 class="text-center">HOST</h3>          
+                                </div>
+                                <div  class="col-sm-3   menu-border"></div>
+                            </div>                              
+                            <div class="row host-card">                                              
+                                <div class="host-header">
+                                    <div class="col-xs-4 col-md-4 host-img-container">
+                                        <img ng-click="event.goToUser(event.details.id_user)" ng-src="{{event.details.images_user[0].image_path}}" class="host-img">
+                                    </div>
+                                    <div class="col-xs-8 col-md-8 host-info-container">
+                                        <p><span><b style="text-transform: capitalize;">{{event.details.first_name}}</b></span></p>
+                                        <p>{{event.details.user_address}}</p>
+                                        <a href="#" ng-click="event.goToUser(event.details.id_user)">About the host</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                      
+                        <div class="row" id="event-reviews" style="margin-top: 50px;">  
+                            <div class="row review" style="padding-left: 15px; padding-right: 15px;">    
+                                <div  class="col-sm-3  menu-border"></div>          
+                                <div  class="col-sm-6 col-xs-12 menu-text">          
+                                    <h3 class="text-center">REVIEWS</h3>         
+                                </div>
+                                <div  class="col-sm-3 menu-border"></div>
+                            </div>                        
+
+                            <div class="col-xs-12 col-md-12">
+                                <p class="text-muted" ng-show="event.details.event_reviews.length < 1">This host has 0 reviews</p>
+                                <div class="review-block">
+                                    <div class="row" ng-repeat="review in event.details.event_reviews">
+                                        <div class="col-xs-6 col-sm-3">
+                                            <img width="50" height="50" ng-src="{{review.image_path}}" class="img-rounded">
+                                            <div class="review-block-name">
+                                                <a href="#" ng-click="event.goToUser(review.review_from)">{{review.first_name}}</a>
+                                            </div>
+                                            <div class="review-block-date">{{review.date}}</div>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-9">
+                                            <div class="review-block-rate">
+                                                <button type="button" class="btn btn-xs"
+                                                        ng-class="{'star1': review.stars == 1, 'star2': review.stars == 2, 'star3': review.stars == 3, 'star4': review.stars == 4, 'star5': review.stars == 5}"
+                                                        aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-warning btn-xs" 
+                                                        ng-class="{'btn-default': review.stars < 2, 'star2': review.stars == 2, 'star3': review.stars == 3, 'star4': review.stars == 4, 'star5': review.stars == 5}"
+                                                        aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-warning btn-xs" 
+                                                        ng-class="{'btn-default': review.stars < 3, 'star3': review.stars == 3, 'star4': review.stars == 4, 'star5': review.stars == 5}"
+                                                        aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-xs" 
+                                                        ng-class="{'btn-default': review.stars < 4, 'star4': review.stars == 4, 'star5': review.stars == 5}"
+                                                        aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-xs" 
+                                                        ng-class="{'btn-default': review.stars < 5, 'star5': review.stars == 5}"
+                                                        aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                            </div>
+                                            <div class="review-block-description">
+                                                {{review.comment}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div> 
+            </div>
+        </div>
+
+    </div>
+    <div class="event-step-2" ng-show="event.checkEvent && !event.showPayment && !event.showSummary">
+        <div class="summary-mobile summary-desktop hidden-sm hidden-md hidden-lg">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3 class="resume-title">
+                        Event Summary
+                    </h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 event-info">
+                    <div class="summary-card">
+                        <div class="summary-card-cover" ng-style="{'background-image': 'url(' + event.details.images[0].image_path + ')'}">
+
+                        </div>
+                        <div class="summary-card-subtotal">
+                            <div class="summary-card-subtotal-details">
+                                <div class="col-xs-8">
+                                    Number of guests
+                                </div>
+                                <div class="col-xs-4">
+                                    <select name="number_of_guests" id="number_of_guests" ng-model="event.guests" class="form-control"
+                                            ng-options="option for option in event.options">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="summary-card-subtotal-row">
+                                <div class="col-xs-8">
+                                    SUBTOTAL: {{event.guests}}X{{ event.currency | currency_translate }} {{ event.details.free ? 0 : event.getSubtotal(event.details.initial_price, event.guests)}} 
+                                </div>
+                                <div class="col-xs-4 text-right">
+                                    <b>{{ event.currency | currency_translate }} {{ event.details.free ? 0 : event.getSubtotal()}}</b> 
+                                </div>
+                            </div>
+                            <div class="summary-card-subtotal-row">
+                                <div class="col-xs-8">
+                                    FOODIIZ FEES <span class="glyphicon glyphicon-info-sign" aria-hidden="true" uib-tooltip="Fees include customer support services, VAT and platform maintenance"></span>
+                                </div>
+                                <div class="col-xs-4 text-right">
+                                    <b>{{ event.currency | currency_translate }} {{ event.details.free ? 0 : event.getFeed()}}</b> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="summary-card-total">
+                            <div class="summary-card-subtotal-row">
+                                <div class="col-xs-6 detail">
+                                    TOTAL
+                                </div>
+                                <div class="col-xs-6 value text-right">
+                                    <b ng-if="!event.details.free">{{ event.currency | currency_translate }} {{ event.finalPrice}}</b> 
+                                    <b ng-if="event.details.free">{{ event.currency | currency_translate }} 0</b> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn large btn_dash bokbtn col-md-12" ng-click="event.displayPayment()">
+                        <span class="book-it">Continue</span>
+                    </button>
+                    <p class="back">
+                        <a href="#" ng-click="event.displayEventInfo()" id="ember1060" class="ember-view">Back to event</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container summary-desktop hidden-xs">
+            <div class="row">
+                <h3 class="resume-title">
+                    Event Summary
+                </h3>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="row summary-header">
+                        <div class="col-md-6 event-info">
+                            <h3>
+                                Event
+                            </h3>
+                        </div>
+                        <div class="col-md-3 event-info">
+                            <h3>
+                                Price
+                            </h3>
+                        </div>
+                        <div class="col-md-3 event-info">
+                            <h3>
+                                Guests
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="row summary-row">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="col-md-5 event-info">
+                                    <div class="img-ew ember-view">
+                                        <img ng-src="{{event.details.images[0].image_path}}" class="img-responsive" alt="{{event.details.title}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-7 event-info">
+                                    <h3 class="event-title">
+                                        {{event.details.title}}
+                                    </h3>                               
+                                    <p class="event-date">
+                                        {{event.selectedDateFormated}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <h5>
+                                    Price
+                                </h5>
+                                <h3 class="event-price">
+                                    <span ng-if="!event.details.free" class="ew-product-price ember-view"> 
+                                        <span id="ember1023" class="monetize ember-view">{{ event.currency | currency_translate }} {{ event.pricePerPerson}}</span> /person   
+                                    </span> 
+                                    <span ng-if="event.details.free" class="label text-capitalize label-success price" >FREE</span> 
+                                </h3>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="xs-label">
+                                    <h5>
+                                        Guests
+                                    </h5>
+                                </div>
+                                <select name="number_of_guests" id="number_of_guests" ng-model="event.guests" class="form-control"
+                                        ng-options="option for option in event.options">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <p ng-if="!!event.details.description" ng-bind-html="event.renderHtml(event.details.description)" style="padding: 15px;
+                                   text-align: justify;">
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 event-info">
+                    <div class="summary-card">
+                        <div class="summary-card-cover" ng-style="{'background-image': 'url(' + event.details.images[0].image_path + ')'}">
+
+                        </div>
+                        <div class="summary-card-subtotal">
+                            <div class="summary-card-subtotal-row">
+                                <div class="col-xs-8 col-md-8">
+                                    SUBTOTAL: {{event.guests}}X{{ event.currency | currency_translate }} {{ event.details.free ? 0 : event.getSubtotal(event.details.initial_price, event.guests)}} 
+                                </div>
+                                <div class="col-xs-4 col-md-4 text-right">
+                                    <b>{{ event.currency | currency_translate }} {{ event.details.free ? 0 : event.getSubtotal(event.details.initial_price, event.guests)}}</b> 
+                                </div>
+                            </div>
+                            <div class="summary-card-subtotal-row">
+                                <div class="col-xs-8 col-md-8">
+                                    FOODIIZ FEES <span class="glyphicon glyphicon-info-sign" aria-hidden="true" uib-tooltip="Fees include customer support services, VAT and platform maintenance"></span>
+                                </div>
+                                <div class="col-xs-4 col-md-4 text-right">
+                                    <b>{{ event.currency | currency_translate }} {{ event.details.free ? 0 : event.getFeed(event.pricePerPerson, event.details.initial_price, event.guests)}}</b> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="summary-card-total">
+                            <div class="summary-card-subtotal-row">
+                                <div class="col-xs-6 col-md-6 detail">
+                                    TOTAL
+                                </div>
+                                <div class="col-xs-6 col-md-6 value text-right">
+                                    <b ng-if="!event.details.free">{{ event.currency | currency_translate }} {{ event.finalPrice}}</b> 
+                                    <b ng-if="event.details.free">{{ event.currency | currency_translate }} 0</b> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn large btn_dash bokbtn col-md-12" ng-click="event.displayPayment()">
+                        <span class="book-it">Continue</span>
+                    </button>
+                    <p class="back">
+                        <a href="#" ng-click="event.displayEventInfo()" id="ember1060" class="ember-view">Back to event</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="event-step-3" ng-show="event.showPayment && !event.showSummary">
+        <div class="container summary-desktop hidden-sm hidden-md hidden-lg">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3 class="resume-title">
+                        Secured Payment
+                    </h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="summary-card">
+                        <div class="summary-card-cover" ng-style="{'background-image': 'url(' + event.details.images[0].image_path + ')'}">
+
+                        </div>
+                        <div class="summary-card-subtotal">
+                            <div class="summary-card-subtotal-details">
+                                <p><img ng-src="{{event.details.images_user[0].image_path}}" width="30px" class="img-rounded"> Hosted by {{ event.details.first_name}}</p>
+                                <h3>{{ event.details.title}}</h3>
+                                <p>{{ event.selectedDateFormated}} - {{event.details.open_hour}}</p>
+                            </div>
+                            <div class="summary-card-subtotal-row">
+                                <div class="col-xs-8 col-md-8">
+                                    SUBTOTAL: {{event.guests}}X{{ event.currency | currency_translate }} {{ event.getSubtotal(event.details.initial_price, event.guests)}}
+                                </div>
+                                <div class="col-xs-4 col-md-4 text-right">
+                                    <b>{{ event.currency | currency_translate }} {{ event.getSubtotal(event.details.initial_price, event.guests)}}</b>
+                                </div>
+                            </div>
+                            <div class="summary-card-subtotal-row">
+                                <div class="col-xs-8 col-md-8">
+                                    FOODIIZ FEES
+                                </div>
+                                <div class="col-xs-4 col-md-4 text-right">
+                                    <b>{{ event.currency | currency_translate }} {{ event.getFeed(event.pricePerPerson, event.details.initial_price, event.guests)}}</b>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="summary-card-total">
+                            <div class="summary-card-subtotal-row">
+                                <div class="col-xs-6 col-md-6 detail">
+                                    TOTAL
+                                </div>
+                                <div class="col-xs-6 col-md-6 value text-right">
+                                    <b ng-if="!event.details.free">{{ event.currency | currency_translate }} {{ event.finalPrice}}</b>
+                                    <b ng-if="event.details.free">{{ event.currency | currency_translate }} 0</b> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <form class="form-horizontal" name="personal_info_mobile" id="personal_info_mobile">
+                        <div class="form-group">
+                            <h1>The host wants to know more about you</h1>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error': (!personal_info_mobile.reservation_note.$pristine && personal_info_mobile.reservation_note.$invalid)}">
+                            <label for="reservation-note">Help the host telling for example where do you come from, if you are allergic to some specific ingredients or any other information that could help him during the preparation of his ''Food Experience''!</label>
+                            <textarea ng-model="event.notes" name="reservation_note" id="reservation_note" class="form-control" rows="3" required></textarea>
+                            <p class="help-block alert alert-danger" ng-show="personal_info_mobile.reservation_note.$error.required && !personal_info_mobile.reservation_note.$pristine">This field is required</p>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error': (!personal_info_mobile.reservation_phone.$pristine && personal_info_mobile.reservation_note.$invalid)}">
+                            <div class="row">
+                                <label for="reservation-phone" class="col-xs-12 col-md-12">Add your phone number</label>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6 col-md-3">
+                                    <ng-include src="'assets/js/app/events/codes.html'"></ng-include>
+                                </div>
+                                <div class="col-xs-6 col-md-9">
+                                    <input type="tel" numbers-only ng-model="event.phone" name="reservation_phone" id="reservation_phone" class="form-control" placeholder="Phone number" required>
+                                    <p class="help-block alert alert-danger" ng-show="personal_info_mobile.reservation_phone.$error.required && !personal_info_mobile.reservation_phone.$pristine">This field is required</p>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="panel panel-default credit-card-box" ng-if="!event.details.free">
+                        <div class="panel-heading display-table" >
+                            <div class="row display-tr" >
+                                <h3 class="panel-title display-td pull-left" style="top: 0; left: 10px;">Payment Details</h3>
+                                <div class="display-td pull-right" >                            
+                                    <img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png">
+                                </div>
+                            </div>                    
+                        </div>
+                        <div class="panel-body">
+                            <form role="form" name="paymentForm" id="paymentForm" ng-submit="event.applyPayment()">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="form-group" ng-class="{ 'has-error': (!paymentForm.card_name.$pristine && paymentForm.card_name.$invalid), 'has-success': paymentForm.card_name.$valid}">
+                                            <label for="cardNumber">Card Name</label>
+                                            <div class="input-group">
+                                                <input type="tel" ng-model="event.card_name" class="form-control" name="card_name" placeholder="John Smith" autocomplete="off" required autofocus />
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                            </div>
+                                            <p class="help-block alert alert-danger" ng-show="paymentForm.card_name.$error.required && !paymentForm.card_name.$pristine">Credit card name required</p>
+                                        </div>                            
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="form-group" ng-class="{ 'has-error': (!paymentForm.cardNumber.$pristine && paymentForm.cardNumber.$invalid), 'has-success': paymentForm.cardNumber.$valid}">
+                                            <label for="cardNumber">Card Number</label>
+                                            <div class="input-group">
+                                                <input type="number" ng-pattern="/^\d{1,16}$/" ng-minlength="15" maxlength="19" ng-model="event.card.number" class="form-control" name="cardNumber" placeholder="0000000000000000" autocomplete="cc-number" required autofocus />
+                                                <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                            </div>
+                                            <p class="help-block alert alert-danger" ng-show="paymentForm.cardNumber.$error.required && !paymentForm.cardNumber.$pristine">Credit card required</p>
+                                            <p class="help-block alert alert-danger" ng-show="paymentForm.cardNumber.$error.pattern">Credit card must consist of only numbers</p>
+                                            <p class="help-block alert alert-danger" ng-show="paymentForm.cardNumber.$error.invalid && paymentForm.cardNumber.$dirty">Credit card must be a valid Amex, Visa, Discover, or Master Card</p>
+                                            <p class="help-block alert alert-danger" ng-show="paymentForm.cardNumber.$error.minlength && !paymentForm.cardNumber.$pristine">Credit card must be 15-19 digits</p>
+                                        </div>                            
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-8 col-md-8">
+                                        <div class="form-group">
+                                            <label for="cardExpiry">Expiration Date</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 col-md-4">
+                                        <div class="form-group">
+                                            <label for="cvc">CVC Code</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-4 col-md-4" ng-class="{ 'has-error': (!paymentForm.exp_month.$pristine && paymentForm.expMonth.exp_month.$error.required), 'has-success': paymentForm.exp_month.$valid}" cc-exp>
+                                        <div class="form-group">
+                                            <input type="text" numbers-only max="2" ng-model="event.card.exp_month" class="form-control" name="exp_month" placeholder="MM" required/>
+                                            <p class="help-block alert alert-danger" ng-show="paymentForm.exp_month.$error.required && !paymentForm.exp_month.$pristine">Required</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 col-md-4" ng-class="{ 'has-error': (!paymentForm.exp_year.$pristine && paymentForm.expMonth.exp_year.$error.required), 'has-success': paymentForm.exp_year.$valid}" cc-exp>
+                                        <div class="form-group">
+                                            <input type="text" numbers-only max="4" ng-model="event.card.exp_year" class="form-control" name="exp_year" placeholder="YY" required/>
+                                            <p class="help-block alert alert-danger" ng-show="paymentForm.exp_year.$error.required && !paymentForm.exp_year.$pristine">Required</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 col-md-4" ng-class="{ 'has-error': (!paymentForm.cvc.$pristine && paymentForm.cvc.$error.required), 'has-success': paymentForm.cvc.$valid}">
+                                        <div class="form-group">
+                                            <input type="password" numbers-only max="4" ng-model="event.card.cvc" class="form-control" name="cvc" placeholder="CVC" autocomplete="cc-csc" required/>
+                                            <p class="help-block alert alert-danger" ng-show="paymentForm.cvc.$error.required && !paymentForm.cvc.$pristine">Required</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <p style="padding: 0 0 10px;"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Credit card payments are processed securely through <b>Stripe</b></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-4 col-md-offset-4 text-center">
+                                        <button type="submit" class="btn large btn_dash bokbtn" ng-disabled="!paymentForm.$valid || !personal_info_mobile.$valid">
+                                            <span class="book-it">REQUEST A BOOKING</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="row" style="display:none;">
+                                    <div class="col-xs-12">
+                                        <p class="payment-errors"></p>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div> 
+                    <div class="panel panel-default" ng-if="event.details.free"> 
+                        <div class="panel-heading display-table" > 
+                            <div class="row display-tr" > 
+                                <h3 class="panel-title display-td pull-left" >Payment Details</h3> 
+                            </div>                     
+                        </div> 
+                        <div class="panel-body"> 
+                            <form role="form" name="paymentForm" id="paymentForm" ng-submit="event.applyFreeReservation()"> 
+                                <div class="form-group"> 
+                                    <h1>Request your reservation for free.</h1> 
+                                </div> 
+                                <div class="row"> 
+                                    <div class="col-xs-12 col-md-4 col-md-offset-4 text-center"> 
+                                        <button type="submit" class="btn large btn_dash bokbtn" ng-disabled="!paymentForm.$valid || !personal_info_mobile.$valid"> 
+                                            <span class="book-it">Request Free Reservation</span> 
+                                        </button> 
+                                    </div> 
+                                </div> 
+                            </form> 
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container summary-desktop hidden-xs">
+            <div class="row">
+                <h3 class="resume-title">
+                    Secured Payment
+                </h3>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <form class="form-horizontal" name="personal_info_desktop" id="personal_info_desktop">
+                        <div class="form-group">
+                            <h1>The host wants to know more about you</h1>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error': (!personal_info_desktop.reservation_note.$pristine && personal_info_desktop.reservation_note.$invalid)}">
+                            <label for="reservation-note">Help the host telling for example where do you come from, if you are allergic to some specific ingredients or any other information that could help him during the preparation of his ''Food Experience''!</label>
+                            <textarea ng-model="event.notes" name="reservation_note" id="reservation_note" class="form-control" rows="3" required></textarea>
+                            <p class="help-block alert alert-danger" ng-show="personal_info_desktop.reservation_note.$error.required && !personal_info_desktop.reservation_note.$pristine">This field is required</p>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error': (!personal_info_desktop.reservation_phone.$pristine && reservation_phone.reservation_note.$invalid)}">
+                            <div class="row">
+                                <label for="reservation-phone" class="col-xs-12 col-md-12">Add your phone number</label>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-3 col-md-3">
+                                    <ng-include src="'assets/js/app/events/codes.html'"></ng-include>
+                                </div>
+                                <div class="col-xs-9 col-md-9">
+                                    <input type="tel" numbers-only ng-model="event.phone" name="reservation_phone" id="reservation_phone" class="form-control" placeholder="Phone number" required>
+                                    <p class="help-block alert alert-danger" ng-show="personal_info_desktop.reservation_phone.$error.required && !personal_info_desktop.reservation_phone.$pristine">This field is required</p>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="panel panel-default credit-card-box" ng-if="!event.details.free">
+                        <div class="panel-heading display-table" >
+                            <div class="row display-tr" >
+                                <h3 class="panel-title display-td pull-left" style="top: 0; left: 10px;">Payment Details</h3> 
+                                <div class="display-td pull-right" >                            
+                                    <img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png">
+                                </div>
+                            </div>                    
+                        </div>
+                        <div class="panel-body">
+                            <form role="form" name="paymentForm" id="paymentFormDesktop" ng-submit="event.applyPayment()">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="form-group" ng-class="{ 'has-error': (!paymentForm.card_name.$pristine && paymentForm.card_name.$invalid), 'has-success': paymentForm.card_name.$valid}">
+                                            <label for="cardNumber">Card Name</label>
+                                            <div class="input-group">
+                                                <input type="tel" ng-model="event.card_name" class="form-control" name="card_name" placeholder="John Smith" autocomplete="off" required autofocus />
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                            </div>
+                                            <p class="help-block alert alert-danger" ng-show="paymentForm.card_name.$error.required && !paymentForm.card_name.$pristine">Credit card name required</p>
+                                        </div>                            
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="form-group" ng-class="{ 'has-error': (!paymentForm.cardNumber.$pristine && paymentForm.cardNumber.$invalid), 'has-success': paymentForm.cardNumber.$valid}">
+                                            <label for="cardNumber">Card Number</label>
+                                            <div class="input-group">
+                                                <input type="number" ng-pattern="/^\d{1,16}$/" ng-minlength="15" maxlength="19" ng-model="event.card.number" class="form-control" name="cardNumber" placeholder="0000000000000000" autocomplete="cc-number" required autofocus />
+                                                <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                            </div>
+                                            <p class="help-block alert alert-danger" ng-show="paymentForm.cardNumber.$error.required && !paymentForm.cardNumber.$pristine">Credit card required</p>
+                                            <p class="help-block alert alert-danger" ng-show="paymentForm.cardNumber.$error.pattern">Credit card must consist of only numbers</p>
+                                            <p class="help-block alert alert-danger" ng-show="paymentForm.cardNumber.$error.invalid && paymentForm.cardNumber.$dirty">Credit card must be a valid Amex, Visa, Discover, or Master Card</p>
+                                            <p class="help-block alert alert-danger" ng-show="paymentForm.cardNumber.$error.minlength && !paymentForm.cardNumber.$pristine">Credit card must be 15-19 digits</p>
+                                        </div>                            
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6 col-md-8">
+                                        <div class="form-group">
+                                            <label for="cardExpiry">Expiration Date</label>
+                                            <div class="row">
+                                                <div class="col-xs-5 col-md-5" ng-class="{ 'has-error': (!paymentForm.exp_month.$pristine && paymentForm.expMonth.exp_month.$error.required), 'has-success': paymentForm.exp_month.$valid}" cc-exp>
+                                                    <input type="text" numbers-only max="2" ng-model="event.card.exp_month" class="form-control" name="exp_month" placeholder="MM" required/>
+                                                    <p class="help-block alert alert-danger" ng-show="paymentForm.exp_month.$error.required && !paymentForm.exp_month.$pristine">Required</p>
+                                                </div>
+                                                <div class="col-xs-7 col-md-7" ng-class="{ 'has-error': (!paymentForm.exp_year.$pristine && paymentForm.expMonth.exp_year.$error.required), 'has-success': paymentForm.exp_year.$valid}" cc-exp>
+                                                    <input type="text" numbers-only max="4" ng-model="event.card.exp_year" class="form-control" name="exp_year" placeholder="YY" required/>
+                                                    <p class="help-block alert alert-danger" ng-show="paymentForm.exp_year.$error.required && !paymentForm.exp_year.$pristine">Required</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 col-md-4" ng-class="{ 'has-error': (!paymentForm.cvc.$pristine && paymentForm.cvc.$error.required), 'has-success': paymentForm.cvc.$valid}">
+                                        <div class="form-group">
+                                            <label for="cvc">CVC Code</label>
+                                            <input type="password" numbers-only max="4" ng-model="event.card.cvc" class="form-control" name="cvc" placeholder="CVC" autocomplete="cc-csc" required/>
+                                            <p class="help-block alert alert-danger" ng-show="paymentForm.cvc.$error.required && !paymentForm.cvc.$pristine">Required</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <p style="padding: 0 0 10px;"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Credit card payments are processed securely through <b>Stripe</b></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-4 col-md-offset-4 text-center">
+                                        <button type="submit" class="btn large btn_dash bokbtn" ng-disabled="!paymentForm.$valid">
+                                            <span class="book-it">REQUEST A BOOKING</span>
+                                        </button>
+                                        <p class="back">
+                                            <a href="#" ng-click="event.displaySummary()" id="ember1060" class="ember-view">Back to summary</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row" style="display:none;">
+                                    <div class="col-xs-12">
+                                        <p class="payment-errors"></p>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div> 
+                    <div class="panel panel-default" ng-if="event.details.free"> 
+                        <div class="panel-heading display-table" > 
+                            <div class="row display-tr" > 
+                                <h3 class="panel-title display-td pull-left" >Payment Details</h3> 
+                            </div>                     
+                        </div> 
+                        <div class="panel-body"> 
+                            <form role="form" name="paymentForm" id="paymentForm" ng-submit="event.applyFreeReservation()"> 
+                                <div class="form-group"> 
+                                    <h1>Request your reservation for free.</h1> 
+                                </div> 
+                                <div class="row"> 
+                                    <div class="col-xs-12 col-md-4 col-md-offset-4 text-center"> 
+                                        <button type="submit" class="btn large btn_dash bokbtn" ng-disabled="!paymentForm.$valid || !personal_info_desktop.$valid"> 
+                                            <span class="book-it">Request Free Reservation</span> 
+                                        </button> 
+                                    </div> 
+                                </div> 
+                            </form> 
+                        </div> 
+                    </div> 
+                </div>
+                <div class="col-md-4 event-info">
+                    <div class="summary-card">
+                        <div class="summary-card-cover" ng-style="{'background-image': 'url(' + event.details.images[0].image_path + ')'}">
+
+                        </div>
+                        <div class="summary-card-subtotal">
+                            <div class="summary-card-subtotal-details">
+                                <p><img ng-src="{{event.details.images_user[0].image_path}}" width="30px" class="img-rounded"> Hosted by {{ event.details.first_name}}</p>
+                                <h3>{{ event.details.title}}</h3>
+                                <p>{{ event.selectedDateFormated}} - {{event.details.open_hour}}</p>
+                            </div>
+                            <div class="summary-card-subtotal-row">
+                                <div class="col-md-8">
+                                    SUBTOTAL: {{event.guests}}X{{ event.currency | currency_translate }} {{ event.details.free ? 0 : event.getSubtotal(event.details.initial_price, event.guests)}}
+                                </div>
+                                <div class="col-md-4 text-right">
+                                    <b>{{ event.currency | currency_translate }} {{ event.details.free ? 0 : event.getSubtotal()}}</b>
+                                </div>
+                            </div>
+                            <div class="summary-card-subtotal-row">
+                                <div class="col-md-8">
+                                    FOODIIZ FEES
+                                </div>
+                                <div class="col-md-4 text-right">
+                                    <b>{{ event.currency | currency_translate }} {{ event.details.free ? 0 : event.getFeed()}}</b>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="summary-card-total">
+                            <div class="summary-card-subtotal-row">
+                                <div class="col-md-6 detail">
+                                    TOTAL
+                                </div>
+                                <div class="col-md-6 value text-right">
+                                    <b ng-if="!event.details.free">{{ event.currency | currency_translate }} {{ event.finalPrice}}</b>
+                                    <b ng-if="event.details.free">{{ event.currency | currency_translate }} 0</b>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>   
+</div>
+<script type="text/javascript" src="https://js.stripe.com/v3/"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#show-map, #show-map-mobile').on('click', function () {
+            $('html, body').animate({
+                scrollTop: $("#map").offset().top - 10
+            }, 600);
+        });
+
+        //Enable swiping...
+        $("#carousel-container").swipe( {
+          //Generic swipe handler for all directions
+          swipeLeft:function(event, direction, distance, duration, fingerCount) {
+            
+            $(this).carousel('prev'); 
+           
+          },
+          swipeRight: function(event, direction, distance, duration, fingerCount) {
+
+            $(this).find('a.right').click(); 
+            
+          },
+          //Default is 75px, set to 0 for demo so any distance triggers swipe
+          threshold:0
+        });
+      
+    });
+
+</script>

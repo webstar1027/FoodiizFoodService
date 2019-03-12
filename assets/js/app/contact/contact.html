@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <form class="form-horizontal" name="contactForm" id="contactForm" ng-submit="contact.send();">
+                    <fieldset>
+                        <legend class="text-center">Contact us</legend>
+
+                        <div class="form-group">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <label class="control-label">Name<b>*</b></label>
+                                <input type="text" value="" name="name" id="name" ng-model="contact.formData.name" class="form-control" ng-model-options='{debounce: 300}' autocomplete="off" placeholder="Your name" required>
+                                <p class="help-block alert alert-danger" ng-show="contactForm.name.$error.required && !contactForm.name.$pristine">Your name is required.</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <label class="control-label">Your e-mail<b>*</b></label>
+                                <input type="email" value="" name="email" id="email" ng-model="contact.formData.email" class="form-control" ng-model-options='{debounce: 300}' autocomplete="off" placeholder="Your e-mail" required>
+                                <p class="help-block alert alert-danger" ng-show="contactForm.email.$error.required && !contactForm.email.$pristine">Your e-mail is required.</p>
+                                <p class="help-block alert alert-danger" ng-show="contactForm.email.$invalid && !contactForm.email.$pristine">Please provide a valid e-mail.</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <label class="control-label">Your message<b>*</b></label>
+                                <textarea class="form-control" id="message" name="message" ng-model="contact.formData.message" ng-model-options='{debounce: 300}' placeholder="Please enter your message here..." rows="5" required></textarea>
+                                <p class="help-block alert alert-danger" ng-show="contactForm.message.$error.required && !contactForm.message.$pristine">Your message is required.</p>
+                            </div>
+                        </div>
+
+                        <!-- Form actions -->
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <button type="submit" class="sign_gotomsg blue_home sign_in_btn col-md-12 col-sm-12 col-xs-12" ng-disabled="contactForm.$invalid || contact.sending">Send</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

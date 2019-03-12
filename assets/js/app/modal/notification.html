@@ -1,0 +1,42 @@
+<div id="message-modal" class="signup_head messages-list-modal">
+    <div id="section_signin" style="" class="signup_h1">
+        <div class="">
+            <button type="button" class="close" data-dismiss="modal" ng-click="cancel();">
+                <span aria-hidden="true">×</span>
+                <span class="sr-only">Close</span>
+            </button>
+            <div class="clsSign_Email">
+                <form accept-charset="utf-8" name="message" id="message" novalidate ng-submit="ok();">
+                    <h4 class="message-host-name">Messages in this conversation:</h4>
+                    <ul class="comments-list">
+                        <li ng-repeat="comment in comments">
+                            <div class="macro" ng-class="{'msj': comment.id_user == user.id, 'msj-rta': comment.id_user != user.id}">
+                                <div ng-if="comment.id_user == user.id" class="avatar">
+                                    <img class="img-circle mg-responsive" style="width: 100%;" ng-src="{{comment.image_path}}" />
+                                </div>
+                                <div class="text" ng-class="{'text-l': comment.id_user == user.id, 'text-r': comment.id_user != user.id}">
+                                    <p>{{comment.comment}}</p>
+                                    <p>
+                                        <small>{{comment.date}}</small>
+                                    </p>
+                                </div>
+                                <div ng-if="comment.id_user != user.id" class="avatar">
+                                    <img class="img-circle mg-responsive" style="width:100%;" ng-src="{{comment.image_path}}" />
+                                </div>
+                            </div>
+
+                        </li>
+                    </ul>
+                    <div class="form-group">
+                        <textarea class="form-control col-md-12 col-sm-12 col-xs-12" rows="3" ng-model="formData.message" placeholder="Type your message here..." required></textarea>
+                    </div>
+                    <div class="form-group send-btn-container">
+                        <button type="submit" class="btn btn-default send-message-btn" ng-disabled="message.$invalid || loading">
+                            Send
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

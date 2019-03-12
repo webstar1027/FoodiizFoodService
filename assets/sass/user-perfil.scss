@@ -1,0 +1,124 @@
+#main_content {
+    .container_bg {
+        margin-top: 15px;
+        border-radius: 0px !important;
+        background-color: #fff !important;
+        background: none repeat scroll 0 0 #f0f0f0;
+        border-radius: 10px;
+        margin: 0 auto;
+        padding: 10px 10px 10px;
+        text-align: left;
+    }
+    #left {
+        float: left;
+
+        #user_pic {
+            margin-bottom: 10px;
+        }
+        .Box {
+            border: 1px solid #dce0e0;
+            margin: 0 0 10px;
+            background: #fff;
+            .msgbg {
+                background: none repeat scroll 0 0 #edefed;
+                border-bottom: 1px solid #dce0e0;
+                overflow: hidden;
+                padding: 15px;
+            }
+            .Box_Content {
+                overflow: hidden;
+                > ul {
+                    font-size: 14px;
+                }
+                .verification_list {
+                    > li {
+                        word-wrap: break-word;
+                        padding-bottom: 10px;
+                        height: auto;
+                    }
+                }
+            }
+        }
+    }
+    #main {
+        float: right;
+        .box_1 {
+            border: 0px solid !important;
+            background-color: #fff !important;
+        }
+        p {
+            padding: 10px 0;
+        }
+
+        .list-event-item {
+            margin-bottom: 15px;
+            cursor: pointer;
+            box-shadow: 0 1px 8px 0 rgba(0,0,0,0.1);
+            border-radius: 2px;
+            transition: box-shadow ease-in-out 200ms;
+            &:hover {
+                box-shadow: 0 5px 15px 0 rgba(0,0,0,0.05);
+            }
+        }
+
+        .reviews-number {
+            padding: 5px 10px;
+            border: 1px solid #FBAE20;
+            background-color: #FBAE20;
+            box-shadow: 0 0 0 transparent;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+        }
+        
+        .verified {
+            border: 1px solid #3eaa4e;
+            background-color: #3eaa4e;
+            box-shadow: 0 0 0 transparent;
+            color: #fff !important;
+            font-weight: bold;
+            padding: 5px 7px;
+            border-radius: 5px;
+        }
+
+        .Box {
+            border: 1px solid #dce0e0;
+            margin: 0 0 10px;
+            background: #fff;
+            .msgbg {
+                background: none repeat scroll 0 0 #edefed;
+                border-bottom: 1px solid #dce0e0;
+                overflow: hidden;
+                padding: 15px;
+            }
+            .Box_Content {
+                padding: 10px;
+                overflow: hidden;
+            }
+
+        }
+
+
+    }
+    #View_Vouch {
+        #user_result_list {
+            ul {
+                border-bottom: thin dashed #bcb8b8;
+                li{
+                    &.place_image {
+                        padding: 10px 0;
+                    }
+                }
+
+            }
+        }
+    }
+    .thumbnail {
+        border: 0px solid #ddd !important;
+    }
+    .box_1 {
+        border: 0px solid !important;
+        background-color: #F5F5F5;
+    }
+
+}

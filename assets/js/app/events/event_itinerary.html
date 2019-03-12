@@ -1,0 +1,123 @@
+<div id="itinerary" class="container">
+    <div ng-if="event.event.reservation_status == 'finished'" class="alert alert-success" role="alert"> 
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <p><strong>{{event.event.host_name}}</strong>  has marked the food experience as finished. We need you to confirm that you have attended this event: <button type="button" class="btn btn-success" ng-click="event.showConfirm()">Confirm</button></p>
+    </div>
+    <div ng-if="event.event.reservation_status == 'confirmed'" class="alert alert-info" role="alert"> 
+        <p>You already left a review for this event.</p>
+    </div>
+    <div ng-if="event.event.reservation_status == 'canceled'" class="alert alert-danger" role="alert"> 
+        <p>This reservation has been canceled.</p>
+    </div>
+    <div ng-if="event.event.reservation_status == 'approved' && event.hours_before <= 0" class="alert alert-success" role="alert"> 
+        <p><strong>{{event.event.title}}</strong>  is happening right now. Please wait until the host mark this event as finished so you can add your rate.</p>
+    </div>
+    <div class="row flex-column-reverse">
+        <h2>{{event.event.title}} itinerary <span class="label label-success" ng-if="event.event.free">FREE EVENT</span></h2>
+        <div class="col-xs-12 col-md-12">
+            <div class="col-xs-6 col-md-5">
+                <p><b>Reservation code</b>: {{event.event.reservation_token}}</p>
+            </div>
+            <div class="col-xs-6 col-md-7">
+                <button ng-if="event.event.reservation_status == 'approved' && event.hours_before > 0" type="button" class="btn btn-danger float-right" ng-click="event.showCancel()">Cancel Reservation</button>
+            </div>
+        </div>
+        <div class="col-xs-12 visible-xs">
+            <div class="row itinerary-container">
+                <p class="text-center">
+                    <img ng-src="{{event.event.host_image}}" class="host-image img-circle" />
+                </p>
+                <p class="text-center">
+                    <a href="#" ng-click="event.goToUser(event.event.id_user)"><b>Your host, {{event.event.host_name}}</b></a>
+                </p>
+                <h2 class="text-center">Share event:</h2>
+                <div ng-init="event.initShare()" class="sharethis-inline-share-buttons" data-url="https://www.foodiiz.com/event/{{event.event.event_id}}/{{event.shareDate}}" data-title="I want to share this event with you {{event.event.title}}"></div>
+            </div>
+            <div class="row itinerary-container">
+                <img ng-src="{{event.event.images[0].image_path}}" class="col-md-12 img-responsive" />
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-md-7">
+            <div class="row itinerary-container">
+                <div class="col-md-3">
+                    <p><b>Guest(s)</b>:</p>
+                </div>
+                <div class="col-md-9">
+                    <p>{{event.event.guest_name}}<span ng-if="event.event.guest_amonth > 1"> and {{event.event.guest_amonth - 1}} guest(s) more</span></p>
+                </div>
+            </div>
+            <div class="row itinerary-container">
+                <div class="col-md-3">
+                    <p><b>Time</b>:</p>
+                </div>
+                <div class="col-md-9">
+                    <p>{{event.event.formated_date}} <br>From {{event.event.start_time}} to {{event.event.finish_time}}</p>
+                </div>
+            </div>
+            <div class="row itinerary-container">
+                <div class="col-md-3">
+                    <p><b>Address</b>:</p>
+                </div>
+                <div class="col-md-9">
+                    <p>{{event.event.current_city}}</p>
+                    <p><a ng-href="https://www.google.com/maps/place/{{event.event.current_city}}/@{{event.event.lat}},{{event.event.lng}},15z" class="btn directions-btn" target="_blank">Get Directions</a></p>
+                </div>
+            </div>
+            <div class="row itinerary-container">
+                <div class="col-md-3">
+                    <p><b>Additional information</b>:</p>
+                </div>
+                <div class="col-md-9">
+                    <p>{{event.event.address}}</p>                  
+                </div>
+            </div>
+            <div class="row itinerary-container">
+                <div class="col-md-3">
+                    <p><b>Notes</b>:</p>
+                </div>
+                <div class="col-md-9">
+                    <p> {{!!event.event.notes ? event.event.notes : 'No notes for this event'}}</p>
+                </div>
+
+            </div>
+            <div class="row itinerary-container">
+                <div class="col-md-3">
+                    <p><b>Phone number</b>:</p>
+                </div>
+                <div class="col-md-9">
+                    <p> {{event.event.phone}}</p>
+                </div>
+
+            </div>
+            <div class="row itinerary-container last">
+                <div class="col-md-3">
+                    <p><b>Invoice:</b></p>
+                </div>
+                <div class="col-md-9">
+                    <p>Total: {{ event.event.currency | currency_translate }} {{ event.event.free ? 0 : event.event.total }}</p>
+                    <p>Per person: {{ event.event.currency | currency_translate }} {{ event.event.free ? 0 : event.event.per_person }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="hidden-xs col-md-5">
+            <div class="row itinerary-container">
+                <p class="text-center">
+                    <img ng-src="{{event.event.host_image}}" class="host-image img-circle" />
+                </p>
+                <p class="text-center">
+                    <b>Your host, {{event.event.host_name}}</b>
+                </p>
+                <h2 class="text-center">Share event:</h2>
+                <div ng-init="event.initShare()" class="sharethis-inline-share-buttons" data-url="https://www.foodiiz.com/event/{{event.event.event_id}}/{{event.shareDate}}" data-title="I want to share this event with you {{event.event.title}}"></div>
+            </div>
+            <div class="row itinerary-container">
+                <img ng-src="{{event.event.images[0].image_path}}" class="col-md-12" />
+                <br />
+                <img ng-src="{{event.event.images[1].image_path}}" class="col-md-6" />
+                <img ng-src="{{event.event.images[2].image_path}}" class="col-md-6" />
+            </div>
+        </div>
+    </div>
+</div>
+

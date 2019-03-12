@@ -1,0 +1,258 @@
+<div id="giftcard-page">
+    <div id="card-selection" ng-show="!giftcard.cardselection">
+        <div class="container">
+            <div class="col-md-12">
+                <div class="row" style="margin-top:50px; margin-bottom: 30px;">
+                    <div class="col-xs-12 text-center">
+                        <h2> FOODIIZ GIFT CARDS </h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <p>The gift that will leave the sign forever!</p>
+                        <p class="second-title">#ExtraordinaryExperience</p>
+                    </div>
+                </div>
+                <br/>
+              
+                <div class="row" style="margin-bottom: 45px;">
+                    <div class="col-xs-12">
+                        <p>Choose your gift card </p>
+                        <p class="second-title">€ Euros &nbsp; - &nbsp; $ Dollars</p>
+                        <p class="second-title">25&nbsp; - 50&nbsp; - 100&nbsp; - &nbsp;Other Amounts</p>          
+                    </div>  
+                </div>
+                <div class="row" >
+                    <div class="row" style="margin-bottom: 20px;">
+                        <div class="text-center">
+                            <ul class="curreny-unit">
+                                <li> $ DOLLARS </li>
+                                <li> € EUROS</li>
+                                <li> ₪ NIS</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row" style="height: 165px;">
+                        <div class="col-xs-12 col-md-12">
+                            <ul class="giftcard-image" style="text-align: center; color: #eb3c44; font-size: 29px;">
+                                <li class="col-xs-12 col-md-3 col-sm-3 col-lg-3 gift-image">
+                                    <div class="nwblock">
+                                        <p> € 20 </p>
+                                        <img style="width: 100%;" class="gift_img1" src="assets/images/giftcard/1.jpg">
+                                    </div>
+                                </li>
+                                 <li class="col-xs-12 col-md-3 col-sm-3 col-lg-3 gift-image">
+                                    <div class="nwblock">
+                                        <p> € 30 </p>
+                                        <img style="width: 100%;" class="gift_img1" src="assets/images/giftcard/2.jpg">
+                                    </div>
+                                </li>
+                                 <li class="col-xs-12 col-md-3 col-sm-3 col-lg-3 gift-image">
+                                    <div class="nwblock">
+                                        <p> € 50 </p>
+                                        <img style="width: 100%;" class="gift_img1" src="assets/images/giftcard/3.jpg">
+                                    </div>
+                                </li>
+                                 <li class="col-xs-12 col-md-3 col-sm-3 col-lg-3 gift-image">
+                                    <div class="nwblock">
+                                        <p id="last_font"> OTHER </p>
+                                        <img style="width: 100%;" class="gift_img1" src="assets/images/giftcard/4.jpg">
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <br/>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <p> Gift card details</p>
+                        <p class="second-title"> Please insert your contact info and your personal message to the receiver.</p>
+                        <p class="second-title"> We will send you the gift card by email</p>
+                        <p class="second-title"> To (email) </p>
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top: 30px; margin-bottom: 30px;">
+                    <div class="col-xs-12 text-center">
+                        <h2 style="margin-bottom: 30px;"> Gift card details </h2>
+                        <p> Please insert your contact information and personal message. </p>
+                        <p class="second-title"> The gift card will be sent by your email. </p>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:30px;">
+                    <form class="form-horizontal" ng-submit="giftcard.goToPayment()" novalidate>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6 col-md-offset-3" id="gift_form">
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">FROM</label>
+                                            <input class="form-control" name="from">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">To</label>
+                                            <input class="form-control" name="to">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="form-group">
+                                            <label class="control-label">YOUR EMAIL ADDRESS</label>
+                                            <input class="form-control" name="from">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="form-group">
+                                            <label class="control-label">ADD A PERSONAL MESSAGE</label>
+                                            <textarea class="form-control" name="message"></textarea> 
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <p style="font-size: 14px;"> * This message can not be edited once submitted. </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 20px;">
+                            <div class="wrapper">
+                                <div class="form-group">                        
+                                    <button type="submit" class="col-md-4 col-xs-6" id="continue">CONTINUE</button>                        
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div id="payment-section" ng-show="giftcard.cardselection">
+       <div class="container">
+            <div class="row" style="margin-top: 30px;">
+                <div class="col-xs-12">
+                    <a href="#" ng-click="$event.preventDefault();giftcard.backCard()" style="color: #2491d0;"> <i class="fa fa-angle-left" style="color: #2491d0;"></i> Back to Gift card details </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <h2> Payment Information </h2>
+                </div>
+            </div>
+
+            <div class="row" id="payment-selection">                   
+                <label class="col-xs-12 col-sm-6 radio-container"><span>Credit Card</span>
+                    <input type="radio" checked="checked" name="radio">
+                    <span class="checkmark"></span> 
+                    <div class="paymentCont" style="display: inline-block;">                        
+                        <div class="paymentWrap">
+                            <div class="btn-group paymentBtnGroup btn-group-justified" data-toggle="buttons">
+                                <label class="btn paymentMethod">
+                                    <div class="method visa"></div>
+                                    <input type="radio" name="options"> 
+                                </label>
+                                <label class="btn paymentMethod">
+                                    <div class="method master-card"></div>
+                                    <input type="radio" name="options"> 
+                                </label>                              
+                             
+                            </div>        
+                        </div>                  
+                    </div>
+                </label>
+                <label class="col-xs-12 col-sm-6 radio-container">
+                    <span>Checkout with</span>
+                    <input type="radio" checked="checked" name="radio">
+                    <span class="checkmark"></span>   
+                    <img id="paypal_img" src="assets/images/paypal.png">
+                </label>           
+            </div>
+
+            <div class="row payment_info" style="margin-top: 40px;">
+                <div class="col-xs-12 col-sm-8">
+                    <div class="form-group">
+                        <label class="control-label" for="card_number">CARD NUMBER </label>
+                        <input name="card_number" id="card_number" class="form-control" value="">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <label class="control-label" for="expire_year">EXPIRATION </label>
+                                <select name="expire_year" id="expire_year" class="form-control" value="">
+                                    <option value="2018">2018</option>
+                                    <option value="2019">2019</option>
+                                    <option value="2020">2020</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2024">2024</option>
+                                    <option value="2025">2025</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <label class="control-label" for="expire_month"></label>
+                                <select name="expire_month" id="expire_year" class="form-control" value="" style="margin-top:5px;">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+            </div>
+
+            <div class="row payment_info" style="margin-top: 30px;">
+                 <div class="col-xs-12 col-sm-8">
+                    <div class="form-group">
+                        <label class="control-label" for="card_name">NAME ON CARD </label>
+                        <input name="card_number" id="card_name" class="form-control" value="">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                    <div class="form-group">
+                        <label class="control-label" for="cvv">CVV</label>
+                        <input name="cvv" id="cvv" class="form-control" value="">
+                    </div>
+                </div>                
+            </div>
+
+            <div class="row">
+                <div class="wrapper" style="padding:15px;">
+                    <i class="fa fa-lock"> <span style="color: #2f2f2f;padding-left: 15px;"> BrainTree </span> </i> <span style="color: #828282;
+    text-align: justify;  padding-left: 15px;"> Credit card paymentsare processed securely and responsibly through Braintree Secure Payments </span>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 30px; margin-bottom: 30px;">
+                <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+                    <legend>Payment Summary</legend>
+                    <span> TOTAL </span>
+                    <span style="float: right;"> $20</span>
+                </div>
+            </div>
+
+            <div class="row text-center" style="margin-bottom:50px;">
+                <button type="submit" class="btn payment-submit">CONTINUE</button>
+            </div>
+       </div>
+    </div>
+</div>

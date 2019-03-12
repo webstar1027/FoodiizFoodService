@@ -1,0 +1,78 @@
+<div id="confirm-modal" class="signup_head">
+    <div class="modal-content">
+        <div class="modal-body">
+            <div class="panel panel-default credit-card-box">
+                <div class="panel-heading display-table" >
+                    <div class="row display-tr" >
+                        <h3 class="panel-title display-td" >Payment Details</h3>
+                        <div class="display-td" >                            
+                            <img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png">
+                        </div>
+                    </div>                    
+                </div>
+                <div class="panel-body">
+                    <h4 class="message-host-name">{{title}}</h4>
+                    <br>
+                    <form role="form" name="paymentForm" id="paymentForm">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group" ng-class="{ 'has-error': (!paymentForm.card_name.$pristine && paymentForm.card_name.$invalid), 'has-success': paymentForm.card_name.$valid}">
+                                    <label for="cardNumber">Card Name</label>
+                                    <div class="input-group">
+                                        <input type="tel" ng-model="event.card_name" class="form-control" name="card_name" placeholder="John Smith" autocomplete="off" required autofocus />
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                    </div>
+                                    <p class="help-block alert alert-danger" ng-show="paymentForm.card_name.$error.required && !paymentForm.card_name.$pristine">Credit card name required</p>
+                                </div>                            
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group" ng-class="{ 'has-error': (!paymentForm.cardNumber.$pristine && paymentForm.cardNumber.$invalid), 'has-success': paymentForm.cardNumber.$valid}">
+                                    <label for="cardNumber">Card Number</label>
+                                    <div class="input-group">
+                                        <input type="number" ng-pattern="/^\d{1,16}$/" ng-minlength="15" maxlength="19" ng-model="formData.number" class="form-control" name="cardNumber" placeholder="0000000000000000" autocomplete="cc-number" required autofocus />
+                                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                    </div>
+                                    <p class="help-block alert alert-danger" ng-show="paymentForm.cardNumber.$error.required && !paymentForm.cardNumber.$pristine">Credit card required</p>
+                                    <p class="help-block alert alert-danger" ng-show="paymentForm.cardNumber.$error.pattern">Credit card must consist of only numbers</p>
+                                    <p class="help-block alert alert-danger" ng-show="paymentForm.cardNumber.$error.invalid && paymentForm.cardNumber.$dirty">Credit card must be a valid Amex, Visa, Discover, or Master Card</p>
+                                    <p class="help-block alert alert-danger" ng-show="paymentForm.cardNumber.$error.minlength && !paymentForm.cardNumber.$pristine">Credit card must be 15-19 digits</p>
+                                </div>                            
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-8 col-md-8">
+                                <div class="form-group">
+                                    <label for="cardExpiry">Expiration Date</label>
+                                    <div class="row">
+                                        <div class="col-xs-6 col-md-6" ng-class="{ 'has-error': (!paymentForm.exp_month.$pristine && paymentForm.expMonth.exp_month.$invalid), 'has-success': paymentForm.exp_month.$valid}" cc-exp>
+                                            <input type="number" ng-pattern="/[1-9]|1[012]/" ng-model="formData.exp_month" class="form-control" name="exp_month" maxlength="2" placeholder="MM" required/>
+                                            <p class="help-block alert alert-danger" ng-show="paymentForm.exp_month.$error.required && !paymentForm.exp_month.$pristine">Expiration month is required</p>
+                                            <p class="help-block alert alert-danger" ng-show="paymentForm.exp_month.$error.pattern">Please provide a valid month</p>
+                                        </div>
+                                        <div class="col-xs-6 col-md-6" ng-class="{ 'has-error': (!paymentForm.exp_year.$pristine && paymentForm.expMonth.exp_year.$invalid), 'has-success': paymentForm.exp_year.$valid}" cc-exp>
+                                            <input type="number" ng-model="formData.exp_year" ng-min="2017" ng-max="2025" class="form-control" name="exp_year" maxlength="4" placeholder="YYYY" required/>
+                                            <p class="help-block alert alert-danger" ng-show="paymentForm.exp_year.$error.required && !paymentForm.exp_year.$pristine">Expiration year is required</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-md-4" ng-class="{ 'has-error': (!paymentForm.cvc.$pristine && paymentForm.cvc.$invalid), 'has-success': paymentForm.cvc.$valid}">
+                                <div class="form-group">
+                                    <label for="cvc">CVC Code</label>
+                                    <input maxlength="4" type="number" ng-model="formData.cvc" class="form-control" name="cvc" placeholder="CVC" autocomplete="cc-csc" required/>
+                                    <p class="help-block alert alert-danger" ng-show="paymentForm.cvc.$error.required && !paymentForm.cvc.$pristine">CVC card required</p>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-default" ng-disabled="!paymentForm.$valid || loading" data-ng-click="ok()">Confirm</button>
+            <button class="btn btn-info" data-ng-click="cancel()">Cancel</button>
+        </div>
+    </div>
+</div>

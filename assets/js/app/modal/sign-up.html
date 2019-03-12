@@ -1,0 +1,77 @@
+<div class="signup_head">
+    <div id="section_signup" class="signup_h1">
+        <!-- Facebook Login is under here -->
+        <div class="clsSign_Top  col-xs-12">
+            <button type="button" class="close" data-dismiss="modal" ng-click="cancel();">
+                <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+            </button>
+            <div class="" style="">
+                <div class="signin-heading">
+                    <p class="signform_head text-center">Sign Up</p>
+                </div>
+            </div>
+            <div class="sign_up_pop clearfix">
+                <div class="sign-fb-my-account col-xs-12" style="padding:0 15px !important">
+                    <a href="javascript:void(0)" ng-click="login()" class="google_login_1 log_fb login_fb Sign_Fb_Bg_1 col-md-12 col-sm-12 col-xs-12">
+                        <i class="fa fa-facebook signin" aria-hidden="true"></i>
+                        <p class="fb_login">Sign up With Facebook</p>
+                    </a>
+                </div>
+                <p class="Sign_Or_Row signup_frm col-xs-12 col-sm-12 col-md-12"><span>Or</span>
+                </p>
+                <div class="clsSign_Email">
+                    <form accept-charset="utf-8" name="signUp" id="signUp" class="popupsignin" novalidate ng-submit="ok();">
+                        <div id="Input_First" class="Txt_input signup_frm col-sm-12" ng-class="{ 'has-error': (!signUp.first_name.$pristine && signUp.first_name.$invalid)}">
+                            <input type="text" name="first_name" id="first_name" placeholder="First Name*" class="inputname" value="" ng-model="formData.first_name" required autocomplete="off">
+                            <p class="help-block alert alert-danger" ng-show="signUp.first_name.$error.required && !signUp.first_name.$pristine">First name is required.</p>
+                        </div>
+                        <div id="Input_Last" class="Txt_input signup_frm col-sm-12" ng-class="{ 'has-error': (!signUp.last_name.$pristine && signUp.last_name.$invalid)}">
+                            <input type="text" name="last_name" id="last_name" class="inputname" placeholder="Last Name*" value="" ng-model="formData.last_name" required autocomplete="off">
+                            <p class="help-block alert alert-danger" ng-show="signUp.last_name.$error.required && !signUp.last_name.$pristine">Last name is required.</p>
+                        </div>
+                        <div id="Input_Mail" class="Txt_input signup_frm col-sm-12" ng-class="{ 'has-error': (!signUp.email.$pristine && signUp.email.$invalid)}">
+                            <input type="email" name="email" id="email" placeholder="Email Address*" class="inputname" value="" ng-model="formData.email" email-exists exists="mailExists" required autocomplete="off">
+                            <p class="help-block alert alert-danger" ng-show="signUp.email.$error.required && !signUp.email.$pristine">Email is required.</p>
+                            <p class="help-block alert alert-danger" ng-show="signUp.email.$error.email && signUp.email.$dirty">Please provide a valid email.</p>
+                            <p class="help-block alert alert-danger" ng-show="signUp.email.$dirty && mailExists && signUp.email.$valid">This email is already registered.</p>
+                        </div>
+                        <div id="Input_Password" class="Txt_input signup_frm col-sm-12" ng-class="{ 'has-error': (!signUp.password.$pristine && signUp.password.$invalid)}" required>
+                            <input id="password" name="password" size="30" styles="background: none;" placeholder="Password*" class="inputpass" type="password" value="" ng-model="formData.password" check-strength required>
+                            <p class="help-block alert alert-danger" ng-show="signUp.password.$error.required && !signUp.password.$pristine">Password is required.</p>
+                            <div class="password-background"></div>
+                            <a class="show-password" href="">Show password</a>
+                            <span id="strength" class="strength"></span>
+                        </div>
+                        <div id="Input_Password_Confirm" class="Txt_input signup_frm col-sm-12" ng-class="{ 'has-error': (!signUp.confirmpassword.$pristine && signUp.confirmpassword.$invalid)}">
+                            <input id="confirmpassword" name="confirmpassword" size="30" placeholder="Confirm Password*" class="inputpass" type="password" value="" ng-model="formData.confirmpassword" required>
+                            <p class="help-block alert alert-danger" ng-show="signUp.confirmpassword.$error.required && !signUp.confirmpassword.$pristine">Password confirmation is required.</p>
+                            <!--<p class="help-block alert alert-danger" ng-show="signUp.confirmpassword.$error.match">Passwords don't match.</p>-->
+                        </div>
+                        <!--<p class="col-xs-12">
+                            <label class="forgot_pass">
+                                <span class="signemailcolor">*</span>Required fields </label>
+                            <span class="clearfix"></span>
+                        </p>-->
+                        <div id="Input_News" class="Txt_input signup_frm col-sm-12">
+                            <input ng-model="formData.newsLetter" type="checkbox"> I'd like to receive Foodiiz newsletter and special offers
+                        </div>
+                        <div id="Input_News" class="Txt_input signup_frm col-sm-12" style="margin-top: 5px !important; margin-bottom: 0 !important;">
+                            <p class="help-block">By signing up, I agree Foodiiz <strong>Terms &amp; Conditions, Trust</strong> and <strong>Privacy Policy</strong></p>
+                        </div>
+                        <center>
+                            <div class="col-xs-12 col-sm-12 col-md-12"  >
+                                <button name="SignUp fontopen"  class="blue_home sign_in_btn_1 col-md-12 col-sm-12 col-xs-12" ng-disabled="signUp.$invalid || loading" type="submit"><span><span>Sign up</span></span>
+                                </button>
+                            </div>
+                        </center>
+                    </form>                    
+                    <div ng-click="cancel(); linkLogin()">                    
+                        <a href="javascript:;" style="font-size: 13px;">I ALREADY HAVE AN ACCOUNT</a>
+                    </div>
+                  
+                    <!--  End of form for sign up -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,589 @@
+<div id="dashboard_page" class="">
+    <div class="main_dash_hdr clearfix">
+        <div class="container">
+            <div class="dropdown_whole visible-xs">
+                <div class="dropdown_div">
+                    <div class="navdash-wrapper">
+                        <div class="navbar-header">
+                            <h5 id="click_msg" class="drpdwnlist">
+                                <button class="navbar-toggle collapsed" type="button" data-toggle="collapse"
+                                        data-target=".bt-navbar-collapse"
+                                        ng-click="users.isCollapsed = !users.isCollapsed">
+                                    <span class="st-only"></span>
+                                    <div style="display:inline-block;">
+                                        Profile
+                                    </div>
+                                    <div style="display:inline-block;text-align:right;padding: 0 0 0 5px;">
+                                        <span><i class="fa fa-sort-desc" aria-hidden="true"></i></span></div>
+                                </button>
+                            </h5>
+                        </div>
+                        <ng-include src="'assets/js/templates/mobile-user-top-menu.html'"></ng-include>
+                    </div>
+                </div>
+            </div>
+            <ng-include src="'assets/js/templates/desktop-user-top-menu.html'"></ng-include>
+        </div>
+    </div>
+    <div class="container">
+        <ul class="subnav edit-profile-nav col-sm-3 col-md-3 col-xs-12">
+            <li ng-class="{'active': (users.activeNav === 'tab-1')}">
+                <a href="#" ng-click="users.setView('tab-1')">Edit Profile</a>
+            </li>
+            <li ng-class="{'active': (users.activeNav === 'tab-2')}">
+                <a href="#" ng-click="users.setView('tab-2')">Reviews</a>
+            </li>
+            <!--<li ng-class="{'active': (users.activeNav === 'trust-verification')}">
+                <a href="#" ng-click="users.setView('trust-verification')">Trust and Verification</a>
+            </li>--> 
+        </ul>
+        <div id="dashboard_container" class="col-md-9 col-sm-9 col-xs-12">
+            <div ng-show="users.activeNav === 'tab-1'" id="View_Edit_Profile" class="Box">
+                <div class="Box_Head msgbg">
+                    <h2 class="prfl_head">About You</h2>
+                </div>
+                <div class="Box_Content clearfix" style="padding: 0;">
+                    <div id="Edit_Pro_Left" class="clsFloatLeft col-md-3 col-sm-3 col-xs-12 ">
+                        <h2 class="profile_head">Profile picture</h2>
+                        <div id="user_pic">
+                            <img id="edit_profile_img" class="admin-img"
+                                 ng-src="{{ users.user.image_path}}">
+                            <form name="user_photo" id="user_photo">
+                                <p>
+                                    <input type="file" nv-file-select="" id="file" class="form-control" name="file" uploader="uploader" accept="image/x-png,image/gif,image/jpeg,image/jpg" required style="width:100%;" />
+                                </p>
+                                <p class="col-md-12 col-sm-12 col-xs-12">
+                                    <button type="submit" id="upload_image_submit_button" class="btn_dash" name="commit" ng-click="uploader.uploadAll()">
+                                        <span>
+                                            <span>Save photo</span>
+                                        </span>
+                                    </button>
+                                </p>
+                                <p>{{ file}}</p>
+                            </form>
+                        </div>
+                        <p class="col-md-12 col-sm-12 col-xs-12" style="text-align: center;">
+                            <a href="#" ng-click="users.goToUser(users.user.id)">View my profile</a>
+                        </p>
+                    </div>
+                    <div id="Edit_Pro_Right" class="col-md-9 col-sm-9 col-xs-12 padding-zero">
+                        <form name="user_edit" id="user_edit" style="overflow-y:visible;" ng-submit="users.saveUser();">
+                            <ul class="pro-list" style="overflow:-webkit-paged-x;">
+                                <li style="font-size: 14px;background:#efefef;padding-top:10px;">
+                                    <h2 style="text-align: left;">Required</h2>
+                                </li>
+                                <li class="col-md-12 col-sm-12 col-xs-12 padding-zero">
+                                    <p class=" label-edit col-md-3 col-sm-5 col-xs-12">First Name
+                                        <span class="col_span">:</span>
+                                    </p>
+                                    <span class="col-md-9 col-sm-6 col-xs-12 users_pro">
+                                        <input class="name_input" ng-model="users.user.first_name" id="first_name" name="first_name" maxlength="15" style="margin: 0 10px 0 0; background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4EaVTO26DQBD1ohQWaS2lg9JybZ+AK7hNwx2oIoVf4UPQ0Lj1FdKktevIpel8AKNUkDcWMxpgSaIEaTVv3sx7uztiTdu2s/98DywOw3Dued4Who/M2aIx5lZV1aEsy0+qiwHELyi+Ytl0PQ69SxAxkWIA4RMRTdNsKE59juMcuZd6xIAFeZ6fGCdJ8kY4y7KAuTRNGd7jyEBXsdOPE3a0QGPsniOnnYMO67LgSQN9T41F2QGrQRRFCwyzoIF2qyBuKKbcOgPXdVeY9rMWgNsjf9ccYesJhk3f5dYT1HX9gR0LLQR30TnjkUEcx2uIuS4RnI+aj6sJR0AM8AaumPaM/rRehyWhXqbFAA9kh3/8/NvHxAYGAsZ/il8IalkCLBfNVAAAAABJRU5ErkJggg==&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;" size="30" type="text"></span>                                 
+                                </li>
+                                <li class="col-md-12 col-sm-12 col-xs-12 padding-zero">
+                                    <p class=" label-edit col-md-3 col-sm-5 col-xs-12">Last Name<span class="col_span">:</span></p>
+                                    <span class="col-md-9 col-sm-6 col-xs-12 users_pro">
+                                        <input class="name_input" id="last_name" ng-model="users.user.last_name" maxlength="15" name="last_name" size="30" type="text">
+                                    </span>                                   
+                                </li>
+                                <li class="col-md-12 col-sm-12 col-xs-12 padding-zero">
+                                    <p class=" label-edit col-md-3 col-sm-5 col-xs-12">I am
+                                        <span class="col_span">:</span>
+                                    </p>
+                                    <span class="col-md-9 col-sm-6 col-xs-12 users_pro">
+                                        <select name="gender" id="gender" ng-model="users.user.genre"  class="form-control">
+                                            <option value="male" id="genderval">Male</option>
+                                            <option value="female" id="genderval">Female</option>
+                                            <option value="other" id="genderval">Other</option>
+                                        </select>                                        
+                                    </span>
+                                </li>
+                                <li class="col-md-12 col-sm-12 col-xs-12 padding-zero">
+                                    <p class=" label-edit col-md-3 col-sm-5 col-xs-12">Birth Date
+                                        <span class="col_span">:</span>
+                                    </p>
+                                    <span class="col-md-9 col-sm-6 col-xs-12 users_pro">                                     
+                                        <datepicker id="checkin" data-ng-model="users.user.birthdate" language="en" start-date="search.date" allow-block="true" date-format="DD/MM/YYYY"></datepicker>
+                                    </span>
+                                </li>
+                                <li class="col-md-12 col-sm-12 col-xs-12 padding-zero">
+                                    <p class=" label-edit col-md-3 col-sm-5 col-xs-12">
+                                        Email                                        
+                                        <span class="col_span">:</span>
+                                    </p>
+                                    <span class="col-md-9 col-sm-6 col-xs-12 users_pro">
+                                        <input class="private_lock" id="user_email" name="email" size="30" type="text" ng-model="users.user.email" oncopy="return false" ondrag="return false" ondrop="return false" onpaste="return false" autocomplete="off">
+                                    </span>
+                                </li>
+                                <li class="col-md-12 col-sm-12 col-xs-12 padding-zero">
+                                    <p class="label-edit col-md-3 col-sm-5 col-xs-12" valign="top">
+                                        Phone Number 
+                                    </p>
+
+                                    <span class="col-md-9 col-sm-6 col-xs-12 users_pro">
+                                        <div class="row">
+                                            <div class="col-xs-6">
+                                                <select class="form-control col-md-2" id="country_codes" ng-model="users.user.country_code">                                                
+                                                    <option data-countryCode="US" value="1">USA (+1)</option>
+                                                    <option data-countryCode="DZ" value="213">Algeria (+213)</option>
+                                                    <option data-countryCode="AD" value="376">Andorra (+376)</option>
+                                                    <option data-countryCode="AO" value="244">Angola (+244)</option>
+                                                    <option data-countryCode="AI" value="1264">Anguilla (+1264)</option>
+                                                    <option data-countryCode="AG" value="1268">Antigua &amp; Barbuda (+1268)</option>
+                                                    <option data-countryCode="AR" value="54">Argentina (+54)</option>
+                                                    <option data-countryCode="AM" value="374">Armenia (+374)</option>
+                                                    <option data-countryCode="AW" value="297">Aruba (+297)</option>
+                                                    <option data-countryCode="AU" value="61">Australia (+61)</option>
+                                                    <option data-countryCode="AT" value="43">Austria (+43)</option>
+                                                    <option data-countryCode="AZ" value="994">Azerbaijan (+994)</option>
+                                                    <option data-countryCode="BS" value="1242">Bahamas (+1242)</option>
+                                                    <option data-countryCode="BH" value="973">Bahrain (+973)</option>
+                                                    <option data-countryCode="BD" value="880">Bangladesh (+880)</option>
+                                                    <option data-countryCode="BB" value="1246">Barbados (+1246)</option>
+                                                    <option data-countryCode="BY" value="375">Belarus (+375)</option>
+                                                    <option data-countryCode="BE" value="32">Belgium (+32)</option>
+                                                    <option data-countryCode="BZ" value="501">Belize (+501)</option>
+                                                    <option data-countryCode="BJ" value="229">Benin (+229)</option>
+                                                    <option data-countryCode="BM" value="1441">Bermuda (+1441)</option>
+                                                    <option data-countryCode="BT" value="975">Bhutan (+975)</option>
+                                                    <option data-countryCode="BO" value="591">Bolivia (+591)</option>
+                                                    <option data-countryCode="BA" value="387">Bosnia Herzegovina (+387)</option>
+                                                    <option data-countryCode="BW" value="267">Botswana (+267)</option>
+                                                    <option data-countryCode="BR" value="55">Brazil (+55)</option>
+                                                    <option data-countryCode="BN" value="673">Brunei (+673)</option>
+                                                    <option data-countryCode="BG" value="359">Bulgaria (+359)</option>
+                                                    <option data-countryCode="BF" value="226">Burkina Faso (+226)</option>
+                                                    <option data-countryCode="BI" value="257">Burundi (+257)</option>
+                                                    <option data-countryCode="KH" value="855">Cambodia (+855)</option>
+                                                    <option data-countryCode="CM" value="237">Cameroon (+237)</option>
+                                                    <option data-countryCode="CA" value="1">Canada (+1)</option>
+                                                    <option data-countryCode="CV" value="238">Cape Verde Islands (+238)</option>
+                                                    <option data-countryCode="KY" value="1345">Cayman Islands (+1345)</option>
+                                                    <option data-countryCode="CF" value="236">Central African Republic (+236)</option>
+                                                    <option data-countryCode="CL" value="56">Chile (+56)</option>
+                                                    <option data-countryCode="CN" value="86">China (+86)</option>
+                                                    <option data-countryCode="CO" value="57">Colombia (+57)</option>
+                                                    <option data-countryCode="KM" value="269">Comoros (+269)</option>
+                                                    <option data-countryCode="CG" value="242">Congo (+242)</option>
+                                                    <option data-countryCode="CK" value="682">Cook Islands (+682)</option>
+                                                    <option data-countryCode="CR" value="506">Costa Rica (+506)</option>
+                                                    <option data-countryCode="HR" value="385">Croatia (+385)</option>
+                                                    <option data-countryCode="CU" value="53">Cuba (+53)</option>
+                                                    <option data-countryCode="CY" value="90392">Cyprus North (+90392)</option>
+                                                    <option data-countryCode="CY" value="357">Cyprus South (+357)</option>
+                                                    <option data-countryCode="CZ" value="42">Czech Republic (+42)</option>
+                                                    <option data-countryCode="DK" value="45">Denmark (+45)</option>
+                                                    <option data-countryCode="DJ" value="253">Djibouti (+253)</option>
+                                                    <option data-countryCode="DM" value="1809">Dominica (+1809)</option>
+                                                    <option data-countryCode="DO" value="1809">Dominican Republic (+1809)</option>
+                                                    <option data-countryCode="EC" value="593">Ecuador (+593)</option>
+                                                    <option data-countryCode="EG" value="20">Egypt (+20)</option>
+                                                    <option data-countryCode="SV" value="503">El Salvador (+503)</option>
+                                                    <option data-countryCode="GQ" value="240">Equatorial Guinea (+240)</option>
+                                                    <option data-countryCode="ER" value="291">Eritrea (+291)</option>
+                                                    <option data-countryCode="EE" value="372">Estonia (+372)</option>
+                                                    <option data-countryCode="ET" value="251">Ethiopia (+251)</option>
+                                                    <option data-countryCode="FK" value="500">Falkland Islands (+500)</option>
+                                                    <option data-countryCode="FO" value="298">Faroe Islands (+298)</option>
+                                                    <option data-countryCode="FJ" value="679">Fiji (+679)</option>
+                                                    <option data-countryCode="FI" value="358">Finland (+358)</option>
+                                                    <option data-countryCode="FR" value="33">France (+33)</option>
+                                                    <option data-countryCode="GF" value="594">French Guiana (+594)</option>
+                                                    <option data-countryCode="PF" value="689">French Polynesia (+689)</option>
+                                                    <option data-countryCode="GA" value="241">Gabon (+241)</option>
+                                                    <option data-countryCode="GM" value="220">Gambia (+220)</option>
+                                                    <option data-countryCode="GE" value="7880">Georgia (+7880)</option>
+                                                    <option data-countryCode="DE" value="49">Germany (+49)</option>
+                                                    <option data-countryCode="GH" value="233">Ghana (+233)</option>
+                                                    <option data-countryCode="GI" value="350">Gibraltar (+350)</option>
+                                                    <option data-countryCode="GR" value="30">Greece (+30)</option>
+                                                    <option data-countryCode="GL" value="299">Greenland (+299)</option>
+                                                    <option data-countryCode="GD" value="1473">Grenada (+1473)</option>
+                                                    <option data-countryCode="GP" value="590">Guadeloupe (+590)</option>
+                                                    <option data-countryCode="GU" value="671">Guam (+671)</option>
+                                                    <option data-countryCode="GT" value="502">Guatemala (+502)</option>
+                                                    <option data-countryCode="GN" value="224">Guinea (+224)</option>
+                                                    <option data-countryCode="GW" value="245">Guinea - Bissau (+245)</option>
+                                                    <option data-countryCode="GY" value="592">Guyana (+592)</option>
+                                                    <option data-countryCode="HT" value="509">Haiti (+509)</option>
+                                                    <option data-countryCode="HN" value="504">Honduras (+504)</option>
+                                                    <option data-countryCode="HK" value="852">Hong Kong (+852)</option>
+                                                    <option data-countryCode="HU" value="36">Hungary (+36)</option>
+                                                    <option data-countryCode="IS" value="354">Iceland (+354)</option>
+                                                    <option data-countryCode="IN" value="91">India (+91)</option>
+                                                    <option data-countryCode="ID" value="62">Indonesia (+62)</option>
+                                                    <option data-countryCode="IR" value="98">Iran (+98)</option>
+                                                    <option data-countryCode="IQ" value="964">Iraq (+964)</option>
+                                                    <option data-countryCode="IE" value="353">Ireland (+353)</option>
+                                                    <option data-countryCode="IL" value="972">Israel (+972)</option>
+                                                    <option data-countryCode="IT" value="39">Italy (+39)</option>
+                                                    <option data-countryCode="JM" value="1876">Jamaica (+1876)</option>
+                                                    <option data-countryCode="JP" value="81">Japan (+81)</option>
+                                                    <option data-countryCode="JO" value="962">Jordan (+962)</option>
+                                                    <option data-countryCode="KZ" value="7">Kazakhstan (+7)</option>
+                                                    <option data-countryCode="KE" value="254">Kenya (+254)</option>
+                                                    <option data-countryCode="KI" value="686">Kiribati (+686)</option>
+                                                    <option data-countryCode="KP" value="850">Korea North (+850)</option>
+                                                    <option data-countryCode="KR" value="82">Korea South (+82)</option>
+                                                    <option data-countryCode="KW" value="965">Kuwait (+965)</option>
+                                                    <option data-countryCode="KG" value="996">Kyrgyzstan (+996)</option>
+                                                    <option data-countryCode="LA" value="856">Laos (+856)</option>
+                                                    <option data-countryCode="LV" value="371">Latvia (+371)</option>
+                                                    <option data-countryCode="LB" value="961">Lebanon (+961)</option>
+                                                    <option data-countryCode="LS" value="266">Lesotho (+266)</option>
+                                                    <option data-countryCode="LR" value="231">Liberia (+231)</option>
+                                                    <option data-countryCode="LY" value="218">Libya (+218)</option>
+                                                    <option data-countryCode="LI" value="417">Liechtenstein (+417)</option>
+                                                    <option data-countryCode="LT" value="370">Lithuania (+370)</option>
+                                                    <option data-countryCode="LU" value="352">Luxembourg (+352)</option>
+                                                    <option data-countryCode="MO" value="853">Macao (+853)</option>
+                                                    <option data-countryCode="MK" value="389">Macedonia (+389)</option>
+                                                    <option data-countryCode="MG" value="261">Madagascar (+261)</option>
+                                                    <option data-countryCode="MW" value="265">Malawi (+265)</option>
+                                                    <option data-countryCode="MY" value="60">Malaysia (+60)</option>
+                                                    <option data-countryCode="MV" value="960">Maldives (+960)</option>
+                                                    <option data-countryCode="ML" value="223">Mali (+223)</option>
+                                                    <option data-countryCode="MT" value="356">Malta (+356)</option>
+                                                    <option data-countryCode="MH" value="692">Marshall Islands (+692)</option>
+                                                    <option data-countryCode="MQ" value="596">Martinique (+596)</option>
+                                                    <option data-countryCode="MR" value="222">Mauritania (+222)</option>
+                                                    <option data-countryCode="YT" value="269">Mayotte (+269)</option>
+                                                    <option data-countryCode="MX" value="52">Mexico (+52)</option>
+                                                    <option data-countryCode="FM" value="691">Micronesia (+691)</option>
+                                                    <option data-countryCode="MD" value="373">Moldova (+373)</option>
+                                                    <option data-countryCode="MC" value="377">Monaco (+377)</option>
+                                                    <option data-countryCode="MN" value="976">Mongolia (+976)</option>
+                                                    <option data-countryCode="MS" value="1664">Montserrat (+1664)</option>
+                                                    <option data-countryCode="MA" value="212">Morocco (+212)</option>
+                                                    <option data-countryCode="MZ" value="258">Mozambique (+258)</option>
+                                                    <option data-countryCode="MN" value="95">Myanmar (+95)</option>
+                                                    <option data-countryCode="NA" value="264">Namibia (+264)</option>
+                                                    <option data-countryCode="NR" value="674">Nauru (+674)</option>
+                                                    <option data-countryCode="NP" value="977">Nepal (+977)</option>
+                                                    <option data-countryCode="NL" value="31">Netherlands (+31)</option>
+                                                    <option data-countryCode="NC" value="687">New Caledonia (+687)</option>
+                                                    <option data-countryCode="NZ" value="64">New Zealand (+64)</option>
+                                                    <option data-countryCode="NI" value="505">Nicaragua (+505)</option>
+                                                    <option data-countryCode="NE" value="227">Niger (+227)</option>
+                                                    <option data-countryCode="NG" value="234">Nigeria (+234)</option>
+                                                    <option data-countryCode="NU" value="683">Niue (+683)</option>
+                                                    <option data-countryCode="NF" value="672">Norfolk Islands (+672)</option>
+                                                    <option data-countryCode="NP" value="670">Northern Marianas (+670)</option>
+                                                    <option data-countryCode="NO" value="47">Norway (+47)</option>
+                                                    <option data-countryCode="OM" value="968">Oman (+968)</option>
+                                                    <option data-countryCode="PK" value="92">Pakistan (+92)</option>
+                                                    <option data-countryCode="PW" value="680">Palau (+680)</option>
+                                                    <option data-countryCode="PA" value="507">Panama (+507)</option>
+                                                    <option data-countryCode="PG" value="675">Papua New Guinea (+675)</option>
+                                                    <option data-countryCode="PY" value="595">Paraguay (+595)</option>
+                                                    <option data-countryCode="PE" value="51">Peru (+51)</option>
+                                                    <option data-countryCode="PH" value="63">Philippines (+63)</option>
+                                                    <option data-countryCode="PL" value="48">Poland (+48)</option>
+                                                    <option data-countryCode="PT" value="351">Portugal (+351)</option>
+                                                    <option data-countryCode="PR" value="1787">Puerto Rico (+1787)</option>
+                                                    <option data-countryCode="QA" value="974">Qatar (+974)</option>
+                                                    <option data-countryCode="RE" value="262">Reunion (+262)</option>
+                                                    <option data-countryCode="RO" value="40">Romania (+40)</option>
+                                                    <option data-countryCode="RU" value="7">Russia (+7)</option>
+                                                    <option data-countryCode="RW" value="250">Rwanda (+250)</option>
+                                                    <option data-countryCode="SM" value="378">San Marino (+378)</option>
+                                                    <option data-countryCode="ST" value="239">Sao Tome &amp; Principe (+239)</option>
+                                                    <option data-countryCode="SA" value="966">Saudi Arabia (+966)</option>
+                                                    <option data-countryCode="SN" value="221">Senegal (+221)</option>
+                                                    <option data-countryCode="CS" value="381">Serbia (+381)</option>
+                                                    <option data-countryCode="SC" value="248">Seychelles (+248)</option>
+                                                    <option data-countryCode="SL" value="232">Sierra Leone (+232)</option>
+                                                    <option data-countryCode="SG" value="65">Singapore (+65)</option>
+                                                    <option data-countryCode="SK" value="421">Slovak Republic (+421)</option>
+                                                    <option data-countryCode="SI" value="386">Slovenia (+386)</option>
+                                                    <option data-countryCode="SB" value="677">Solomon Islands (+677)</option>
+                                                    <option data-countryCode="SO" value="252">Somalia (+252)</option>
+                                                    <option data-countryCode="ZA" value="27">South Africa (+27)</option>
+                                                    <option data-countryCode="ES" value="34">Spain (+34)</option>
+                                                    <option data-countryCode="LK" value="94">Sri Lanka (+94)</option>
+                                                    <option data-countryCode="SH" value="290">St. Helena (+290)</option>
+                                                    <option data-countryCode="KN" value="1869">St. Kitts (+1869)</option>
+                                                    <option data-countryCode="SC" value="1758">St. Lucia (+1758)</option>
+                                                    <option data-countryCode="SD" value="249">Sudan (+249)</option>
+                                                    <option data-countryCode="SR" value="597">Suriname (+597)</option>
+                                                    <option data-countryCode="SZ" value="268">Swaziland (+268)</option>
+                                                    <option data-countryCode="SE" value="46">Sweden (+46)</option>
+                                                    <option data-countryCode="CH" value="41">Switzerland (+41)</option>
+                                                    <option data-countryCode="SI" value="963">Syria (+963)</option>
+                                                    <option data-countryCode="TW" value="886">Taiwan (+886)</option>
+                                                    <option data-countryCode="TJ" value="7">Tajikstan (+7)</option>
+                                                    <option data-countryCode="TH" value="66">Thailand (+66)</option>
+                                                    <option data-countryCode="TG" value="228">Togo (+228)</option>
+                                                    <option data-countryCode="TO" value="676">Tonga (+676)</option>
+                                                    <option data-countryCode="TT" value="1868">Trinidad &amp; Tobago (+1868)</option>
+                                                    <option data-countryCode="TN" value="216">Tunisia (+216)</option>
+                                                    <option data-countryCode="TR" value="90">Turkey (+90)</option>
+                                                    <option data-countryCode="TM" value="7">Turkmenistan (+7)</option>
+                                                    <option data-countryCode="TM" value="993">Turkmenistan (+993)</option>
+                                                    <option data-countryCode="TC" value="1649">Turks &amp; Caicos Islands (+1649)</option>
+                                                    <option data-countryCode="TV" value="688">Tuvalu (+688)</option>
+                                                    <option data-countryCode="UG" value="256">Uganda (+256)</option>
+                                                    <option data-countryCode="GB" value="44">UK (+44)</option>
+                                                    <option data-countryCode="UA" value="380">Ukraine (+380)</option>
+                                                    <option data-countryCode="AE" value="971">United Arab Emirates (+971)</option>
+                                                    <option data-countryCode="UY" value="598">Uruguay (+598)</option>
+                                                    <option data-countryCode="UZ" value="7">Uzbekistan (+7)</option>
+                                                    <option data-countryCode="VU" value="678">Vanuatu (+678)</option>
+                                                    <option data-countryCode="VA" value="379">Vatican City (+379)</option>
+                                                    <option data-countryCode="VE" value="58">Venezuela (+58)</option>
+                                                    <option data-countryCode="VN" value="84">Vietnam (+84)</option>
+                                                    <option data-countryCode="VG" value="84">Virgin Islands - British (+1284)</option>
+                                                    <option data-countryCode="VI" value="84">Virgin Islands - US (+1340)</option>
+                                                    <option data-countryCode="WF" value="681">Wallis &amp; Futuna (+681)</option>
+                                                    <option data-countryCode="YE" value="969">Yemen (North)(+969)</option>
+                                                    <option data-countryCode="YE" value="967">Yemen (South)(+967)</option>
+                                                    <option data-countryCode="ZM" value="260">Zambia (+260)</option>
+                                                    <option data-countryCode="ZW" value="263">Zimbabwe (+263)</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <input class="col-md-4 private_lock" id="user_email" name="email" size="30" type="text" ng-model="users.user.phone_number" oncopy="return false" ondrag="return false" ondrop="return false" onpaste="return false" autocomplete="off">
+                                            </div>
+                                        </div>
+                                        <div class="row" style="display: none;">
+                                            <div class="col-xs-12 text-center">
+                                                <button id="sms_send" style="width: auto;">Send Code </button>
+                                            </div>
+                                        </div>                                     
+                                    </span>                                   
+                                </li>
+                                <li class="col-md-12 col-sm-12 col-xs-12 padding-zero">
+                                    <p class="label-edit col-md-3 col-sm-5 col-xs-12 " valign="top">Spoken language:</p>
+                                    <span class="col-md-9 col-sm-6 col-xs-12">
+                                        <div ng-init="users.userLoaded" ng-dropdown-multiselect="" options="users.languages" selected-model="users.user.languages" extra-settings="users.languageSettings"></div>
+                                    </span>
+                                </li>
+                                <li class="col-md-12 col-sm-12 col-xs-12 padding-zero">
+                                    <p class=" label-edit col-md-3 col-sm-5 col-xs-12">Where You Live<span
+                                            class="col_span">:</span></p>
+                                    <span class="col-md-9 col-sm-6 col-xs-12 users_pro">
+                                        <input id="current_city" name="current_city"
+                                               ng-model="users.user.address" size="30" type="text" googleplace lat="users.user.lat" lng="users.user.lng">
+                                        <p class="help-block alert alert-danger" ng-show="user_edit.current_city.$error.required">Address is required.</p>
+                                </li>
+                                <li class="col-md-12 col-sm-12 col-xs-12 padding-zero" style="margin-bottom: 25px;">
+                                    <p class="label-edit col-md-3 col-sm-5 col-xs-12" style="vertical-align:top;">
+                                        Describe Yourself<span class="col_span">:</span>
+                                    </p>
+                                    <span class="col-md-9 col-sm-6 col-xs-12 users_pro">
+                                        <textarea cols="40" id="user_profile_info_about" name="desc" rows="20"
+                                                  style="width:100%;height:200px; max-width: 600px;" ng-model="users.user.description" placeholder="Example: &#10;Hey Foodiiz, my name is Alex and I´m a home food lover! After many years cooking for myself and my friends I open my kitchen to the World! Enjoy my open terrace in the heart of Rome with great views, good music and amazing food! I propose an Italian cuisine with an international twist coming from my trips and experiences around the world. Join me for a nice meal and great conversation in my rooftop terrace under the beautiful sun and stars of Rome!!"></textarea>
+                                    </span>
+                                </li>
+                                <div class="clearfix"></div>
+                                <li style="font-size: 14px;background:#efefef;padding-top: 10px;">
+                                    <h2 style="text-align: left;">Optional</h2>
+                                </li>
+                                <li class="col-md-12 col-sm-12 col-xs-12 padding-zero">
+                                    <p class=" label-edit col-md-3 col-sm-5 col-xs-12">School<span
+                                            class="col_span">:</span></p>
+                                    <span class="col-md-9 col-sm-6 col-xs-12 users_pro"><input
+                                            id="user_profile_info_employer" name="school" size="30" type="text"
+                                            ng-model="users.user.school"></span>
+                                </li>
+                                <li class="col-md-12 col-sm-12 col-xs-12 padding-zero">
+                                    <p class=" label-edit col-md-3 col-sm-5 col-xs-12">Work<span
+                                            class="col_span">:</span></p>
+                                    <span class="col-md-9 col-sm-6 col-xs-12 users_pro">
+                                        <input id="user_employer" name="user_employer" size="30" type="text"
+                                               ng-model="users.user.work">
+                                    </span>
+                                </li>
+                                <li class="col-md-12 col-sm-12 col-xs-12 padding-zero" id="veri">
+                                    <div id="verified" class="col-md-4 col-sm-5 col-xs-12"
+                                         style="display: none;font-size: 14px;padding0 0 10px;">
+                                        <span id="phone_no"
+                                              style="background-color: #f1f1f1;border-right: 1px solid #d1d1c9;color: #393c3d;">+</span>
+                                        <a id="verify_sms3" rel="sms" href="javascript:void(0);" class=""
+                                           style="display: none;">Verify via SMS</a>
+                                        <a id="verify_sms2" rel="sms" href="javascript:void(0);" class="">Verify via
+                                            SMS</a>
+                                        <span id="verified_success"
+                                              style="color: #5bb013;display: none;"> Verified </span>
+                                        <a id="close" title="Remove">
+                                            <i class="fa fa-close" style="color:red;"></i>
+                                        </a>
+                                    </div>
+                                    <div class="pnaw-step2_new col-md-3 col-sm-5 col-xs-12" style="display: none;">
+                                    </div>
+                                </li>
+                                <li class="col-md-12 col-sm-12 col-xs-12 padding-zero">
+                                    <p class="label-edit col-md-3 col-sm-5 col-xs-12 " valign="top">Time Zone<span
+                                            class="col_span">:</span>
+                                    </p>
+                                    <span class="col-md-9 col-sm-6 col-xs-12">
+                                        <select name="timezones" id="timezone" ng-model="users.user.time_zone" class="form-control">
+                                            <option value="UM12">(UTC -12:00) Baker/Howland Island</option>
+                                            <option value="UM11">(UTC -11:00) Samoa Time Zone, Niue</option>
+                                            <option value="UM10">(UTC -10:00) Hawaii-Aleutian Standard Time, Cook Islands, Tahiti</option>
+                                            <option value="UM95">(UTC -9:30) Marquesas Islands</option>
+                                            <option value="UM9">(UTC -9:00) Alaska Standard Time, Gambier Islands</option>
+                                            <option value="UM8">(UTC -8:00) Pacific Standard Time, Clipperton Island</option>
+                                            <option value="UM7">(UTC -7:00) Mountain Standard Time</option>
+                                            <option value="UM6">(UTC -6:00) Central Standard Time</option>
+                                            <option value="UM5">(UTC -5:00) Eastern Standard Time, Western Caribbean Standard Time</option>
+                                            <option value="UM45">(UTC -4:30) Venezuelan Standard Time</option>
+                                            <option value="UM4">(UTC -4:00) Atlantic Standard Time, Eastern Caribbean Standard Time</option>
+                                            <option value="UM35">(UTC -3:30) Newfoundland Standard Time</option>
+                                            <option value="UM3">(UTC -3:00) Argentina, Brazil, French Guiana, Uruguay</option>
+                                            <option value="UM2">(UTC -2:00) South Georgia/South Sandwich Islands</option>
+                                            <option value="UM1">(UTC -1:00) Azores, Cape Verde Islands</option>
+                                            <option value="UTC">(UTC) Greenwich Mean Time, Western European Time</option>
+                                            <option value="UP1">(UTC +1:00) Central European Time, West Africa Time</option>
+                                            <option value="UP2">(UTC +2:00) Central Africa Time, Eastern European Time, Kaliningrad Time</option>
+                                            <option value="UP3">(UTC +3:00) Moscow Time, East Africa Time</option>
+                                            <option value="UP35">(UTC +3:30) Iran Standard Time</option>
+                                            <option value="UP4">(UTC +4:00) Azerbaijan Standard Time, Samara Time</option>
+                                            <option value="UP45">(UTC +4:30) Afghanistan</option>
+                                            <option value="UP5">(UTC +5:00) Pakistan Standard Time, Yekaterinburg Time</option>
+                                            <option value="UP55">(UTC +5:30) Indian Standard Time, Sri Lanka Time</option>
+                                            <option value="UP575">(UTC +5:45) Nepal Time</option>
+                                            <option value="UP6">(UTC +6:00) Bangladesh Standard Time, Bhutan Time, Omsk Time</option>
+                                            <option value="UP65">(UTC +6:30) Cocos Islands, Myanmar</option>
+                                            <option value="UP7">(UTC +7:00) Krasnoyarsk Time, Cambodia, Laos, Thailand, Vietnam</option>
+                                            <option value="UP8">(UTC +8:00) Australian Western Standard Time, Beijing Time, Irkutsk Time</option>
+                                            <option value="UP875">(UTC +8:45) Australian Central Western Standard Time</option>
+                                            <option value="UP9">(UTC +9:00) Japan Standard Time, Korea Standard Time, Yakutsk Time</option>
+                                            <option value="UP95">(UTC +9:30) Australian Central Standard Time</option>
+                                            <option value="UP10">(UTC +10:00) Australian Eastern Standard Time, Vladivostok Time</option>
+                                            <option value="UP105">(UTC +10:30) Lord Howe Island</option>
+                                            <option value="UP11">(UTC +11:00) Magadan Time, Solomon Islands, Vanuatu</option>
+                                            <option value="UP115">(UTC +11:30) Norfolk Island</option>
+                                            <option value="UP12">(UTC +12:00) Fiji, Gilbert Islands, Kamchatka Time, New Zealand Standard Time</option>
+                                            <option value="UP1275">(UTC +12:45) Chatham Islands Standard Time</option>
+                                            <option value="UP13">(UTC +13:00) Phoenix Islands Time, Tonga</option>
+                                            <option value="UP14">(UTC +14:00) Line Islands</option>
+                                        </select>
+                                    </span>
+                                </li>
+                                <li class="col-md-12 col-sm-12 col-xs-12 padding-zero">
+                                    <p class="label-edit col-md-3 col-sm-5 col-xs-12 " valign="top">Default language:</p>
+                                    <span class="col-md-9 col-sm-6 col-xs-12">
+                                        <select name="user_language" id="user_language" ng-model="users.user.language" class="form-control">
+                                            <option class="language option" value="en" selected="">English</option>
+                                            <!--<option class="language option" value="fr">French</option>
+                                            <option class="language option" value="it">Italian</option>
+                                            <option class="language option" value="gr">German</option>
+                                            <option class="language option" value="po">Portuguese</option>
+                                            <option class="language option" value="es">Spanish</option>-->
+                                        </select>
+                                    </span>
+                                </li>                              
+                                <li class="col-md-12 col-sm-12 col-xs-12 padding-zero">
+                                    <p class="label-edit col-md-3 col-sm-5 col-xs-12 " valign="top">Default currency:</p>
+                                    <span class="col-md-9 col-sm-6 col-xs-12">
+                                        <select id="user_currency" name="user_currency" ng-model="users.user.currency" class="form-control">
+                                            <option value="USD" name="USD" selected="">$ USD</option>
+                                            <option value="GBP" name="GBP">£ GBP</option>
+                                            <option value="EUR" name="EUR">€ EUR</option>
+                                            <option value="AUD" name="AUD">$ AUD</option>
+                                            <option value="SGD" name="SGD">$ SGD</option>
+                                            <option value="SEK" name="SEK">kr SEK</option>
+                                            <option value="DKK" name="DKK">DKK</option>
+                                            <option value="MXN" name="MXN">$ MXN</option>
+                                            <option value="BRL" name="BRL">R$ BRL</option>
+                                            <option value="MYR" name="MYR">RM MYR</option>
+                                            <option value="PHP" name="PHP">P PHP</option>
+                                            <option value="CHF" name="CHF">€ CHF</option>
+                                            <option value="INR" name="INR">₹ INR</option>
+                                            <option value="ARS" name="ARS">$ ARS</option>
+                                            <option value="CAD" name="CAD">$ CAD</option>
+                                            <option value="CNY" name="CNY">¥ CNY</option>
+                                            <option value="CZK" name="CZK">Kč CZK</option>
+                                            <option value="HKD" name="HKD">$ HKD</option>
+                                            <option value="HUF" name="HUF">Ft HUF</option>
+                                            <option value="IDR">Rp IDR</option>
+                                            <option value="ILS">₪ ILS</option>
+                                            <option value="JPY">¥ JPY</option>
+                                            <option value="KRW">₩ KRW</option>
+                                            <option value="NOK">kr NOK</option>
+                                            <option value="NZD">$ NZD</option>
+                                            <option value="PLN">zł PLN</option>
+                                            <option value="RUB">p RUB</option>
+                                            <option value="THB">฿ THB</option>
+                                            <option value="TRY">₺ TRY</option>
+                                            <option value="TWD">$ TWD</option>
+                                            <option value="VND">₫ VND</option>
+                                            <option value="ZAR">R ZAR</option>
+                                        </select>
+                                    </span>
+                                </li>
+                                <li class="col-md-12 col-sm-12 col-xs-12 padding-zero">
+                                    <p class="hide_in_sm label-edit col-md-3 col-sm-5 col-xs-12"
+                                       style="vertical-align:top;"></p>
+                                    <span class="save_cancel col-md-9 col-sm-12 col-xs-12">
+                                        <button type="submit" class="btn_dash btn-block save-dash" ng-disabled="user_edit.$invalid" id="save_changes" name="commit">
+                                            Save Changes
+                                        </button>
+                                    </span>
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
+                    <div style="clear:both;"></div>
+                </div>
+            </div>
+            <div ng-show="users.activeNav === 'tab-2'" id="View_Edit_Profile" class="Box">
+                <div class="Box_Head msgbg">
+                    <h2 class="prfl_head">Reviews</h2>
+                </div>
+                <div class="Box_Content clearfix" style="padding: 0;">
+                    <div class="Box_Content">
+                        <div class="row" ng-if='users.user.reviews.length === 0'>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <h4 style='padding-left: 15px;'>You don't have reviews.</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-block">
+                        <div class="row" ng-repeat="review in users.user.reviews">
+                            <div class="col-xs-4 col-sm-3" ng-click="users.goToUser(review.review_from)">
+                                <img width="60" height="60" ng-src="{{review.image_path}}" class="img-rounded">
+                                <div class="review-block-name">
+                                    <a href="#">{{review.guest_name}}</a>
+                                </div>
+                                <div class="review-block-date">{{review.date}}</div>
+                            </div>
+                            <div class="col-xs-8 col-sm-9">
+                                <div class="review-block-rate">
+                                    <button type="button" class="btn btn-warning btn-xs"
+                                            ng-class="{'star1': review.stars == 1, 'star2': review.stars == 2, 'star3': review.stars == 3, 'star4': review.stars == 4, 'star5': review.stars == 5}"
+                                            aria-label="Left Align">
+                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-warning btn-xs" 
+                                            ng-class="{'btn-default': review.stars < 2, 'star2': review.stars == 2, 'star3': review.stars == 3, 'star4': review.stars == 4, 'star5': review.stars == 5}"
+                                            aria-label="Left Align">
+                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-warning btn-xs" 
+                                            ng-class="{'btn-default': review.stars < 3, 'star3': review.stars == 3, 'star4': review.stars == 4, 'star5': review.stars == 5}"
+                                            aria-label="Left Align">
+                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-default btn-xs" 
+                                            ng-class="{'btn-default': review.stars < 4, 'star4': review.stars == 4, 'star5': review.stars == 5}"
+                                            aria-label="Left Align">
+                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-xs" 
+                                            ng-class="{'btn-default': review.stars < 5, 'star5': review.stars == 5}"
+                                            aria-label="Left Align">
+                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                                <div class="review-block-description">
+                                    {{review.comment}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

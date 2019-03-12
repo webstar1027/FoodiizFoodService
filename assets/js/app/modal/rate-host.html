@@ -1,0 +1,48 @@
+<div id="rate-modal" class="signup_head">
+    <div class="modal-content">
+        <div class="modal-body">
+            <form accept-charset="utf-8" name="rate" id="rate" novalidate ng-submit="ok();">
+                <h4 class="message-host-name">Please add your rate and review.</h4>
+                <div class="review-block-rate col-md-12 col-sm-12 col-xs-12">
+                   <button type="button" class="btn btn-xs"
+                           ng-class="{'star1': stars == 1, 'star2': stars == 2, 'star3': stars == 3, 'star4': stars == 4, 'star5': stars == 5}"
+                           aria-label="Left Align"
+                           ng-click="setRating('1')">
+                   <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                   </button>
+                   <button type="button" class="btn btn-xs" 
+                      ng-class="{'btn-default': stars < 2, 'star2': stars == 2, 'star3': stars == 3, 'star4': stars == 4, 'star5': stars == 5}"
+                      aria-label="Left Align"
+                      ng-click="setRating('2')">
+                   <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                   </button>
+                   <button type="button" class="btn btn-xs" 
+                      ng-class="{'btn-default': stars < 3, 'star3': stars == 3, 'star4': stars == 4, 'star5': stars == 5}"
+                      aria-label="Left Align"
+                      ng-click="setRating('3')">
+                   <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                   </button>
+                   <button type="button" class="btn btn-xs" 
+                      ng-class="{'btn-default': stars < 4, 'star4': stars == 4, 'star5': stars == 5}"
+                      aria-label="Left Align"
+                      ng-click="setRating('4')">
+                   <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                   </button>
+                   <button type="button" class="btn btn-xs" 
+                      ng-class="{'btn-default': stars < 5, 'star5': stars == 5}"
+                      aria-label="Left Align"
+                      ng-click="setRating('5')">
+                   <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                   </button>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control col-md-12 col-sm-12 col-xs-12" rows="3" ng-model="formData.review" placeholder="Type your review here..." maxlength="200" required></textarea>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-default" data-ng-click="ok()" ng-disabled="rate.$invalid || loading">Rate Event</button>
+            <button class="btn btn-info" data-ng-click="cancel()">Cancel</button>
+        </div>
+    </div>
+</div>

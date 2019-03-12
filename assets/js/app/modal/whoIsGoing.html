@@ -1,0 +1,18 @@
+<div id="rate-modal" class="signup_head">
+    <div class="modal-content">
+        <div class="modal-body whoisgoing-list">
+            <h3>Guest List:</h3>
+            <!--<ul class="list-unstyled" style="margin-top: 15px;">
+                <li ></li>
+            </ul>-->
+            <div class="row" ng-repeat="guest in guestList" style="margin-top: 15px;">
+                <div class="col-xs-3 col-sm-3">
+                    <img width="130" class="img-circle" ng-src="{{ guest.image }}" />
+                </div>
+                <div class="col-xs-9 col-sm-9">
+                    <p><a ng-href="users/view/{{guest.id_user}}" target="_blank">{{ guest.guest }}{{guest.guests_qty > 1 ? ' + ' + (guest.guests_qty - 1) : ''}}</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
